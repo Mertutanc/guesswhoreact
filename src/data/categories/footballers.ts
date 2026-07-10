@@ -1443,7 +1443,7 @@ export const footballers: GuessItem[] = [
     ["Türk"],
     ["Forvet"],
     ["10 Ağustos 1975"],
-    ["2002 Dünya Kupası golü", "Beşiktaş dönemi", "Altın gol ile hatırlanır", "Bitiricilik"]
+    ["2002 Dünya Kupası golü", "Beşiktaş dönemi", "Altın gol ile hatırlanır", "rainbow çalım deyince de sen be"]
   ),
 
   f(
@@ -2048,7 +2048,7 @@ export const footballers: GuessItem[] = [
     ["Alman"],
     ["Sağ Bek", "Sol Bek", "Ön Libero"],
     ["11 Kasım 1983"],
-    ["Dünya Kupası kazandı", "Bayern Münih kaptanı", "Şampiyonlar Ligi kazandı", "Pozisyon bilgisi"]
+    ["Dünya Kupası kazandı","sabri'den efsane çalım yedi" ,"Bayern Münih kaptanı", "Şampiyonlar Ligi kazandı", "Pozisyon bilgisi"]
   ),
 
   f(
