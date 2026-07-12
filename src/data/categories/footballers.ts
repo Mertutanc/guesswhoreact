@@ -893,7 +893,7 @@ export const footballers: GuessItem[] = [
     ["Türk"],
     ["Sol Kanat", "Orta Saha", "Ofansif Orta Saha"],
     ["30 Ocak 1987"],
-    ["Atlético Madrid dönemi", "La Liga kazandı", "Teknik", "Top saklama"]
+    ["Dip çizgiye inik orta fake'i", "La Liga kazandı", "Teknik", "Top saklama"]
   ),
 
   f(
@@ -1322,7 +1322,7 @@ export const footballers: GuessItem[] = [
     ["Türk"],
     ["Forvet", "Kanat"],
     ["23 Kasım 1979"],
-    ["La Liga'da parladı", "Real Sociedad dönemi", "Milli takım golcüsü", "Hızlı forvet"]
+    ["La Liga'da parladı", "Çek Cumruhiyeti ile oynana milli maç performansı", "Milli takım golcüsü", "Hızlı forvet"]
   ),
 
   f(
@@ -1333,7 +1333,7 @@ export const footballers: GuessItem[] = [
     ["Türk"],
     ["Forvet", "Kanat"],
     ["16 Ocak 1982"],
-    ["Fenerbahçe dönemi", "Premier League'de oynadı", "Mücadeleci", "Çok yönlü hücumcu"]
+    ["Old Trafford'da hat-trick yaptı", "Premier League'de oynadı", "Mücadeleci", "Çok yönlü hücumcu"]
   ),
 
   f(
@@ -1344,7 +1344,7 @@ export const footballers: GuessItem[] = [
     ["Türk"],
     ["Orta Saha", "Sağ Orta Saha"],
     ["8 Aralık 1982"],
-    ["Puskás ödülü kazandı", "Bayern Münih dönemi", "Real Madrid'de oynadı", "Güçlü şut"]
+    ["Puskás ödülü kazandı", " XXX (adamın adını yazırma şimdi bana) vurduu direkten döndüüüü", "Real Madrid'de oynadı", "Güçlü şut"]
   ),
 
   f(
@@ -1575,7 +1575,7 @@ export const footballers: GuessItem[] = [
     ["Hollandalı"],
     ["Forvet", "Santrfor"],
     ["29 Kasım 1969"],
-    ["Fenerbahçe şampiyonluğu", "Frikik", "Kafa vuruşu", "Hollanda milli takımı"]
+    ["Kendi takım arkadaşlarından baraj kurdurturdu", "Frikik", "Kafa vuruşu", "Hollanda milli takımı"]
   ),
 
   f(
@@ -1608,7 +1608,7 @@ export const footballers: GuessItem[] = [
     ["Portekizli"],
     ["Sağ Kanat", "Sol Kanat"],
     ["26 Eylül 1983"],
-    ["Trivela", "Euro 2016 kazandı", "Beşiktaş efsanesi", "Q7 lakabı"]
+    ["Trivela", "Euro 2016 kazandı", "Ayağının dışı canımızın içi diye bilinir", "Q7 lakabı"]
   ),
 
   f(
@@ -3170,7 +3170,7 @@ export const footballers: GuessItem[] = [
     ["İngiliz"],
     ["Stoper"],
     ["18 Eylül 1974"],
-    ["Arsenal invincibles", "Güçlü stoper", "Tottenham'dan Arsenal'e geçti", "Hava topları"]
+    ["Arsenal invincibles (yenilzmezler) kadrosunda", "Güçlü stoper", "Tottenham'dan Arsenal'e geçti", "Hava topları"]
   ),
 
   f(
