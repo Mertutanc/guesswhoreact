@@ -442,7 +442,7 @@ export const footballers: GuessItem[] = [
     ["İngiliz"],
     ["Stoper"],
     ["7 Kasım 1978"],
-    ["Manchester United efsanesi", "Şampiyonlar Ligi kazandı", "Topla çıkış", "Savunma zekası"]
+    ["İngiltere Milli Takımı'nda 3 Dünya Kupası oynadı", "Şampiyonlar Ligi kazandı", "Topla çıkış", "Savunma zekası"]
   ),
 
   f(
@@ -453,7 +453,7 @@ export const footballers: GuessItem[] = [
     ["Sırp"],
     ["Stoper"],
     ["21 Ekim 1981"],
-    ["Manchester United efsanesi", "Şampiyonlar Ligi kazandı", "Sert savunma", "Kafa topları"]
+    ["Sakatlıkar yüzünden 34'ünde futbolu bıraktı", "Şampiyonlar Ligi kazandı", "Sert savunma", "Kafa topları"]
   ),
 
   f(
@@ -508,7 +508,7 @@ export const footballers: GuessItem[] = [
     ["İngiliz"],
     ["Merkez Orta Saha"],
     ["20 Haziran 1978"],
-    ["Chelsea efsanesi", "Golcü orta saha", "Şampiyonlar Ligi kazandı", "Uzaktan şut"]
+    ["Chelsea ile 1 Şampiyonlar Ligi, 1 Avrupa Ligi, 3 Premier Lig şampiyonluğu, 4 FA Cup ve 2 Lig Kupası", "Golcü orta saha", "Şampiyonlar Ligi kazandı", "Uzaktan şut"]
   ),
 
   f(
@@ -519,7 +519,7 @@ export const footballers: GuessItem[] = [
     ["İngiliz"],
     ["Merkez Orta Saha"],
     ["16 Kasım 1974"],
-    ["Tek kulüp efsanesi", "Manchester United", "Şampiyonlar Ligi kazandı", "Pas ve şut"]
+    ["Tek kulüp efsanesi", "Gözlerden uzak sakin hayatı sever", "Şampiyonlar Ligi kazandı", "Pas ve şut"]
   ),
 
   f(
@@ -552,7 +552,7 @@ export const footballers: GuessItem[] = [
     ["Fransız"],
     ["Ön Libero"],
     ["18 Şubat 1973"],
-    ["Real Madrid ve Chelsea", "Top kapma", "kendi pozisyonuna adını verdi", "Savunma dengesi"]
+    ["Görünmez kahraman", "Top kapma", "kendi pozisyonuna adını verdi", "Savunma dengesi"]
   ),
 
   f(
@@ -860,7 +860,7 @@ export const footballers: GuessItem[] = [
     ["Rumen"],
     ["10 Numara", "Ofansif Orta Saha"],
     ["5 Şubat 1965"],
-    ["Galatasaray efsanesi", "UEFA Kupası kazandı", "Sol ayak", "Karpatların Maradonası"]
+    ["Uefa Finali Tony Adam'a dirsek attı :(", "UEFA Kupası kazandı", "Sol ayak", "Karpatların Maradonası"]
   ),
 
   f(
@@ -1300,7 +1300,7 @@ export const footballers: GuessItem[] = [
     ["Türk"],
     ["Kaleci"],
     ["27 Ekim 1981"],
-    ["Fenerbahçe efsanesi", "Uzun kariyer", "Milli kaleci", "Refleks"]
+    ["Yapma!!! Naptın!!! Oyuncu değişikliği hakkımız da dolduuu!! :) ", "Uzun kariyer", "Milli kaleci", "Refleks"]
   ),
 
   f(
@@ -1311,7 +1311,7 @@ export const footballers: GuessItem[] = [
     ["Türk"],
     ["Merkez Orta Saha"],
     ["7 Eylül 1980"],
-    ["Galatasaray çıkışlı", "UEFA Kupası kazandı", "Teknik orta saha", "Milli takım oyuncusu"]
+    [" Pelé tarafından 2004 yılında seçilen ''Yaşayan En İyi 125 Futbolcu'' listesine giren tek Türk oyuncudur", "UEFA Kupası kazandı", "Teknik orta saha", "Milli takım oyuncusu"]
   ),
 
   f(
@@ -2664,7 +2664,7 @@ export const footballers: GuessItem[] = [
     ["Arjantinli"],
     ["Forvet", "Santrfor"],
     ["11 Aralık 1981"],
-    ["El Conejo lakabı", "Barcelona ve Real Madrid", "Kısa boylu golcü", "River Plate çıkışlı"]
+    ["El Conejo (tavşan) lakabı", "Barca'da 7 Numara giyiyordu", "Kısa boylu golcü", "Çok hızlı"]
   ),
 
   f(
