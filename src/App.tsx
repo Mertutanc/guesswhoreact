@@ -1004,9 +1004,15 @@ function App() {
   return (
     <main className={`page mode-${currentItem.mode}`}>
       <section className="game-card play-card">
-        <div className="top-bar">
+        <div className="play-header">
           <button className="secondary-button" onClick={goToMenu}>Ana Menü</button>
-          <span>{currentItem.modeLabel} • {selectedSubMode?.label || "Klasik Mod"}</span>
+
+          <div className="play-brand">
+            <h1 className="title compact-title">🧠 GuessWho</h1>
+            <p className="subtitle play-subtitle">İpuçlarını aç, cevabı bul.</p>
+          </div>
+
+          <span className="mode-pill">{currentItem.modeLabel} • {selectedSubMode?.label || "Klasik Mod"}</span>
         </div>
 
         <div className="play-layout">
@@ -1029,9 +1035,6 @@ function App() {
           </aside>
 
           <section className="main-play-panel">
-            <h1 className="title compact-title">🧠 GuessWho</h1>
-            <p className="subtitle">İpuçlarını aç, cevabı bul.</p>
-
             {isAnagramMode && <div className="anagram-card"><span>Anagram</span><strong>{anagramText}</strong></div>}
 
             <div className="hint-header">
