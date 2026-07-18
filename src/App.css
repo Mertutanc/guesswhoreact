@@ -1168,3 +1168,43 @@ button {
     min-height: 0;
   }
 }
+
+/* Score / hint board / last rounds exact top alignment */
+@media (min-width: 901px) {
+  .play-layout {
+    align-items: start;
+  }
+
+  .main-play-panel {
+    position: relative;
+    padding-top: 0;
+  }
+
+  .round-score-line {
+    position: absolute;
+    top: -28px;
+    right: 0;
+    min-height: 0;
+    margin: 0;
+    line-height: 1.2;
+    text-align: right;
+  }
+
+  .hint-board {
+    margin-top: 0;
+  }
+
+  .score-panel,
+  .history-panel {
+    align-self: start;
+    min-height: 380px;
+  }
+}
+
+@media (max-width: 900px) {
+  .round-score-line {
+    position: static;
+    margin: 0 0 10px;
+    text-align: left;
+  }
+}
