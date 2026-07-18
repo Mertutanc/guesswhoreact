@@ -1005,11 +1005,15 @@ function App() {
     <main className={`page mode-${currentItem.mode}`}>
       <section className="game-card play-card">
         <div className="play-header">
-          <button className="secondary-button" onClick={goToMenu}>Ana Menü</button>
+          <button className="secondary-button play-menu-button" onClick={goToMenu}>Ana Menü</button>
 
-          <div className="play-brand">
-            <h1 className="title compact-title">🧠 GuessWho</h1>
-            <p className="subtitle play-subtitle">İpuçlarını aç, cevabı bul.</p>
+          <div className="play-header-center">
+            <h2 className="play-section-title">İpucu Seç</h2>
+
+            <div className="play-brand">
+              <h1 className="title compact-title">🧠 GuessWho</h1>
+              <p className="subtitle play-subtitle">İpuçlarını aç, cevabı bul.</p>
+            </div>
           </div>
 
           <span className="mode-pill">{currentItem.modeLabel} • {selectedSubMode?.label || "Klasik Mod"}</span>
@@ -1037,9 +1041,8 @@ function App() {
           <section className="main-play-panel">
             {isAnagramMode && <div className="anagram-card"><span>Anagram</span><strong>{anagramText}</strong></div>}
 
-            <div className="hint-header">
-              <h2>İpucu Seç</h2>
-              <span>{totalHintCount} ipucu açıldı • Tur skoru: {currentScore}</span>
+            <div className="round-score-line">
+              {totalHintCount} ipucu açıldı • Tur skoru: {currentScore}
             </div>
 
             <div className="hint-board">

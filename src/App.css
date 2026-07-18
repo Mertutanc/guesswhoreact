@@ -97,39 +97,63 @@ button {
 }
 
 .play-header {
-  position: relative;
   display: grid;
-  grid-template-columns: 220px minmax(0, 1fr) 280px;
+  grid-template-columns: 220px minmax(0, 1fr) 260px;
   align-items: start;
-  gap: 18px;
-  min-height: 72px;
-  margin-bottom: 4px;
+  gap: 16px;
+  min-height: 58px;
+  margin-bottom: 24px;
+}
+
+.play-menu-button {
+  width: 100%;
+  min-height: 42px;
+  justify-content: center;
+}
+
+.play-header-center {
+  position: relative;
+  min-height: 58px;
+}
+
+.play-section-title {
+  position: absolute;
+  left: 0;
+  top: 4px;
+  margin: 0;
+  color: #f8fafc;
+  font-size: 20px;
+  line-height: 1.1;
+  font-weight: 950;
+  letter-spacing: -0.04em;
 }
 
 .play-brand {
+  position: absolute;
+  left: 50%;
+  top: -10px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: flex-start;
   min-width: 0;
-  transform: translateY(-14px);
+  transform: translateX(-50%);
 }
 
 .play-brand .compact-title {
   margin: 0;
-  font-size: clamp(26px, 2.4vw, 36px);
+  font-size: clamp(24px, 2.1vw, 32px);
   line-height: 1;
 }
 
 .play-subtitle {
   margin: 3px auto 0;
-  font-size: 12px;
-  line-height: 1.25;
+  font-size: 11px;
+  line-height: 1.2;
 }
 
 .mode-pill {
   justify-self: end;
-  padding-top: 2px;
+  padding-top: 8px;
   color: #cbd5e1;
   font-size: 14px;
   text-align: right;
@@ -271,14 +295,16 @@ button {
 .play-layout {
   display: grid;
   grid-template-columns: 220px minmax(0, 1fr) 260px;
-  gap: 18px;
-  align-items: start;
+  gap: 16px;
+  align-items: stretch;
   margin-top: 0;
 }
 
 .side-panel {
-  position: sticky;
-  top: 20px;
+  position: static;
+  top: auto;
+  height: 100%;
+  min-height: 380px;
   padding: 18px;
   border: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: 24px;
@@ -287,7 +313,7 @@ button {
 
 .score-panel,
 .history-panel {
-  min-height: 414px;
+  min-height: 380px;
 }
 
 .side-panel .screen-kicker {
@@ -356,7 +382,7 @@ button {
 
 .main-play-panel {
   min-width: 0;
-  align-self: start;
+  align-self: stretch;
   padding-top: 0;
 }
 
@@ -415,6 +441,16 @@ button {
   font-size: 14px;
 }
 
+
+.round-score-line {
+  min-height: 0;
+  margin: -10px 0 10px;
+  color: #cbd5e1;
+  font-size: 13px;
+  font-weight: 700;
+  text-align: right;
+}
+
 .hint-board {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
@@ -435,8 +471,8 @@ button {
   justify-content: space-between;
   gap: 10px;
   width: 100%;
-  height: 70px;
-  min-height: 70px;
+  height: 66px;
+  min-height: 66px;
   padding: 13px 14px;
   border: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: 16px;
@@ -1052,5 +1088,83 @@ button {
   .inline-hint-card {
     height: auto;
     min-height: 124px;
+  }
+}
+
+
+/* Final play alignment: logo higher/smaller, title at the top row, equal side frames */
+@media (min-width: 901px) {
+  .play-card {
+    padding-top: 20px;
+  }
+
+  .play-header {
+    grid-template-columns: 220px minmax(0, 1fr) 260px;
+    align-items: start;
+    min-height: 58px;
+    margin-bottom: 24px;
+  }
+
+  .play-header-center {
+    position: relative;
+    min-height: 58px;
+  }
+
+  .play-section-title {
+    position: absolute;
+    left: 0;
+    top: 4px;
+  }
+
+  .play-brand {
+    position: absolute;
+    left: 50%;
+    top: -10px;
+    transform: translateX(-50%);
+  }
+
+  .play-layout {
+    align-items: stretch;
+  }
+
+  .score-panel,
+  .history-panel {
+    height: 100%;
+    min-height: 380px;
+  }
+}
+
+@media (max-width: 900px) {
+  .play-header {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+    min-height: 0;
+  }
+
+  .play-header-center {
+    position: static;
+    min-height: 0;
+  }
+
+  .play-section-title,
+  .play-brand {
+    position: static;
+    transform: none;
+  }
+
+  .play-brand {
+    margin-bottom: 6px;
+  }
+
+  .mode-pill {
+    justify-self: auto;
+    text-align: left;
+    padding-top: 0;
+  }
+
+  .side-panel {
+    min-height: 0;
   }
 }
