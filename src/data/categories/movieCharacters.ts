@@ -2070,7 +2070,7 @@ m(
     ["Türk taşra komedisi", "Vizontele atmosferi", "Televizyonun gelişi hikayesi"],
     ["Dağınık saç", "Kasaba insanı görünümü", "Meraklı bakış"],
     ["Kasabalı", "Mucit ruhlu karakter", "Komik figür"],
-    ["Teknolojiye meraklıdır", "Kasabanın değişimine eşlik eder", "Naifliğiyle hatırlanır"]
+    ["Teknolojiye meraklıdır","şerefsizim benim aklıma gelmişti" ,"Kasabanın değişimine eşlik eder", "Naifliğiyle hatırlanır"]
   ),
 
   m(
