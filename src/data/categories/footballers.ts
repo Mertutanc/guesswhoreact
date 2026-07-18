@@ -1,5 +1,75 @@
 import type { GuessItem } from "../../types/game";
 
+type FootballerTag =
+  | "football:turkishLegend"
+  | "football:foreignLegend"
+  | "football:active";
+
+const TURKISH_LEGEND_IDS = new Set<number>([
+  4, 75, 76, 77, 101, 102, 103, 104, 105, 106, 107, 108,
+  109, 110, 111, 112, 113, 114, 115, 116, 117, 118, 119, 120,
+  121, 122, 123, 124, 125, 126, 127, 128, 129, 130, 131, 132,
+  133, 134, 135, 136, 137, 401, 402, 403, 404, 405, 406, 407,
+  408, 409, 410, 411, 412, 413, 414, 415, 416, 417, 418, 419,
+  420, 421, 422, 423, 424, 425, 426, 427, 428, 429, 430, 431,
+  432, 433, 434, 435, 436, 437, 438, 439, 440, 441, 442, 443,
+  444, 445, 446, 447, 448, 449, 450, 451, 452, 453, 454, 455,
+  456, 457, 458, 459,
+]);
+
+const FOREIGN_LEGEND_IDS = new Set<number>([
+  1, 2, 3, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15,
+  16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29,
+  30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43,
+  44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57,
+  58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71,
+  72, 73, 74, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88,
+  89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99, 100, 138, 139,
+  140, 141, 142, 143, 144, 145, 146, 147, 148, 149, 150, 151, 152, 153,
+  154, 155, 156, 157, 158, 159, 160, 161, 162, 163, 164, 165, 166, 167,
+  168, 169, 170, 171, 172, 173, 174, 175, 176, 177, 178, 179, 180, 181,
+  182, 183, 184, 185, 186, 187, 188, 189, 190, 193, 194, 195, 196, 197,
+  198, 199, 200, 201, 202, 203, 204, 205, 206, 207, 208, 209, 210, 211,
+  212, 213, 214, 215, 216, 217, 218, 219, 220, 221, 222, 228, 229, 230,
+  231, 232, 233, 234, 235, 236, 237, 238, 239, 240, 241, 242, 243, 244,
+  245, 246, 247, 248, 249, 250, 251, 252, 253, 254, 255, 256, 257, 258,
+  259, 260, 261, 262, 263, 264, 265, 266, 267, 268, 269, 270, 271, 272,
+  273, 274, 275, 276, 277, 278, 279, 280, 281, 282, 283, 284, 285, 286,
+  287, 288, 289, 290, 291, 292, 293, 294, 295, 296, 297, 298, 299, 300,
+  301, 302, 303, 304, 305, 306, 307, 308, 309, 310, 311, 312, 313, 314,
+  315, 321, 322, 323, 328, 329, 330, 332, 333,
+]);
+
+const ACTIVE_PLAYER_IDS = new Set<number>([
+  9, 10, 54, 91, 94, 95, 96, 97, 98, 99, 100, 120, 191, 192,
+  193, 194, 205, 206, 207, 208, 213, 216, 217, 218, 221, 222, 223, 224,
+  225, 226, 227, 228, 230, 245, 251, 252, 262, 264, 265, 266, 268, 269,
+  270, 299, 300, 301, 316, 317, 318, 319, 320, 324, 325, 326, 327, 331,
+  334, 335, 336, 337, 338, 339, 340, 341, 342, 343, 344, 345, 346, 347,
+  348, 349, 350, 351, 352, 353, 354, 355, 356, 357, 358, 359, 360, 361,
+  362, 363, 364, 365, 366, 367, 368, 369, 370, 371, 372, 373, 374, 375,
+  376, 377, 378, 379, 380, 381, 382, 383, 384, 385, 386, 387, 388, 389,
+  390, 391, 392, 393, 394, 395, 396, 397, 398, 399, 400,
+]);
+
+const getFootballerTags = (id: number): FootballerTag[] => {
+  const tags: FootballerTag[] = [];
+
+  if (TURKISH_LEGEND_IDS.has(id)) {
+    tags.push("football:turkishLegend");
+  }
+
+  if (FOREIGN_LEGEND_IDS.has(id)) {
+    tags.push("football:foreignLegend");
+  }
+
+  if (ACTIVE_PLAYER_IDS.has(id)) {
+    tags.push("football:active");
+  }
+
+  return tags;
+};
+
 const createFootballer = (
   id: number,
   name: string,
@@ -16,6 +86,7 @@ const createFootballer = (
     modeLabel: "Futbolcu",
     name,
     answers,
+    tags: getFootballerTags(id),
     hintGroups: [
       {
         key: "teams",
@@ -23,26 +94,24 @@ const createFootballer = (
         hints: teams,
       },
       {
-        key: "nationality",
-        label: "Uyruk",
-        hints: nationality,
-      },
-      {
         key: "positions",
         label: "Mevki",
         hints: positions,
       },
       {
-        key: "birthDate",
-        label: "Doğum Tarihi",
-        hints: birthDate,
+        key: "identity",
+        label: "Uyruk ve Doğum Tarihi",
+        hints: [
+          ...nationality.map((item) => `Uyruk: ${item}`),
+          ...birthDate.map((item) => `Doğum Tarihi: ${item}`),
+        ],
       },
       {
         key: "skills",
         label: "Özellik",
         hints: skills,
       },
-    ],
+],
   };
 };
 
@@ -57,7 +126,7 @@ export const footballers: GuessItem[] = [
     ["İtalyan"],
     ["Forvet", "10 Numara", "Forvet Arkası"],
     ["9 Kasım 1974"],
-    ["Juventus efsanesi", "Frikik ustası", "Dünya Kupası kazandı", "Teknik oyun kurucu"]
+    ["Pinturicchio Lakaplı", "Frikik ustası", "Dünya Kupası kazandı", "Teknik oyun kurucu"]
   ),
 
   f(
@@ -233,7 +302,7 @@ export const footballers: GuessItem[] = [
     ["İtalyan"],
     ["10 Numara", "Forvet Arkası", "Forvet"],
     ["18 Şubat 1967"],
-    ["Ballon d'Or kazandı", "At kuyruğu", "1194 Usa penaltı :(" , "Frikik", "Teknik 10 numara"]
+    ["Ballon d'Or kazandı", "At kuyruğu", "1994 ABD penaltısı :(" , "Frikik", "Teknik 10 numara"]
   ),
 
   f(
@@ -354,7 +423,7 @@ export const footballers: GuessItem[] = [
     ["İspanyol"],
     ["Kaleci"],
     ["20 Mayıs 1981"],
-    ["Dünya Kupası kazandı", "Real Madrid kaptanı", "Lakabı Aziz St yani ", "Şampiyonlar Ligi kazandı"]
+    ["Dünya Kupası kazandı", "Real Madrid kaptanı", "Saint Iker lakabı", "Şampiyonlar Ligi kazandı"]
   ),
 
   f(
@@ -453,7 +522,7 @@ export const footballers: GuessItem[] = [
     ["Sırp"],
     ["Stoper"],
     ["21 Ekim 1981"],
-    ["Sakatlıkar yüzünden 34'ünde futbolu bıraktı", "Şampiyonlar Ligi kazandı", "Sert savunma", "Kafa topları"]
+    ["Sakatlıklar yüzünden 34'ünde futbolu bıraktı", "Şampiyonlar Ligi kazandı", "Sert savunma", "Kafa topları"]
   ),
 
   f(
@@ -1553,7 +1622,7 @@ export const footballers: GuessItem[] = [
     ["Türk"],
     ["10 Numara", "Ofansif Orta Saha"],
     ["20 Temmuz 1975"],
-    ["Teknik", "Sol ayak", "Süper Lig yıldızı", "Oyun kurucu"]
+    ["Teknik", "Sol ayak", "Telefon kulübesinde çalım atar :)", "Oyun kurucu"]
   ),
 
   f(
@@ -1564,7 +1633,7 @@ export const footballers: GuessItem[] = [
     ["Bosnalı"],
     ["Forvet", "Kanat"],
     ["8 Temmuz 1974"],
-    ["Real Madrid'de oynadı", "Fenerbahçe dönemi", "Sol ayak", "Balkan yıldızı"]
+    ["Real Madrid'de oynadı", "Sert şut", "Sol ayak", "Balkan yıldızı"]
   ),
 
   f(
@@ -1586,7 +1655,7 @@ export const footballers: GuessItem[] = [
     ["Brezilyalı"],
     ["Forvet", "Santrfor"],
     ["18 Eylül 1973"],
-    ["Avrupa Altın Ayakkabı", "Galatasaray dönemi", "Kafa vuruşu", "Gol makinesi"]
+    ["Avrupa Altın Ayakkabı", "Helikopter ile sahaya indi", "Kafa vuruşu", "Gol makinesi"]
   ),
 
   f(
@@ -1641,7 +1710,7 @@ export const footballers: GuessItem[] = [
     ["Senegalli"],
     ["Forvet", "Santrfor"],
     ["25 Mayıs 1985"],
-    ["Beşiktaş golcüsü", "Chelsea'de oynadı", "Süper Lig şampiyonu", "Bitiricilik"]
+    ["Beşiktaş golcüsü", "Hangimiz sevmedik çılgınlar gibi", "Süper Lig şampiyonu", "Bitiricilik"]
   ),
 
   f(
@@ -1922,7 +1991,7 @@ export const footballers: GuessItem[] = [
   f(
     171,
     "David Silva",
-    ["david silva", "silva"],
+    ["david silva"],
     ["Valencia", "Manchester City", "Real Sociedad"],
     ["İspanyol"],
     ["Ofansif Orta Saha", "Kanat"],
@@ -2219,7 +2288,7 @@ export const footballers: GuessItem[] = [
   f(
     198,
     "Lilian Thuram",
-    ["thuram", "lilian thuram"],
+    ["lilian thuram"],
     ["Monaco", "Parma", "Juventus", "Barcelona"],
     ["Fransız"],
     ["Sağ Bek", "Stoper"],
@@ -2923,7 +2992,7 @@ export const footballers: GuessItem[] = [
   f(
     262,
     "Thiago Silva",
-    ["thiago silva", "silva"],
+    ["thiago silva"],
     ["Juventude", "Porto", "Dynamo Moscow", "Fluminense", "Milan", "PSG", "Chelsea"],
     ["Brezilyalı"],
     ["Stoper"],
@@ -3154,7 +3223,7 @@ export const footballers: GuessItem[] = [
   f(
     283,
     "Ashley Cole",
-    ["ashley cole", "cole"],
+    ["ashley cole"],
     ["Arsenal", "Chelsea", "Roma", "LA Galaxy", "Derby County"],
     ["İngiliz"],
     ["Sol Bek"],
@@ -3231,7 +3300,7 @@ export const footballers: GuessItem[] = [
   f(
     290,
     "Andy Cole",
-    ["andy cole", "cole"],
+    ["andy cole"],
     ["Arsenal", "Newcastle United", "Manchester United", "Blackburn Rovers", "Fulham", "Manchester City"],
     ["İngiliz"],
     ["Forvet", "Santrfor"],
@@ -3710,5 +3779,1391 @@ export const footballers: GuessItem[] = [
     ["Kanat", "Ofansif Orta Saha"],
     ["31 Ekim 1979"],
     ["Benfica efsanesi", "Beşiktaş'ta oynadı", "Frikik", "Sol/sağ kanat"]
-  )
+  ),
+
+  f(
+    334,
+    "Ederson",
+    ["ederson", "ederson santana de moraes"],
+    ["Rio Ave", "Benfica", "Manchester City"],
+    ["Brezilyalı"],
+    ["Kaleci"],
+    ["17 Ağustos 1993"],
+    ["Ayaklarını çok iyi kullanır", "Uzun pas yeteneği", "Refleks", "Süpürücü kaleci"]
+  ),
+
+  f(
+    335,
+    "Rodri",
+    ["rodri", "rodrigo hernandez", "rodrigo hernández"],
+    ["Villarreal", "Atlético Madrid", "Manchester City"],
+    ["İspanyol"],
+    ["Ön Libero", "Merkez Orta Saha"],
+    ["22 Haziran 1996"],
+    ["Oyunun beyni", "Uzaktan şutları meşhur", "Sakin ve soğukkanlı", "Defansif lider"]
+  ),
+
+  f(
+    336,
+    "Phil Foden",
+    ["foden", "phil foden"],
+    ["Manchester City"],
+    ["İngiliz"],
+    ["Ofansif Orta Saha", "Kanat"],
+    ["28 Mayıs 2000"],
+    ["Tek kulüp altyapısından", "Çok yönlü hücumcu", "Hızlı dripling", "Sol ayak"]
+  ),
+
+  f(
+    337,
+    "Declan Rice",
+    ["declan rice", "rice"],
+    ["West Ham", "Arsenal"],
+    ["İngiliz"],
+    ["Ön Libero", "Merkez Orta Saha"],
+    ["14 Ocak 1999"],
+    ["Fiziksel güç", "Liderlik", "Top kapma ustası", "İngiliz milli takımı"]
+  ),
+
+  f(
+    338,
+    "Martin Ødegaard",
+    ["odegaard", "ødegaard", "martin odegaard"],
+    ["Strømsgodset", "Real Madrid", "Heerenveen", "Vitesse", "Real Sociedad", "Arsenal"],
+    ["Norveçli"],
+    ["Ofansif Orta Saha", "10 Numara"],
+    ["17 Aralık 1998"],
+    ["Oyun vizyonu", "Kaptan", "Zarif paslar", "Sol ayak"]
+  ),
+
+  f(
+    339,
+    "Bukayo Saka",
+    ["saka", "bukayo saka"],
+    ["Arsenal"],
+    ["İngiliz"],
+    ["Sağ Kanat", "Bek"],
+    ["5 Eylül 2001"],
+    ["İstikrarlı kanat", "Hız ve çeviklik", "Birebirde çok etkili", "Solak"]
+  ),
+
+  f(
+    340,
+    "William Saliba",
+    ["saliba", "william saliba"],
+    ["Saint-Étienne", "Nice", "Marseille", "Arsenal"],
+    ["Fransız"],
+    ["Stoper"],
+    ["24 Mart 2001"],
+    ["Hızlı savunmacı", "Oyun kuran stoper", "Soğukkanlılık", "Güçlü fizik"]
+  ),
+
+  f(
+    341,
+    "Gabriel Martinelli",
+    ["martinelli", "gabriel martinelli"],
+    ["Ituano", "Arsenal"],
+    ["Brezilyalı"],
+    ["Sol Kanat", "Forvet"],
+    ["18 Haziran 2001"],
+    ["Yüksek hız", "Bitiricilik", "Enerjik oyun", "Brezilya milli takımı"]
+  ),
+
+  f(
+    342,
+    "Kai Havertz",
+    ["havertz", "kai havertz"],
+    ["Bayer Leverkusen", "Chelsea", "Arsenal"],
+    ["Alman"],
+    ["Forvet", "Ofansif Orta Saha"],
+    ["11 Haziran 1999"],
+    ["Çok yönlü hücumcu", "Pozisyon bilgisi", "Kritik goller", "Hava topları"]
+  ),
+
+  f(
+    343,
+    "Ollie Watkins",
+    ["watkins", "ollie watkins"],
+    ["Exeter City", "Brentford", "Aston Villa"],
+    ["İngiliz"],
+    ["Forvet", "Santrfor"],
+    ["30 Aralık 1995"],
+    ["Pres gücü", "Hareketli forvet", "Sürekli gol arayışı", "Bitiricilik"]
+  ),
+
+  f(
+    344,
+    "Dominik Szoboszlai",
+    ["szoboszlai", "dominik szoboszlai"],
+    ["Red Bull Salzburg", "RB Leipzig", "Liverpool"],
+    ["Macar"],
+    ["Ofansif Orta Saha"],
+    ["25 Ekim 2000"],
+    ["Uzaktan şut ustası", "Duran top uzmanı", "Yüksek tempo", "Teknik"]
+  ),
+
+  f(
+    345,
+    "Alexis Mac Allister",
+    ["mac allister", "alexis mac allister"],
+    ["Argentinos Juniors", "Boca Juniors", "Brighton", "Liverpool"],
+    ["Arjantinli"],
+    ["Merkez Orta Saha"],
+    ["24 Aralık 1998"],
+    ["Dünya Kupası şampiyonu", "Pas trafiği", "Oyun kurucu", "Zeki orta saha"]
+  ),
+
+  f(
+    346,
+    "Darwin Núñez",
+    ["nunez", "núñez", "darwin nunez"],
+    ["Peñarol", "Almería", "Benfica", "Liverpool"],
+    ["Uruguaylı"],
+    ["Forvet", "Santrfor"],
+    ["24 Haziran 1999"],
+    ["Patlayıcı hız", "Agresif forvet", "Güçlü fizik", "Hırs"]
+  ),
+
+  f(
+    347,
+    "Luis Díaz",
+    ["diaz", "luis díaz", "luis diaz"],
+    ["Barranquilla", "Junior", "Porto", "Liverpool"],
+    ["Kolombiyalı"],
+    ["Sol Kanat"],
+    ["13 Ocak 1997"],
+    ["İnanılmaz çalım", "Çizgi oyuncusu", "Hız", "Birebirde durdurulamaz"]
+  ),
+
+  f(
+    348,
+    "Ibrahima Konaté",
+    ["konate", "konaté", "ibrahima konate"],
+    ["Sochaux", "RB Leipzig", "Liverpool"],
+    ["Fransız"],
+    ["Stoper"],
+    ["25 Mayıs 1999"],
+    ["Hava topları", "Devasa fizik", "Savunma gücü", "Modern stoper"]
+  ),
+
+  f(
+    349,
+    "Alisson Becker",
+    ["alisson", "alisson becker"],
+    ["Internacional", "Roma", "Liverpool"],
+    ["Brezilyalı"],
+    ["Kaleci"],
+    ["2 Ekim 1992"],
+    ["Ayakla oyun kurma", "Refleks", "Lider kaleci", "Brezilya milli takımı"]
+  ),
+
+  f(
+    350,
+    "Kyle Walker",
+    ["walker", "kyle walker"],
+    ["Sheffield United", "Tottenham", "Aston Villa", "Manchester City"],
+    ["İngiliz"],
+    ["Sağ Bek"],
+    ["28 Mayıs 1990"],
+    ["İnanılmaz hız", "Fiziksel savunma", "Çok kupa sahibi", "Bek"]
+  ),
+
+  f(
+    351,
+    "John Stones",
+    ["stones", "john stones"],
+    ["Barnsley", "Everton", "Manchester City"],
+    ["İngiliz"],
+    ["Stoper", "Ön Libero"],
+    ["28 Mayıs 1994"],
+    ["Topla çıkış", "Oyun kuran stoper", "Soğukkanlı", "Pas isabeti"]
+  ),
+
+  f(
+    352,
+    "Manuel Akanji",
+    ["akanji", "manuel akanji"],
+    ["Basel", "Borussia Dortmund", "Manchester City"],
+    ["İsviçreli"],
+    ["Stoper", "Bek"],
+    ["19 Temmuz 1995"],
+    ["Çok yönlü savunmacı", "Hız", "Oyun zekası", "Disiplin"]
+  ),
+
+  f(
+    353,
+    "Nathan Aké",
+    ["ake", "aké", "nathan ake"],
+    ["Chelsea", "Reading", "Watford", "Bournemouth", "Manchester City"],
+    ["Hollandalı"],
+    ["Stoper", "Sol Bek"],
+    ["18 Şubat 1995"],
+    ["Disiplinli savunma", "İki pozisyon oynayabilme", "Hava topları", "Modern defans"]
+  ),
+
+  f(
+    354,
+    "Josko Gvardiol",
+    ["gvardiol", "joško gvardiol"],
+    ["Dinamo Zagreb", "RB Leipzig", "Manchester City"],
+    ["Hırvat"],
+    ["Stoper", "Sol Bek"],
+    ["23 Ocak 2002"],
+    ["Genç yetenek", "Topla oyun", "Hücumcu bek özellikleri", "Güçlü fizik"]
+  ),
+
+  f(
+    355,
+    "Matheus Nunes",
+    ["nunes", "matheus nunes"],
+    ["Estoril", "Sporting CP", "Wolverhampton", "Manchester City"],
+    ["Portekizli"],
+    ["Merkez Orta Saha"],
+    ["27 Ağustos 1998"],
+    ["Dripling", "Enerji", "Orta saha", "Top taşıma"]
+  ),
+
+  f(
+    356,
+    "Jeremy Doku",
+    ["doku", "jeremy doku"],
+    ["Anderlecht", "Rennes", "Manchester City"],
+    ["Belçikalı"],
+    ["Kanat"],
+    ["27 Mayıs 2002"],
+    ["İnanılmaz hız", "Birebirde çok etkili", "Çeviklik", "Genç yetenek"]
+  ),
+
+  f(
+    357,
+    "Julian Alvarez",
+    ["alvarez", "julian alvarez"],
+    ["River Plate", "Manchester City", "Atlético Madrid"],
+    ["Arjantinli"],
+    ["Forvet", "Santrfor"],
+    ["31 Ocak 2000"],
+    ["Dünya Kupası şampiyonu", "Pres", "Bitiricilik", "Çok yönlü"]
+  ),
+
+  f(
+    358,
+    "Joao Palhinha",
+    ["palhinha", "joao palhinha"],
+    ["Sporting CP", "Braga", "Fulham", "Bayern Münih"],
+    ["Portekizli"],
+    ["Ön Libero"],
+    ["9 Temmuz 1995"],
+    ["Top kapma makinesi", "Fizik gücü", "Defansif orta saha", "Sertlik"]
+  ),
+
+  f(
+    359,
+    "Pau Torres",
+    ["pau torres"],
+    ["Villarreal", "Málaga", "Aston Villa"],
+    ["İspanyol"],
+    ["Stoper"],
+    ["16 Ocak 1997"],
+    ["Sol ayaklı stoper", "Oyun kurucu", "İspanya milli takımı", "Pas yeteneği"]
+  ),
+
+  f(
+    360,
+    "Jarrod Bowen",
+    ["bowen", "jarrod bowen"],
+    ["Hereford United", "Hull City", "West Ham"],
+    ["İngiliz"],
+    ["Kanat"],
+    ["20 Aralık 1996"],
+    ["Skorer kanat", "Hız", "Bitiricilik", "İngiliz"]
+  ),
+
+  f(
+    361,
+    "Lucas Paquetá",
+    ["paqueta", "paquetá", "lucas paqueta"],
+    ["Flamengo", "Milan", "Lyon", "West Ham"],
+    ["Brezilyalı"],
+    ["Ofansif Orta Saha"],
+    ["27 Ağustos 1997"],
+    ["Samba tekniği", "Oyun vizyonu", "Pas yeteneği", "Brezilya milli takımı"]
+  ),
+
+  f(
+    362,
+    "Mohammed Kudus",
+    ["kudus", "mohammed kudus"],
+    ["Nordsjælland", "Ajax", "West Ham"],
+    ["Ganalı"],
+    ["Ofansif Orta Saha", "Kanat"],
+    ["2 Ağustos 2000"],
+    ["Hız", "Birebir", "Bitiricilik", "Genç yetenek"]
+  ),
+
+  f(
+    363,
+    "Kobbie Mainoo",
+    ["mainoo", "kobbie mainoo"],
+    ["Manchester United"],
+    ["İngiliz"],
+    ["Merkez Orta Saha"],
+    ["19 Nisan 2005"],
+    ["Genç yetenek", "Orta saha", "Oyun zekası", "Soğukkanlılık"]
+  ),
+
+  f(
+    364,
+    "Rasmus Højlund",
+    ["hojlund", "højlund", "rasmus hojlund"],
+    ["Copenhagen", "Sturm Graz", "Atalanta", "Manchester United"],
+    ["Danimarkalı"],
+    ["Forvet", "Santrfor"],
+    ["4 Şubat 2003"],
+    ["Güçlü fizik", "Hız", "Genç golcü", "Bitiricilik"]
+  ),
+
+  f(
+    365,
+    "Alejandro Garnacho",
+    ["garnacho", "alejandro garnacho"],
+    ["Manchester United"],
+    ["Arjantinli"],
+    ["Kanat"],
+    ["1 Temmuz 2004"],
+    ["Çeviklik", "Birebir", "Genç yetenek", "Hücumcu"]
+  ),
+
+  f(
+    366,
+    "Victor Osimhen",
+    ["osimhen", "victor osimhen"],
+    ["Wolfsburg", "Charleroi", "Lille", "Napoli", "Galatasaray"],
+    ["Nijeryalı"],
+    ["Forvet", "Santrfor"],
+    ["29 Aralık 1998"],
+    ["Hız", "Güçlü kafa vuruşu", "Bitiricilik", "Afrika ikonu"]
+  ),
+
+  f(
+    367,
+    "Khvicha Kvaratskhelia",
+    ["kvaratskhelia", "kvara", "khvicha kvaratskhelia"],
+    ["Dinamo Batumi", "Rubin Kazan", "Napoli"],
+    ["Gürcü"],
+    ["Kanat", "Ofansif Orta Saha"],
+    ["12 Şubat 2001"],
+    ["Çalım ustası", "Dripling", "Teknik", "İtalya'da yılın oyuncusu"]
+  ),
+
+  f(
+    368,
+    "Nicolo Barella",
+    ["barella", "nicolo barella"],
+    ["Cagliari", "Inter"],
+    ["İtalyan"],
+    ["Merkez Orta Saha"],
+    ["7 Şubat 1997"],
+    ["Yüksek tempo", "Mücadeleci", "İtalya milli takımı", "Orta saha lideri"]
+  ),
+
+  f(
+    369,
+    "Alessandro Bastoni",
+    ["bastoni", "alessandro bastoni"],
+    ["Atalanta", "Parma", "Inter"],
+    ["İtalyan"],
+    ["Stoper"],
+    ["13 Nisan 1999"],
+    ["Sol ayaklı stoper", "Oyun kuran savunma", "İtalya milli takımı", "Modern defans"]
+  ),
+
+  f(
+    370,
+    "Benjamin Pavard",
+    ["pavard", "benjamin pavard"],
+    ["Lille", "Stuttgart", "Bayern Münih", "Inter"],
+    ["Fransız"],
+    ["Sağ Bek", "Stoper"],
+    ["28 Mart 1996"],
+    ["Dünya Kupası şampiyonu", "Çok yönlü", "Savunma", "Modern bek"]
+  ),
+
+  f(
+    371,
+    "Marcus Thuram",
+    ["marcus thuram"],
+    ["Sochaux", "Guingamp", "Borussia Mönchengladbach", "Inter"],
+    ["Fransız"],
+    ["Forvet"],
+    ["6 Ağustos 1997"],
+    ["Hız", "Fizik gücü", "Bitiricilik", "Hücumcu"]
+  ),
+
+  f(
+    372,
+    "Rafael Leão",
+    ["leao", "leão", "rafael leao"],
+    ["Sporting CP", "Lille", "Milan"],
+    ["Portekizli"],
+    ["Kanat", "Forvet"],
+    ["10 Haziran 1999"],
+    ["Patlayıcı hız", "Teknik", "Dripling", "Milan yıldızı"]
+  ),
+
+  f(
+    373,
+    "Theo Hernandez",
+    ["theo hernandez"],
+    ["Atlético Madrid", "Alavés", "Real Madrid", "Real Sociedad", "Milan"],
+    ["Fransız"],
+    ["Sol Bek"],
+    ["6 Ekim 1997"],
+    ["Hücumcu sol bek", "İnanılmaz hız", "Milan", "Bindirmeler"]
+  ),
+
+  f(
+    374,
+    "Christian Pulisic",
+    ["pulisic", "christian pulisic"],
+    ["Borussia Dortmund", "Chelsea", "Milan"],
+    ["ABD'li"],
+    ["Kanat", "Ofansif Orta Saha"],
+    ["18 Eylül 1998"],
+    ["Hız", "Dripling", "Bitiricilik", "Çok yönlü"]
+  ),
+
+  f(
+    375,
+    "Mike Maignan",
+    ["maignan", "mike maignan"],
+    ["Lille", "Milan"],
+    ["Fransız"],
+    ["Kaleci"],
+    ["3 Temmuz 1995"],
+    ["Refleks", "Liderlik", "Milan", "Oyun kurma"]
+  ),
+
+  f(
+    376,
+    "Dusan Vlahovic",
+    ["vlahovic", "vlahović", "dusan vlahovic"],
+    ["Fiorentina", "Juventus"],
+    ["Sırp"],
+    ["Forvet", "Santrfor"],
+    ["28 Ocak 2000"],
+    ["Güçlü şut", "Bitiricilik", "Kafa vuruşu", "Sırbistan"]
+  ),
+
+  f(
+    377,
+    "Teun Koopmeiners",
+    ["koopmeiners", "teun koopmeiners"],
+    ["AZ", "Atalanta", "Juventus"],
+    ["Hollandalı"],
+    ["Merkez Orta Saha", "Ofansif Orta Saha"],
+    ["28 Şubat 1998"],
+    ["Frikik", "Uzaktan şut", "Oyun kurucu", "Teknik"]
+  ),
+
+  f(
+    378,
+    "Douglas Luiz",
+    ["douglas luiz"],
+    ["Vasco da Gama", "Manchester City", "Girona", "Aston Villa", "Juventus"],
+    ["Brezilyalı"],
+    ["Merkez Orta Saha", "Ön Libero"],
+    ["9 Mayıs 1998"],
+    ["Oyun kurucu", "Defansif orta saha", "Brezilya milli takımı", "Pas"]
+  ),
+
+  f(
+    379,
+    "Nico Gonzalez",
+    ["nico gonzalez", "nicolás gonzález"],
+    ["Argentinos Juniors", "Stuttgart", "Fiorentina", "Juventus"],
+    ["Arjantinli"],
+    ["Kanat", "Forvet"],
+    ["6 Nisan 1998"],
+    ["Dripling", "Bitiricilik", "Hız", "Arjantin milli takımı"]
+  ),
+
+  f(
+    380,
+    "Florian Wirtz",
+    ["wirtz", "florian wirtz"],
+    ["Bayer Leverkusen"],
+    ["Alman"],
+    ["Ofansif Orta Saha"],
+    ["3 Mayıs 2003"],
+    ["Genç yetenek", "Oyun vizyonu", "Teknik", "Pas ustalığı"]
+  ),
+
+  f(
+    381,
+    "Granit Xhaka",
+    ["xhaka", "granit xhaka"],
+    ["Basel", "Borussia Mönchengladbach", "Arsenal", "Bayer Leverkusen"],
+    ["İsviçreli"],
+    ["Merkez Orta Saha", "Ön Libero"],
+    ["27 Eylül 1992"],
+    ["Liderlik", "Uzaktan şut", "Pas", "Oyun zekası"]
+  ),
+
+  f(
+    382,
+    "Victor Boniface",
+    ["boniface", "victor boniface"],
+    ["Bodø/Glimt", "Union Saint-Gilloise", "Bayer Leverkusen"],
+    ["Nijeryalı"],
+    ["Forvet"],
+    ["23 Aralık 2000"],
+    ["Fizik gücü", "Bitiricilik", "Genç forvet", "Güçlü şut"]
+  ),
+
+  f(
+    383,
+    "Alejandro Grimaldo",
+    ["grimaldo", "alejandro grimaldo"],
+    ["Barcelona B", "Benfica", "Bayer Leverkusen"],
+    ["İspanyol"],
+    ["Sol Bek", "Sol Kanat Bek"],
+    ["20 Eylül 1995"],
+    ["Frikik", "Orta açma", "Hücumcu bek", "Teknik"]
+  ),
+
+  f(
+    384,
+    "Jeremie Frimpong",
+    ["frimpong", "jeremie frimpong"],
+    ["Manchester City", "Celtic", "Bayer Leverkusen"],
+    ["Hollandalı"],
+    ["Sağ Bek", "Sağ Kanat Bek"],
+    ["10 Aralık 2000"],
+    ["İnanılmaz hız", "Bindirmeler", "Hücumcu bek", "Genç yetenek"]
+  ),
+
+  f(
+    385,
+    "Xavi Simons",
+    ["xavi simons"],
+    ["PSG", "PSV", "RB Leipzig"],
+    ["Hollandalı"],
+    ["Ofansif Orta Saha", "Kanat"],
+    ["21 Nisan 2003"],
+    ["Genç yetenek", "Teknik", "Oyun zekası", "Dripling"]
+  ),
+
+  f(
+    386,
+    "Lois Openda",
+    ["openda", "lois openda"],
+    ["Club Brugge", "Vitesse", "Lens", "RB Leipzig"],
+    ["Belçikalı"],
+    ["Forvet"],
+    ["16 Şubat 2000"],
+    ["Süratli", "Bitiricilik", "Hücumcu", "Genç forvet"]
+  ),
+
+  f(
+    387,
+    "Dani Olmo",
+    ["olmo", "dani olmo"],
+    ["Dinamo Zagreb", "RB Leipzig", "Barcelona"],
+    ["İspanyol"],
+    ["Ofansif Orta Saha"],
+    ["7 Mayıs 1998"],
+    ["Teknik", "Pas", "Yaratıcı", "Oyun zekası"]
+  ),
+
+  f(
+    388,
+    "Lamine Yamal",
+    ["yamal", "lamine yamal"],
+    ["Barcelona"],
+    ["İspanyol"],
+    ["Sağ Kanat"],
+    ["13 Temmuz 2007"],
+    ["Genç yetenek", "Dripling", "Teknik", "Süper yetenek"]
+  ),
+
+  f(
+    389,
+    "Pau Cubarsí",
+    ["cubarsi", "pau cubarsí"],
+    ["Barcelona"],
+    ["İspanyol"],
+    ["Stoper"],
+    ["22 Ocak 2007"],
+    ["Genç stoper", "Topla oyun", "Savunma", "Soğukkanlılık"]
+  ),
+
+  f(
+    390,
+    "Cole Palmer",
+    ["palmer", "cole palmer"],
+    ["Manchester City", "Chelsea"],
+    ["İngiliz"],
+    ["Ofansif Orta Saha", "Sağ Kanat"],
+    ["6 Mayıs 2002"],
+    ["Genç yıldız", "Bitiricilik", "Teknik", "Oyun zekası"]
+  ),
+
+  f(
+    391,
+    "Conor Gallagher",
+    ["gallagher", "conor gallagher"],
+    ["Chelsea", "Charlton", "Swansea", "West Bromwich", "Crystal Palace", "Atlético Madrid"],
+    ["İngiliz"],
+    ["Merkez Orta Saha"],
+    ["6 Şubat 2000"],
+    ["Yüksek tempo", "Mücadele", "Box-to-box", "Enerji"]
+  ),
+
+  f(
+    392,
+    "Nicolas Jackson",
+    ["jackson", "nicolas jackson"],
+    ["Villarreal", "Chelsea"],
+    ["Senegallı"],
+    ["Forvet"],
+    ["20 Haziran 2001"],
+    ["Hız", "Bitiricilik", "Genç forvet", "Fizik"]
+  ),
+
+  f(
+    393,
+    "Enzo Fernandez",
+    ["enzo fernandez", "enzo fernández"],
+    ["River Plate", "Defensa y Justicia", "Benfica", "Chelsea"],
+    ["Arjantinli"],
+    ["Merkez Orta Saha"],
+    ["17 Ocak 2001"],
+    ["Dünya Kupası şampiyonu", "Pas ustalığı", "Oyun kurucu", "Teknik"]
+  ),
+
+  f(
+    394,
+    "Christopher Nkunku",
+    ["nkunku", "christopher nkunku"],
+    ["PSG", "RB Leipzig", "Chelsea"],
+    ["Fransız"],
+    ["Forvet", "Ofansif Orta Saha"],
+    ["14 Kasım 1997"],
+    ["Çok yönlü hücumcu", "Teknik", "Bitiricilik", "Yaratıcı"]
+  ),
+
+  f(
+    395,
+    "Pedro Neto",
+    ["neto", "pedro neto"],
+    ["Braga", "Lazio", "Wolverhampton", "Chelsea"],
+    ["Portekizli"],
+    ["Kanat"],
+    ["9 Mart 2000"],
+    ["Hız", "Dripling", "Teknik", "Hücumcu"]
+  ),
+
+  f(
+    396,
+    "Samu Omorodion",
+    ["samu omorodion", "samu"],
+    ["Granada", "Atlético Madrid", "Alavés", "Porto"],
+    ["İspanyol"],
+    ["Forvet"],
+    ["5 Mayıs 2004"],
+    ["Genç forvet", "Fizik gücü", "Bitiricilik", "Hız"]
+  ),
+
+  f(
+    397,
+    "Riccardo Calafiori",
+    ["calafiori", "riccardo calafiori"],
+    ["Roma", "Genoa", "Basel", "Bologna", "Arsenal"],
+    ["İtalyan"],
+    ["Stoper", "Sol Bek"],
+    ["19 Mayıs 2002"],
+    ["Savunma", "Topla çıkış", "İtalya milli takımı", "Modern defans"]
+  ),
+
+  f(
+    398,
+    "Viktor Gyökeres",
+    ["gyokeres", "gyökeres", "viktor gyökeres"],
+    ["IF Brommapojkarna", "Brighton", "St. Pauli", "Swansea", "Coventry City", "Sporting CP"],
+    ["İsveçli"],
+    ["Forvet"],
+    ["4 Haziran 1998"],
+    ["Gol makinesi", "Güçlü fizik", "Hız", "Bitiricilik"]
+  ),
+
+  f(
+    399,
+    "Jonathan David",
+    ["david", "jonathan david"],
+    ["Gent", "Lille"],
+    ["Kanadalı"],
+    ["Forvet"],
+    ["14 Ocak 2000"],
+    ["Bitiricilik", "Hız", "Lille şampiyonluğu", "Golcü"]
+  ),
+
+  f(
+    400,
+    "Nico Williams",
+    ["nico williams"],
+    ["Athletic Bilbao"],
+    ["İspanyol"],
+    ["Kanat"],
+    ["12 Temmuz 2002"],
+    ["İnanılmaz hız", "Dripling", "Birebir", "Genç yetenek"]
+  ),
+
+  f(
+    401,
+    "Cihat Arman",
+    ["cihat arman", "cihat", "uçan kaleci", "ucan kaleci"],
+    ["Gençlerbirliği", "Güneş", "Fenerbahçe"],
+    ["Türk"],
+    ["Kaleci"],
+    ["1915 doğumlu"],
+    ["Uçan Kaleci lakabıyla bilinir", "Fenerbahçe tarihinin sembol kalecilerindendir", "Kaptanlık ve refleksleriyle öne çıktı", "Türk futbolunun erken dönem ikonlarından"]
+  ),
+
+  f(
+    402,
+    "Baba Hakkı Yeten",
+    ["baba hakkı", "baba hakki", "hakkı yeten", "hakki yeten"],
+    ["Karagümrük", "Beşiktaş"],
+    ["Türk"],
+    ["Forvet", "İç Forvet"],
+    ["1910 doğumlu"],
+    ["Beşiktaş tarihinin en büyük sembollerinden", "Baba lakabıyla anılır", "Futbolculuk sonrası kulüp yöneticiliğiyle de iz bıraktı", "Lider karakteriyle bilinir"]
+  ),
+
+  f(
+    403,
+    "Gündüz Kılıç",
+    ["gündüz kılıç", "gunduz kilic", "baba gündüz", "baba gunduz"],
+    ["Galatasaray"],
+    ["Türk"],
+    ["Forvet", "Teknik Direktör"],
+    ["1918 doğumlu"],
+    ["Baba Gündüz lakabıyla bilinir", "Galatasaray kültürünün en önemli figürlerinden", "Futbolculuk ve teknik adamlıkta iz bıraktı", "Liderlik ve kulüp aidiyetiyle öne çıktı"]
+  ),
+
+  f(
+    404,
+    "Turgay Şeren",
+    ["turgay şeren", "turgay seren", "berlin panteri"],
+    ["Galatasaray"],
+    ["Türk"],
+    ["Kaleci"],
+    ["1932 doğumlu"],
+    ["Berlin Panteri lakabıyla bilinir", "Galatasaray'ın efsane kalecilerindendir", "Milli maç performanslarıyla hatırlanır", "Uzun yıllar Türk futbolunun sembol kalecisi oldu"]
+  ),
+
+  f(
+    405,
+    "Coşkun Özarı",
+    ["coşkun özarı", "coskun ozari"],
+    ["Galatasaray"],
+    ["Türk"],
+    ["Stoper", "Teknik Direktör"],
+    ["1931 doğumlu"],
+    ["Galatasaray savunmasının önemli isimlerindendi", "Milli takım teknik direktörlüğü yaptı", "Sakin liderliğiyle bilinir", "Türk futbolunda hem oyuncu hem hoca kimliğiyle iz bıraktı"]
+  ),
+
+  f(
+    406,
+    "Kadri Aytaç",
+    ["kadri aytaç", "kadri aytac"],
+    ["Beyoğluspor", "Galatasaray", "Fenerbahçe", "Mersin İdman Yurdu"],
+    ["Türk"],
+    ["Orta Saha"],
+    ["1931 doğumlu"],
+    ["Teknik kapasitesi yüksek orta sahalardandı", "Üç büyüklerin rekabet döneminde öne çıktı", "Milli takım formasını giydi", "Oyunu iki yönlü oynayan eski dönem yıldızlarındandı"]
+  ),
+
+  f(
+    407,
+    "Suat Mamat",
+    ["suat mamat"],
+    ["Galatasaray", "Beşiktaş"],
+    ["Türk"],
+    ["Forvet", "Kanat"],
+    ["1930 doğumlu"],
+    ["1954 Dünya Kupası kadrosunda yer aldı", "Hızlı hücum oyuncusu olarak bilinir", "Galatasaray ve Beşiktaş formaları giydi", "Milli takım tarihinin eski dönem figürlerindendir"]
+  ),
+
+  f(
+    408,
+    "Necmi Mutlu",
+    ["necmi mutlu", "necmi"],
+    ["Fenerbahçe"],
+    ["Türk"],
+    ["Kaleci"],
+    ["1930'lar doğumlu"],
+    ["Fenerbahçe'nin eski dönem kalecilerindendir", "Güven veren kaleciliğiyle hatırlanır", "Sarı-lacivertli kulüp tarihinin klasik isimlerinden", "Refleksleri ve çizgi hakimiyetiyle öne çıktı"]
+  ),
+
+  f(
+    409,
+    "Şükrü Gülesin",
+    ["şükrü gülesin", "sukru gulesin", "gülesin", "gulesin"],
+    ["Beşiktaş", "Palermo", "Lazio"],
+    ["Türk"],
+    ["Forvet"],
+    ["1922 doğumlu"],
+    ["İtalya'da forma giyen öncü Türk futbolculardandır", "Kornerden attığı gollerle anlatılır", "Beşiktaş tarihinin erken dönem yıldızlarındandır", "Güçlü şutlarıyla bilinir"]
+  ),
+
+  f(
+    410,
+    "Özcan Arkoç",
+    ["özcan arkoç", "ozcan arkoc"],
+    ["Fenerbahçe", "Austria Wien", "Hamburg"],
+    ["Türk"],
+    ["Kaleci"],
+    ["1939 doğumlu"],
+    ["Avrupa'da uzun süre forma giyen Türk kalecilerden", "Hamburg dönemiyle hatırlanır", "Refleks ve kaleci liderliğiyle bilinir", "Türkiye kaleci tarihinde önemli bir figürdür"]
+  ),
+
+  f(
+    411,
+    "Yılmaz Şen",
+    ["yılmaz şen", "yilmaz sen"],
+    ["Fenerbahçe"],
+    ["Türk"],
+    ["Stoper", "Sağ Bek"],
+    ["1943 doğumlu"],
+    ["Fenerbahçe'nin eski dönem savunma isimlerindendir", "Mücadeleci tarzıyla bilinir", "Milli takım formasını giydi", "Sert ve güvenilir savunmacı profiliyle hatırlanır"]
+  ),
+
+  f(
+    412,
+    "Cemil Turan",
+    ["cemil turan", "cemil"],
+    ["Sarıyer", "İstanbulspor", "Fenerbahçe"],
+    ["Türk"],
+    ["Forvet", "Santrfor"],
+    ["1947 doğumlu"],
+    ["Fenerbahçe'nin unutulmaz golcülerindendir", "Gol krallıklarıyla hatırlanır", "Ceza sahası bitiriciliği çok güçlüydü", "Milli takımda da önemli goller attı"]
+  ),
+
+  f(
+    413,
+    "Osman Arpacıoğlu",
+    ["osman arpacıoğlu", "osman arpacioglu"],
+    ["Balıkesirspor", "Fenerbahçe"],
+    ["Türk"],
+    ["Forvet", "Santrfor"],
+    ["1947 doğumlu"],
+    ["Fenerbahçe'nin golcü forvetlerindendir", "Hava topları ve bitiriciliğiyle bilinir", "Milli takımda da forma giydi", "Süper Lig'in eski dönem skorerlerinden"]
+  ),
+
+  f(
+    414,
+    "Selçuk Yula",
+    ["selçuk yula", "selcuk yula"],
+    ["Şekerspor", "Fenerbahçe", "Blau-Weiß Berlin", "Sarıyer"],
+    ["Türk"],
+    ["Forvet", "Santrfor"],
+    ["1959 doğumlu"],
+    ["Fenerbahçe'nin efsane golcülerinden", "Gol krallıklarıyla hatırlanır", "Ceza sahasında doğru yerde durmasıyla bilinir", "Taraftar hafızasında özel yeri vardır"]
+  ),
+
+  f(
+    415,
+    "İlyas Tüfekçi",
+    ["ilyas tüfekçi", "ilyas tufekci"],
+    ["Fenerbahçe", "Galatasaray"],
+    ["Türk"],
+    ["Forvet", "Kanat"],
+    ["1960 doğumlu"],
+    ["Hızı ve hücum sezgisiyle bilinir", "Fenerbahçe ve Galatasaray formaları giydi", "Milli takımda görev aldı", "80'ler Türk futbolunun etkili hücumcularındandı"]
+  ),
+
+  f(
+    416,
+    "Engin Verel",
+    ["engin verel", "engin"],
+    ["Fenerbahçe", "Galatasaray", "Lille"],
+    ["Türk"],
+    ["Kanat", "Forvet"],
+    ["1956 doğumlu"],
+    ["Süratiyle öne çıkan hücum oyuncusuydu", "Fransa'da forma giyen Türk futbolculardandır", "Fenerbahçe ve Galatasaray geçmişi vardır", "Çizgiye inen kanat oyunu ile hatırlanır"]
+  ),
+
+  f(
+    417,
+    "Müjdat Yetkiner",
+    ["müjdat yetkiner", "mujdat yetkiner", "müjdat", "mujdat"],
+    ["Fenerbahçe"],
+    ["Türk"],
+    ["Stoper", "Sağ Bek"],
+    ["1961 doğumlu"],
+    ["Fenerbahçe'nin sadakat sembollerinden", "Tek kulüp kültürüyle anılır", "Mücadeleci savunmasıyla bilinir", "Sarı-lacivertli taraftarın sevdiği isimlerdendir"]
+  ),
+
+  f(
+    418,
+    "Cem Pamiroğlu",
+    ["cem pamiroğlu", "cem pamiroglu"],
+    ["Fenerbahçe", "Sarıyer"],
+    ["Türk"],
+    ["Sol Bek", "Stoper"],
+    ["1957 doğumlu"],
+    ["Fenerbahçe savunmasının önemli isimlerindendi", "Sol çizgide güven veren oyunuyla bilinir", "Milli takım forması giydi", "Disiplinli savunmacı profiliyle hatırlanır"]
+  ),
+
+  f(
+    419,
+    "İsmail Kartal",
+    ["ismail kartal", "arap ismail"],
+    ["Sarıyer", "Fenerbahçe", "Denizlispor"],
+    ["Türk"],
+    ["Sağ Bek", "Stoper"],
+    ["1961 doğumlu"],
+    ["Arap İsmail lakabıyla bilinir", "Fenerbahçe'nin mücadeleci savunmacılarındandı", "Teknik adam kimliğiyle de tanındı", "Çalışkanlığı ve sertliğiyle hatırlanır"]
+  ),
+
+  f(
+    420,
+    "İskender Günen",
+    ["iskender günen", "iskender gunen"],
+    ["Trabzonspor"],
+    ["Türk"],
+    ["Orta Saha", "Forvet Arkası"],
+    ["1958 doğumlu"],
+    ["Trabzonspor'un unutulmaz orta saha isimlerinden", "Teknik kapasitesiyle öne çıktı", "Bordo-mavili kulüp tarihinin özel figürlerinden", "Oyun zekası ve paslarıyla bilinir"]
+  ),
+
+  f(
+    421,
+    "Ali Kemal Denizci",
+    ["ali kemal denizci", "ali kemal"],
+    ["Trabzonspor", "Fenerbahçe"],
+    ["Türk"],
+    ["Kanat", "Forvet"],
+    ["1950 doğumlu"],
+    ["Trabzonspor'un yükseliş döneminde önemli rol oynadı", "Hızı ve driplingleriyle bilinir", "Fenerbahçe forması da giydi", "Karadeniz futbolunun unutulmaz isimlerindendir"]
+  ),
+
+  f(
+    422,
+    "Orhan Kaynak",
+    ["orhan kaynak"],
+    ["Adanaspor", "Trabzonspor"],
+    ["Türk"],
+    ["Orta Saha"],
+    ["1949 doğumlu"],
+    ["Trabzonspor'un ilk şampiyonluk dönemlerinin önemli parçalarından", "Orta sahada istikrarıyla bilinir", "Mücadele gücü yüksek oyunculardandı", "Bordo-mavili tarih içinde önemli yeri vardır"]
+  ),
+
+  f(
+    423,
+    "Yusuf Tunaoğlu",
+    ["yusuf tunaoğlu", "yusuf tunaoglu", "sarışın fırtına", "sarisin firtina"],
+    ["Beşiktaş", "Altay"],
+    ["Türk"],
+    ["Orta Saha", "Forvet Arkası"],
+    ["1946 doğumlu"],
+    ["Sarışın Fırtına lakabıyla bilinir", "Beşiktaş tarihinin yetenekli oyuncularındandır", "Tekniği ve zarafetiyle anlatılır", "Türk futbolunun romantik figürlerinden biri kabul edilir"]
+  ),
+
+  f(
+    424,
+    "Sanlı Sarıalioğlu",
+    ["sanlı sarıalioğlu", "sanli sarialioglu", "sanlı", "sanli"],
+    ["Beşiktaş"],
+    ["Türk"],
+    ["Forvet", "Kanat"],
+    ["1945 doğumlu"],
+    ["Beşiktaş'ın eski dönem hücum yıldızlarındandır", "Sürati ve gol katkısıyla bilinir", "Milli takım forması giydi", "Siyah-beyazlı tarihin sevilen isimlerindendir"]
+  ),
+
+  f(
+    425,
+    "Vedat Okyar",
+    ["vedat okyar", "vedat"],
+    ["Bursaspor", "Beşiktaş", "Diyarbakırspor"],
+    ["Türk"],
+    ["Orta Saha", "Ön Libero"],
+    ["1945 doğumlu"],
+    ["Beşiktaş kaptanlığıyla hatırlanır", "Saha içi liderliği güçlüydü", "Futbol yorumculuğuyla da sevildi", "Mücadeleci orta saha karakteriydi"]
+  ),
+
+  f(
+    426,
+    "Mustafa Denizli",
+    ["mustafa denizli", "denizli"],
+    ["Altay", "Galatasaray"],
+    ["Türk"],
+    ["Forvet", "Sol Kanat"],
+    ["1949 doğumlu"],
+    ["Altay efsanesi olarak bilinir", "Golcü kimliğiyle öne çıktı", "Teknik direktörlükte üç büyüklerde şampiyonluk yaşadı", "Sol ayağı ve bitiriciliğiyle hatırlanır"]
+  ),
+
+  f(
+    427,
+    "Mehmet Özdilek",
+    ["mehmet özdilek", "mehmet ozdilek", "şifo mehmet", "sifo mehmet"],
+    ["Kahramanmaraşspor", "Beşiktaş"],
+    ["Türk"],
+    ["Orta Saha", "10 Numara"],
+    ["1966 doğumlu"],
+    ["Şifo Mehmet lakabıyla bilinir", "Beşiktaş'ın teknik orta saha liderlerindendi", "Kısa boyuna rağmen yüksek oyun zekasıyla öne çıktı", "Frikik ve pas kalitesiyle hatırlanır"]
+  ),
+
+  f(
+    428,
+    "Ertuğrul Sağlam",
+    ["ertuğrul sağlam", "ertugrul saglam"],
+    ["Samsunspor", "Beşiktaş"],
+    ["Türk"],
+    ["Forvet", "Santrfor"],
+    ["1969 doğumlu"],
+    ["Beşiktaş'ın güçlü forvetlerindendi", "Hava topları ve bitiricilikle öne çıktı", "Teknik direktörlükte de şampiyonluk yaşadı", "Milli takım formasını giydi"]
+  ),
+
+  f(
+    429,
+    "Saffet Sancaklı",
+    ["saffet sancaklı", "saffet sancakli"],
+    ["Beşiktaş", "Galatasaray", "Fenerbahçe", "Kocaelispor"],
+    ["Türk"],
+    ["Forvet", "Santrfor"],
+    ["1966 doğumlu"],
+    ["Üç büyüklerde forma giyen nadir Türk futbolculardandır", "Güçlü santrfor profiliyle bilinir", "Kocaelispor döneminde de iz bıraktı", "Milli takımda görev aldı"]
+  ),
+
+  f(
+    430,
+    "Recep Çetin",
+    ["recep çetin", "recep cetin", "takoz recep"],
+    ["Boluspor", "Beşiktaş", "Trabzonspor"],
+    ["Türk"],
+    ["Stoper", "Sağ Bek"],
+    ["1965 doğumlu"],
+    ["Takoz Recep lakabıyla bilinir", "Beşiktaş savunmasının sert isimlerinden", "Milli takım formasını uzun süre giydi", "Markaj gücü ve mücadeleciliğiyle hatırlanır"]
+  ),
+
+  f(
+    431,
+    "Tayfur Havutçu",
+    ["tayfur havutçu", "tayfur havutcu"],
+    ["Darmstadt", "Fenerbahçe", "Kocaelispor", "Beşiktaş"],
+    ["Türk"],
+    ["Orta Saha", "Ön Libero"],
+    ["1970 doğumlu"],
+    ["Beşiktaş orta sahasının istikrarlı isimlerindendi", "Oyun disipliniyle öne çıktı", "Milli takımda görev aldı", "Sakin pas oyunu ve liderliğiyle bilinir"]
+  ),
+
+  f(
+    432,
+    "Ogün Temizkanoğlu",
+    ["ogün temizkanoğlu", "ogun temizkanoglu", "ogün", "ogun"],
+    ["Trabzonspor", "Fenerbahçe", "Konyaspor", "Akçaabat Sebatspor"],
+    ["Türk"],
+    ["Stoper"],
+    ["1969 doğumlu"],
+    ["Milli takımın 90'lar savunma liderlerindendi", "Trabzonspor ve Fenerbahçe formaları giydi", "Sert ve kararlı stoper profiliyle bilinir", "Hava toplarında etkiliydi"]
+  ),
+
+  f(
+    433,
+    "Abdullah Ercan",
+    ["abdullah ercan", "abdullah"],
+    ["Trabzonspor", "Fenerbahçe", "Galatasaray", "İstanbulspor"],
+    ["Türk"],
+    ["Sol Bek", "Sol Kanat"],
+    ["1971 doğumlu"],
+    ["Sol çizgide çalışkanlığıyla bilinir", "Üç büyüklerde forma giyen isimlerdendir", "Milli takımda görev aldı", "Ofansif bindirmeleriyle hatırlanır"]
+  ),
+
+  f(
+    434,
+    "Ümit Davala",
+    ["ümit davala", "umit davala", "davala"],
+    ["Galatasaray", "Milan", "Inter", "Werder Bremen"],
+    ["Türk"],
+    ["Sağ Bek", "Sağ Kanat", "Orta Saha"],
+    ["1973 doğumlu"],
+    ["2002 Dünya Kupası'nda ay yıldızlı saç modeliyle hatırlanır", "Galatasaray ile UEFA Kupası kazandı", "Çok yönlü sağ çizgi oyuncusuydu", "Avrupa'da önemli kulüplerde forma giydi"]
+  ),
+
+  f(
+    435,
+    "Ergün Penbe",
+    ["ergün penbe", "ergun penbe", "penbe"],
+    ["Gençlerbirliği", "Galatasaray"],
+    ["Türk"],
+    ["Sol Bek", "Sol Kanat"],
+    ["1972 doğumlu"],
+    ["Galatasaray'ın UEFA Kupası kadrosunun önemli parçasıydı", "Sol çizgide istikrarıyla bilinir", "Sessiz ama güvenilir oyuncu profiliyle hatırlanır", "2002 Dünya Kupası kadrosunda yer aldı"]
+  ),
+
+  f(
+    436,
+    "Suat Kaya",
+    ["suat kaya"],
+    ["Konyaspor", "Galatasaray"],
+    ["Türk"],
+    ["Merkez Orta Saha", "Ön Libero"],
+    ["1967 doğumlu"],
+    ["Galatasaray'ın Avrupa başarısı döneminin savaşçı orta sahasıydı", "Top kapma ve pres gücüyle bilinir", "UEFA Kupası kazandı", "Mücadeleci karakteriyle sevildi"]
+  ),
+
+  f(
+    437,
+    "Hakan Balta",
+    ["hakan balta", "balta"],
+    ["Manisaspor", "Galatasaray"],
+    ["Türk"],
+    ["Sol Bek", "Stoper"],
+    ["1983 doğumlu"],
+    ["Galatasaray savunmasında uzun yıllar görev yaptı", "Sol bekten stopere evrilen güvenilir oyuncuydu", "Milli takım formasını giydi", "Sakin ve pozisyon bilgisi güçlü savunmacıydı"]
+  ),
+
+  f(
+    438,
+    "Servet Çetin",
+    ["servet çetin", "servet cetin", "servet"],
+    ["Denizlispor", "Fenerbahçe", "Sivasspor", "Galatasaray", "Eskişehirspor"],
+    ["Türk"],
+    ["Stoper"],
+    ["1981 doğumlu"],
+    ["Fizik gücüyle öne çıkan stoperdi", "Milli takım savunmasında önemli rol aldı", "Hava toplarında etkiliydi", "Sert ve temaslı oyunu severdi"]
+  ),
+
+  f(
+    439,
+    "Gökhan Zan",
+    ["gökhan zan", "gokhan zan"],
+    ["Beşiktaş", "Galatasaray"],
+    ["Türk"],
+    ["Stoper"],
+    ["1981 doğumlu"],
+    ["Milli takım stoper rotasyonunda uzun süre yer aldı", "Beşiktaş ve Galatasaray formaları giydi", "Fiziksel mücadele gücüyle bilinir", "Hava toplarında etkili savunmacıydı"]
+  ),
+
+  f(
+    440,
+    "Sabri Sarıoğlu",
+    ["sabri sarıoğlu", "sabri sarioglu", "sabri", "reis sabri"],
+    ["Galatasaray", "Göztepe"],
+    ["Türk"],
+    ["Sağ Bek", "Sağ Kanat"],
+    ["1984 doğumlu"],
+    ["Galatasaray taraftarının kült isimlerinden", "Bitmeyen enerjisiyle bilinir", "Sağ çizgide uzun yıllar oynadı", "Uzak mesafe şutları ve ortalarıyla hatırlanır"]
+  ),
+
+  f(
+    441,
+    "Ayhan Akman",
+    ["ayhan akman", "ayhan"],
+    ["Gaziantepspor", "Beşiktaş", "Galatasaray"],
+    ["Türk"],
+    ["Merkez Orta Saha", "Ön Libero"],
+    ["1977 doğumlu"],
+    ["Galatasaray orta sahasında uzun yıllar oynadı", "Top tekniği ve sakinliğiyle bilinir", "Beşiktaş geçmişi de vardır", "Süper Lig'in istikrarlı orta sahalarındandı"]
+  ),
+
+  f(
+    442,
+    "Mehmet Aurelio",
+    ["mehmet aurelio", "aurelio", "marco aurelio"],
+    ["Trabzonspor", "Fenerbahçe", "Real Betis", "Beşiktaş"],
+    ["Türk", "Brezilya kökenli"],
+    ["Ön Libero", "Merkez Orta Saha"],
+    ["1977 doğumlu"],
+    ["Türk Milli Takımı'nın devşirme sembol isimlerindendir", "Fenerbahçe orta sahasında çok etkiliydi", "Top kapma ve pas dengesini birleştirirdi", "Euro 2008 kadrosuyla hatırlanır"]
+  ),
+
+  f(
+    443,
+    "İbrahim Üzülmez",
+    ["ibrahim üzülmez", "ibrahim uzulmez", "deli ibrahim"],
+    ["Gaziantepspor", "Beşiktaş"],
+    ["Türk"],
+    ["Sol Bek"],
+    ["1974 doğumlu"],
+    ["Deli İbrahim lakabıyla bilinir", "Beşiktaş'ın mücadeleci sol beklerindendi", "Hırsı ve temposuyla öne çıktı", "Taraftarla güçlü bağı olan kült isimlerdendir"]
+  ),
+
+  f(
+    444,
+    "İbrahim Toraman",
+    ["ibrahim toraman", "toraman"],
+    ["Gaziantepspor", "Beşiktaş", "Sivasspor"],
+    ["Türk"],
+    ["Stoper", "Sağ Bek"],
+    ["1981 doğumlu"],
+    ["Beşiktaş savunmasının önemli isimlerindendi", "Farklı savunma bölgelerinde oynayabilirdi", "Milli takım formasını giydi", "Mücadele gücü ve sertliğiyle bilinir"]
+  ),
+
+  f(
+    445,
+    "Ümit Özat",
+    ["ümit özat", "umit ozat", "özat", "ozat"],
+    ["Gençlerbirliği", "Fenerbahçe", "Köln"],
+    ["Türk"],
+    ["Sol Bek", "Orta Saha"],
+    ["1976 doğumlu"],
+    ["Fenerbahçe kaptanlığı yaptı", "Sol ayağı ve liderliğiyle bilinir", "Almanya'da Köln forması giydi", "Saha içinde sert ve karakterli duruşuyla hatırlanır"]
+  ),
+
+  f(
+    446,
+    "Tolunay Kafkas",
+    ["tolunay kafkas", "tolunay"],
+    ["Trabzonspor", "Galatasaray", "Bursaspor"],
+    ["Türk"],
+    ["Orta Saha", "Ön Libero"],
+    ["1968 doğumlu"],
+    ["Sert orta saha oyunuyla bilinir", "Trabzonspor ve Galatasaray formaları giydi", "Milli takımda görev aldı", "Mücadele gücü yüksek oyunculardandı"]
+  ),
+
+  f(
+    447,
+    "Gökdeniz Karadeniz",
+    ["gökdeniz karadeniz", "gokdeniz karadeniz", "gökdeniz", "gokdeniz"],
+    ["Trabzonspor", "Rubin Kazan"],
+    ["Türk"],
+    ["Kanat", "Forvet Arkası"],
+    ["1980 doğumlu"],
+    ["Trabzonspor'un modern dönem yıldızlarındandır", "Rubin Kazan ile Rusya'da iz bıraktı", "Hızlı ve teknik hücum oyuncusuydu", "Milli takım formasını giydi"]
+  ),
+
+  f(
+    448,
+    "Fatih Tekke",
+    ["fatih tekke", "tekke", "sultan fatih"],
+    ["Trabzonspor", "Zenit", "Beşiktaş", "Ankaragücü", "Orduspor"],
+    ["Türk"],
+    ["Forvet", "Santrfor"],
+    ["1977 doğumlu"],
+    ["Trabzonspor'un golcü kaptanlarındandı", "Sultan lakabıyla bilinir", "Sırtı dönük oyunu ve bitiriciliği güçlüydü", "Zenit ile Avrupa'da başarı yaşadı"]
+  ),
+
+  f(
+    449,
+    "Serhat Akın",
+    ["serhat akın", "serhat akin", "serhat"],
+    ["Fenerbahçe", "Anderlecht", "Kocaelispor", "Karlsruher SC"],
+    ["Türk"],
+    ["Forvet", "Kanat"],
+    ["1981 doğumlu"],
+    ["Fenerbahçe'nin genç yaşta parlayan hücumcularındandı", "Hızı ve bitiriciliğiyle hatırlanır", "Avrupa'da Anderlecht forması giydi", "Milli takımda da görev aldı"]
+  ),
+
+  f(
+    450,
+    "Uğur Boral",
+    ["uğur boral", "ugur boral"],
+    ["Gençlerbirliği", "Fenerbahçe", "Samsunspor", "Beşiktaş"],
+    ["Türk"],
+    ["Sol Kanat", "Sol Bek"],
+    ["1982 doğumlu"],
+    ["Euro 2008 performansıyla hatırlanır", "Sol çizgide hem bek hem kanat oynayabildi", "Fenerbahçe döneminde önemli maçlara çıktı", "Çalışkan ve tempolu oyuncuydu"]
+  ),
+
+  f(
+    451,
+    "Necati Ateş",
+    ["necati ateş", "necati ates", "necati"],
+    ["Adanaspor", "Galatasaray", "Real Sociedad", "Antalyaspor", "Eskişehirspor"],
+    ["Türk"],
+    ["Forvet", "Santrfor"],
+    ["1980 doğumlu"],
+    ["Galatasaray dönemindeki kritik golleriyle bilinir", "Ceza sahasında sezgili bir bitiriciydi", "İspanya'da Real Sociedad forması giydi", "Süper Lig'in tecrübeli golcülerindendi"]
+  ),
+
+  f(
+    452,
+    "Mehmet Yozgatlı",
+    ["mehmet yozgatlı", "mehmet yozgatli"],
+    ["Galatasaray", "Adanaspor", "Fenerbahçe", "Beşiktaş"],
+    ["Türk"],
+    ["Sağ Kanat", "Orta Saha"],
+    ["1979 doğumlu"],
+    ["Üç büyüklerde forma giyen isimlerdendir", "Sağ kanatta tekniği ve ortalarıyla bilinir", "Süper Lig'in deneyimli kanat oyuncularındandı", "Kariyeri boyunca farklı büyük kulüplerde oynadı"]
+  ),
+
+  f(
+    453,
+    "Volkan Babacan",
+    ["volkan babacan", "babacan"],
+    ["Fenerbahçe", "İstanbul Başakşehir"],
+    ["Türk"],
+    ["Kaleci"],
+    ["1988 doğumlu"],
+    ["A Milli Takım kalesinde önemli maçlara çıktı", "Başakşehir döneminde istikrarlı performans verdi", "Uzun boyu ve çizgi refleksleriyle bilinir", "Fenerbahçe altyapısından yetişti"]
+  ),
+
+  f(
+    454,
+    "Emre Aşık",
+    ["emre aşık", "emre asik"],
+    ["Balıkesirspor", "Fenerbahçe", "İstanbulspor", "Galatasaray", "Beşiktaş"],
+    ["Türk"],
+    ["Stoper"],
+    ["1973 doğumlu"],
+    ["Üç büyüklerde forma giyen savunmacılardandır", "Sert ve temaslı oyunu severdi", "Milli takım formasını giydi", "Tecrübeli stoper kimliğiyle hatırlanır"]
+  ),
+
+  f(
+    455,
+    "Gökhan Töre",
+    ["gökhan töre", "gokhan tore"],
+    ["Chelsea altyapısı", "Hamburg", "Rubin Kazan", "Beşiktaş", "West Ham"],
+    ["Türk"],
+    ["Sağ Kanat", "Sol Kanat"],
+    ["1992 doğumlu"],
+    ["Beşiktaş dönemindeki patlayıcı kanat oyunuyla hatırlanır", "Dripling ve bire birleri güçlüydü", "Almanya ve İngiltere bağlantılı kariyeri vardır", "Milli takımda görev aldı"]
+  ),
+
+  f(
+    456,
+    "Olcan Adın",
+    ["olcan adın", "olcan adin", "olcan"],
+    ["Gaziantepspor", "Trabzonspor", "Galatasaray", "Akhisarspor"],
+    ["Türk"],
+    ["Sol Kanat", "Sol Bek"],
+    ["1985 doğumlu"],
+    ["Trabzonspor döneminde hücum katkısıyla öne çıktı", "Sol ayağı etkiliydi", "Kanat ve bek oynayabilen çok yönlü oyuncuydu", "Galatasaray forması da giydi"]
+  ),
+
+  f(
+    457,
+    "Mevlüt Erdinç",
+    ["mevlüt erdinç", "mevlut erdinc", "mevlüt", "mevlut"],
+    ["Sochaux", "PSG", "Rennes", "Saint-Étienne", "Başakşehir", "Fenerbahçe"],
+    ["Türk", "Fransa doğumlu"],
+    ["Forvet", "Santrfor"],
+    ["1987 doğumlu"],
+    ["Fransa Ligue 1'de uzun süre forma giydi", "A Milli Takım'da goller attı", "Hızlı ve direkt forvet profiliyle bilinir", "PSG geçmişiyle hatırlanır"]
+  ),
+
+  f(
+    458,
+    "Halil Altıntop",
+    ["halil altıntop", "halil altintop", "halil"],
+    ["Kaiserslautern", "Schalke 04", "Eintracht Frankfurt", "Trabzonspor", "Augsburg"],
+    ["Türk", "Almanya doğumlu"],
+    ["Forvet", "Forvet Arkası"],
+    ["1982 doğumlu"],
+    ["Bundesliga'da uzun yıllar forma giydi", "Hamit Altıntop'un ikiz kardeşidir", "Tekniği ve bağlantı oyunuyla bilinir", "A Milli Takım formasını giydi"]
+  ),
+
+  f(
+    459,
+    "Cenk Tosun",
+    ["cenk tosun", "cenk", "tosun paşa", "tosun pasa"],
+    ["Gaziantepspor", "Beşiktaş", "Everton", "Crystal Palace"],
+    ["Türk", "Almanya doğumlu"],
+    ["Forvet", "Santrfor"],
+    ["1991 doğumlu"],
+    ["Beşiktaş'taki golcü sezonlarıyla hatırlanır", "Premier League'e yüksek bonservisle transfer oldu", "A Milli Takım'da kritik goller attı", "Ceza sahası bitiriciliğiyle bilinir"]
+  ),
 ];

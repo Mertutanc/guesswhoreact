@@ -294,7 +294,7 @@ export const gameCharacters: GuessItem[] = [
   createGameCharacter(
     1026,
     "Peter Parker",
-    ["peter", "peter parker", "spider-man", "spiderman", "örümcek adam"],
+    ["peter", "peter parker"],
     ["Süper kahraman", "Açık dünya aksiyon", "PlayStation klasiği"],
     ["Kırmızı ve mavi ağ desenli kostüm", "Beyaz büyük örümcek logosu", "Ağ atıcılar"],
     ["New York (Manhattan)", "Günlük Bugle", "Marvel Evreni"],
@@ -304,7 +304,7 @@ export const gameCharacters: GuessItem[] = [
   createGameCharacter(
     1027,
     "Miles Morales",
-    ["miles", "miles morales", "spider-man", "spiderman"],
+    ["miles", "miles morales"],
     ["Süper kahraman", "Açık dünya aksiyon"],
     ["Siyah ve kırmızı örümcek kostümü", "Kapüşonlu ceket (bazen)"],
     ["New York (Harlem)", "Marvel Evreni"],
@@ -994,7 +994,7 @@ export const gameCharacters: GuessItem[] = [
   createGameCharacter(
     1096,
     "Jin Kazama",
-    ["jin", "jin kazama"],
+    ["jin kazama"],
     ["Dövüş oyunu", "3D arena", "Aile dramı"],
     ["Siyah saç", "Alev desenli pantolon", "Dövüş eldiveni"],
     ["Mishima ailesi", "Iron Fist turnuvası", "Devil Gene"],
@@ -1639,5 +1639,407 @@ export const gameCharacters: GuessItem[] = [
     ["Ayı animatronik", "Silindir şapka", "Mikrofon"],
     ["Pizzacı restoranı", "Gece vardiyası", "Güvenlik kameraları"],
     ["Animatronik maskot", "Gece hareket eder", "Korku ikonu"]
-  )
+  ),
+
+
+  createGameCharacter(
+    1161,
+    "Princess Peach",
+    ["peach", "princess peach", "prenses peach"],
+    ["Platform oyunu", "Nintendo", "Aile dostu seri"],
+    ["Pembe elbise", "Taç", "Sarışın saç", "Kraliyet görünümü"],
+    ["Mantar Krallığı", "Mario evreni", "Bowser'ın şatoları"],
+    ["Kraliyet figürü", "Sık sık kaçırılmasıyla bilinir", "Tenis ve kart yarışlarında da görünür"]
+  ),
+
+  createGameCharacter(
+    1162,
+    "Ganondorf",
+    ["ganondorf", "ganon"],
+    ["Macera oyunu", "Nintendo", "Fantastik aksiyon"],
+    ["Koyu zırh", "Kızıl saç", "Devasa ve tehditkar duruş"],
+    ["Hyrule", "Triforce", "Karanlık krallıklar"],
+    ["Güç üçgeniyle bağlantılıdır", "Link'in ezeli düşmanıdır", "Karanlık büyü kullanır"]
+  ),
+
+  createGameCharacter(
+    1163,
+    "Dr. Eggman",
+    ["dr eggman", "eggman", "doctor eggman", "dr robotnik", "robotnik"],
+    ["Platform oyunu", "Sega", "Hız temalı seri"],
+    ["Kocaman bıyık", "Kırmızı siyah kıyafet", "Yuvarlak gözlük"],
+    ["Sonic evreni", "Robot orduları", "Teknolojik üsler"],
+    ["Sonic'in ezeli rakibidir", "Dev robotlar tasarlar", "Kaos zümrütlerinin peşindedir"]
+  ),
+
+  createGameCharacter(
+    1164,
+    "Shadow the Hedgehog",
+    ["shadow", "shadow the hedgehog"],
+    ["Platform oyunu", "Sega", "Anti-kahraman hikayesi"],
+    ["Siyah kırmızı kirpi", "Paten benzeri ayakkabılar", "Kırmızı gözler"],
+    ["Sonic evreni", "GUN organizasyonu", "Uzay kolonisi ARK"],
+    ["Ultimate Lifeform olarak bilinir", "Chaos Control kullanır", "Sonic'e benzer ama daha karanlık tondadır"]
+  ),
+
+  createGameCharacter(
+    1165,
+    "Amy Rose",
+    ["amy", "amy rose"],
+    ["Platform oyunu", "Sega", "Renkli macera"],
+    ["Pembe kirpi", "Kırmızı elbise", "Büyük çekiç"],
+    ["Sonic evreni", "Green Hill çevresi", "Arkadaş ekibi"],
+    ["Piko Piko çekiç kullanır", "Enerjik ve neşelidir", "Sonic'e hayrandır"]
+  ),
+
+  createGameCharacter(
+    1166,
+    "Steve",
+    ["steve", "minecraft steve"],
+    ["Sandbox oyunu", "Hayatta kalma", "Yaratıcılık temalı"],
+    ["Kare bloklu vücut", "Mavi tişört", "Mor pantolon"],
+    ["Bloklardan oluşan dünya", "Madenler", "Nether ve End boyutları"],
+    ["Kazma kullanır", "Blok kırıp inşa eder", "Oyuncunun klasik avatarıdır"]
+  ),
+
+  createGameCharacter(
+    1167,
+    "Alex",
+    ["alex", "minecraft alex"],
+    ["Sandbox oyunu", "Hayatta kalma", "Yaratıcılık temalı"],
+    ["Turuncu saç", "Yeşil tişört", "Bloklu karakter modeli"],
+    ["Bloklardan oluşan dünya", "Madenler", "Köyler ve biyomlar"],
+    ["Oyuncu avatarıdır", "İnşa ve keşif yapar", "Steve ile birlikte temel karakterlerden biridir"]
+  ),
+
+  createGameCharacter(
+    1168,
+    "Creeper",
+    ["creeper", "kriper"],
+    ["Sandbox oyunu", "Hayatta kalma", "İkonik düşman"],
+    ["Yeşil pikselli gövde", "Dört ayak", "Sessizce yaklaşan yüz ifadesi"],
+    ["Bloklardan oluşan dünya", "Gece vakti", "Maden çevreleri"],
+    ["Sessizce yaklaşır", "Oyuncuları şaşırtmasıyla bilinir", "Oyunun en tanınan yaratıklarından biridir"]
+  ),
+
+  createGameCharacter(
+    1169,
+    "Ender Dragon",
+    ["ender dragon", "ender ejderhası", "end ejderhası"],
+    ["Sandbox oyunu", "Hayatta kalma", "Final boss"],
+    ["Siyah dev ejderha", "Mor gözler", "Kanatlar"],
+    ["The End boyutu", "Obsidyen kuleler", "Endermanler"],
+    ["Oyunun büyük final düşmanıdır", "End kristalleriyle bağlantılıdır", "Uçarak savaşır"]
+  ),
+
+  createGameCharacter(
+    1170,
+    "Toad",
+    ["toad"],
+    ["Platform oyunu", "Nintendo", "Aile dostu seri"],
+    ["Mantar şapkalı küçük karakter", "Mavi yelek", "Sevimli görünüm"],
+    ["Mantar Krallığı", "Prenses Peach'in sarayı", "Mario evreni"],
+    ["Yardımcı figürdür", "Mantar halkından biridir", "Parti ve yarış oyunlarında sık görünür"]
+  ),
+
+  createGameCharacter(
+    1171,
+    "Waluigi",
+    ["waluigi"],
+    ["Parti oyunu", "Spor oyunları", "Nintendo yan karakteri"],
+    ["Mor şapka", "Uzun ince vücut", "Kıvrık bıyık"],
+    ["Mario evreni", "Kart yarışları", "Tenis kortları"],
+    ["Luigi'nin zıt karakteri gibidir", "Abartılı hareketleriyle bilinir", "Wario ile ikili oluşturur"]
+  ),
+
+  createGameCharacter(
+    1172,
+    "Princess Daisy",
+    ["daisy", "princess daisy", "prenses daisy"],
+    ["Parti oyunu", "Spor oyunları", "Nintendo"],
+    ["Turuncu sarı elbise", "Taç", "Kısa kahverengi saç"],
+    ["Sarasaland", "Mario evreni", "Spor turnuvaları"],
+    ["Enerjik prensestir", "Peach'in yakın arkadaşı olarak görülür", "Mario Kart ve spor oyunlarında sık yer alır"]
+  ),
+
+  createGameCharacter(
+    1173,
+    "Tom Nook",
+    ["tom nook", "nook"],
+    ["Yaşam simülasyonu", "Nintendo", "Ada ve kasaba yönetimi"],
+    ["Rakuna benzer görünüm", "Gömlek veya iş kıyafeti", "Sakin yüz ifadesi"],
+    ["Animal Crossing kasabaları", "Ada yerleşimi", "Nook Inc."],
+    ["Ev kredileriyle bilinir", "Dükkan ve ada işlerini yönetir", "Oyuncuya başlangıçta rehberlik eder"]
+  ),
+
+  createGameCharacter(
+    1174,
+    "Isabelle",
+    ["isabelle", "shizue"],
+    ["Yaşam simülasyonu", "Nintendo", "Sevimli kasaba yönetimi"],
+    ["Sarı köpek karakter", "Topuz saç", "Ofis kıyafeti"],
+    ["Animal Crossing kasabası", "Belediye binası", "Ada yönetimi"],
+    ["Oyuncuya yardımcı olur", "Güler yüzlü asistan figürüdür", "Duyurularla bilinir"]
+  ),
+
+  createGameCharacter(
+    1175,
+    "Villager",
+    ["villager", "animal crossing villager"],
+    ["Yaşam simülasyonu", "Nintendo", "Kasaba kurma"],
+    ["Basit sevimli avatar", "Değişebilir kıyafetler", "Yuvarlak yüz"],
+    ["Animal Crossing kasabası", "Ada yaşamı", "Komşular"],
+    ["Balık tutar", "Böcek toplar", "Eşya ve ev düzenler"]
+  ),
+
+  createGameCharacter(
+    1176,
+    "Inkling",
+    ["inkling", "splatoon inkling"],
+    ["Takım tabanlı nişancı", "Nintendo", "Renkli rekabet"],
+    ["Mürekkep saçları", "Spor kıyafetler", "Su tabancası benzeri silahlar"],
+    ["Inkopolis", "Mürekkep savaşları", "Renkli arenalar"],
+    ["Mürekkebe dönüşebilir", "Alan boyayarak puan toplar", "Kalamar formuna geçer"]
+  ),
+
+  createGameCharacter(
+    1177,
+    "Jin Sakai",
+    ["jin sakai", "ghost of tsushima"],
+    ["Aksiyon-macera", "Açık dünya", "Samuray temalı"],
+    ["Samuray zırhı", "Katana", "Maske ve pelerin"],
+    ["Tsushima Adası", "Moğol istilası", "Japonya"],
+    ["Samuray kuralları ile hayalet taktikleri arasında kalır", "Rüzgarı takip eder", "Onur ve hayatta kalma temalarıyla bilinir"]
+  ),
+
+  createGameCharacter(
+    1178,
+    "Sly Cooper",
+    ["sly", "sly cooper"],
+    ["Platform oyunu", "Gizlilik", "PlayStation klasiği"],
+    ["Rakun görünümü", "Mavi şapka", "Kanca uçlu baston"],
+    ["Soyguncu aile mirası", "Renkli şehirler", "Cooper çetesi"],
+    ["Kibar hırsızdır", "Çatılarda sessizce gezer", "Bastonuyla tırmanır"]
+  ),
+
+  createGameCharacter(
+    1179,
+    "Jak",
+    ["jak"],
+    ["Aksiyon-platform", "PlayStation klasiği", "Bilim kurgu ve fantastik karışımı"],
+    ["Sivri kulaklar", "Yeşil sarı kıyafetler", "Genç maceracı görünüm"],
+    ["Eco enerjisi", "Haven City", "Precursor mirası"],
+    ["Daxter ile gezer", "Eco güçleriyle bağlantılıdır", "Sessiz kahramandan asi karaktere dönüşür"]
+  ),
+
+  createGameCharacter(
+    1180,
+    "Daxter",
+    ["daxter"],
+    ["Aksiyon-platform", "PlayStation klasiği", "Komedi yancısı"],
+    ["Turuncu küçük yaratık", "Uzun kulaklar", "Gelincik benzeri görünüm"],
+    ["Precursor dünyası", "Haven City", "Jak'in maceraları"],
+    ["Konuşkan yancıdır", "Jak'in en yakın dostudur", "Küçük boyuna rağmen cesaret gösterir"]
+  ),
+
+  createGameCharacter(
+    1181,
+    "Cole MacGrath",
+    ["cole", "cole macgrath"],
+    ["Açık dünya aksiyon", "Süper güç temalı", "PlayStation serisi"],
+    ["Tıraşlı kafa", "Kurier çantası", "Elektrik efektleri"],
+    ["Empire City", "New Marais", "Süper güç salgını"],
+    ["Elektrik güçleri kullanır", "Şehirde çatılardan gezer", "İyi veya kötü seçimlerle şekillenir"]
+  ),
+
+  createGameCharacter(
+    1182,
+    "Sweet Tooth",
+    ["sweet tooth", "needles kane"],
+    ["Araç savaşı", "PlayStation klasiği", "Karanlık turnuva"],
+    ["Palyaço maskesi", "Alevli kafa", "Dondurma kamyonu"],
+    ["Twisted Metal turnuvası", "Kaotik arenalar", "Araç savaşları"],
+    ["Dondurma kamyonuyla bilinir", "Korkutucu palyaço teması vardır", "Serinin maskot kötü figürüdür"]
+  ),
+
+  createGameCharacter(
+    1183,
+    "Amaterasu",
+    ["amaterasu", "okami"],
+    ["Aksiyon-macera", "Mitolojik sanat tarzı", "Kült klasik"],
+    ["Beyaz kurt", "Kırmızı desenler", "Sırtında ilahi ayna"],
+    ["Japon mitolojisi", "Fırça darbeleriyle değişen dünya", "Doğa ruhları"],
+    ["Tanrıça formudur", "Göksel fırça kullanır", "Dünyaya renk ve yaşam getirir"]
+  ),
+
+  createGameCharacter(
+    1184,
+    "Phoenix Wright",
+    ["phoenix", "phoenix wright", "ace attorney"],
+    ["Görsel roman", "Mahkeme simülasyonu", "Dedektiflik"],
+    ["Mavi takım elbise", "Dikenli saç", "Parmakla itiraz pozu"],
+    ["Mahkeme salonu", "Dedektiflik sahneleri", "Tanık sorguları"],
+    ["Avukattır", "İtirazlarıyla bilinir", "Çelişkileri kanıtlarla yakalar"]
+  ),
+
+  createGameCharacter(
+    1185,
+    "Miles Edgeworth",
+    ["edgeworth", "miles edgeworth"],
+    ["Görsel roman", "Mahkeme simülasyonu", "Rakip savcı"],
+    ["Bordo takım elbise", "Beyaz fular", "Ciddi duruş"],
+    ["Mahkeme salonu", "Savcılık ofisi", "Dedektiflik olayları"],
+    ["Savcıdır", "Phoenix Wright'ın rakibidir", "Mantıklı ve soğukkanlı tavrıyla bilinir"]
+  ),
+
+  createGameCharacter(
+    1186,
+    "Professor Layton",
+    ["professor layton", "layton", "hershel layton"],
+    ["Bulmaca oyunu", "Macera", "Dedektiflik atmosferi"],
+    ["Silindir şapka", "Kahverengi palto", "Beyefendi görünüm"],
+    ["Gizemli kasabalar", "Bulmaca dolu olaylar", "Avrupa esintili mekanlar"],
+    ["Bulmaca çözme ustasıdır", "Centilmen tavrıyla bilinir", "Luke ile yolculuk eder"]
+  ),
+
+  createGameCharacter(
+    1187,
+    "Monokuma",
+    ["monokuma"],
+    ["Görsel roman", "Psikolojik gizem", "Sınıf yargılamaları"],
+    ["Yarı beyaz yarı siyah ayı", "Kırmızı göz", "Tuhaf gülümseme"],
+    ["Hope's Peak Academy", "Sınıf davaları", "Gizemli oyun düzeni"],
+    ["Maskot ve yönetici figürdür", "Kural koyar", "Alaycı tavrıyla bilinir"]
+  ),
+
+  createGameCharacter(
+    1188,
+    "Morgana",
+    ["morgana", "persona morgana"],
+    ["JRPG", "Sosyal simülasyon", "Şehir ve bilinçaltı dünyası"],
+    ["Siyah beyaz kedi görünümü", "Sarı fular", "Büyük mavi gözler"],
+    ["Tokyo", "Metaverse", "Phantom Thieves"],
+    ["Konuşan kedi gibidir", "Takımın rehberidir", "Otobüse dönüşmesiyle bilinir"]
+  ),
+
+  createGameCharacter(
+    1189,
+    "Ahri",
+    ["ahri"],
+    ["MOBA", "Takım tabanlı rekabet", "Fantastik şampiyon evreni"],
+    ["Tilki kulakları", "Dokuz kuyruk", "Büyülü küre"],
+    ["Runeterra", "Ionia", "Sihirli ormanlar"],
+    ["Dokuz kuyruklu büyücüdür", "Hızlı hareket eder", "Cazibe ve ruh enerjisiyle bilinir"]
+  ),
+
+  createGameCharacter(
+    1190,
+    "Yasuo",
+    ["yasuo"],
+    ["MOBA", "Takım tabanlı rekabet", "Samuray esintili şampiyon"],
+    ["Rüzgarlı pelerin", "Katana", "Dağınık siyah saç"],
+    ["Runeterra", "Ionia", "Sürgün yolculuğu"],
+    ["Rüzgar gücü kullanır", "Sürgün edilmiş kılıç ustasıdır", "Hızlı ve riskli oyun tarzıyla bilinir"]
+  ),
+
+  createGameCharacter(
+    1191,
+    "Jinx",
+    ["jinx"],
+    ["MOBA", "Takım tabanlı rekabet", "Kaotik nişancı"],
+    ["Mavi uzun saç", "Renkli punk kıyafet", "Büyük silahlar"],
+    ["Piltover", "Zaun", "Runeterra"],
+    ["Kaotik enerjisiyle bilinir", "Roket ve makineli silah kullanır", "Kardeşiyle karmaşık ilişkisi vardır"]
+  ),
+
+  createGameCharacter(
+    1192,
+    "Lux",
+    ["lux", "luxanna crownguard"],
+    ["MOBA", "Takım tabanlı rekabet", "Işık büyücüsü"],
+    ["Sarışın saç", "Parlak zırh", "Asa"],
+    ["Demacia", "Runeterra", "Büyünün yasaklandığı krallık"],
+    ["Işık büyüsü kullanır", "Demacia soylusudur", "Pozitif ve idealist karakterdir"]
+  ),
+
+  createGameCharacter(
+    1193,
+    "Teemo",
+    ["teemo"],
+    ["MOBA", "Takım tabanlı rekabet", "Maskot şampiyon"],
+    ["Küçük yordle", "Şapka ve gözlük", "Üfleme borusu"],
+    ["Bandle City", "Runeterra", "Orman yolları"],
+    ["Mantar tuzaklarıyla bilinir", "Sevimli ama sinir bozucu görülebilir", "Keşifçi karakterdir"]
+  ),
+
+  createGameCharacter(
+    1194,
+    "Ezreal",
+    ["ezreal"],
+    ["MOBA", "Takım tabanlı rekabet", "Maceracı şampiyon"],
+    ["Sarı saç", "Büyülü eldiven", "Kaşif kıyafeti"],
+    ["Runeterra", "Shurima harabeleri", "Piltover bağlantısı"],
+    ["Kaşif ve hazine avcısıdır", "Büyülü atışlar yapar", "Kendine güveni yüksektir"]
+  ),
+
+  createGameCharacter(
+    1195,
+    "Geralt'ın Roach'ı",
+    ["roach", "roach atı", "geraltın atı"],
+    ["Aksiyon RPG", "Açık dünya", "Fantastik evren"],
+    ["Kahverengi at", "Eyer ve çantalar", "Yoldaş hayvan görünümü"],
+    ["Kıta", "Canavar avı yolları", "Köyler ve ormanlar"],
+    ["Geralt'ın atıdır", "Bazen tuhaf yerlere çıkmasıyla mizah konusu olur", "Uzun yolculuklarda kullanılır"]
+  ),
+
+  createGameCharacter(
+    1196,
+    "Paarthurnax",
+    ["paarthurnax"],
+    ["Aksiyon RPG", "Açık dünya", "Ejderha temalı fantastik oyun"],
+    ["Yaşlı ejderha", "Büyük kanatlar", "Dağ zirvesinde duran heybetli görünüm"],
+    ["Skyrim", "High Hrothgar", "Ejderha dili"],
+    ["Bilge ejderhadır", "Ana karaktere rehberlik eder", "Geçmişiyle yüzleşen bir figürdür"]
+  ),
+
+  createGameCharacter(
+    1197,
+    "Dragonborn",
+    ["dragonborn", "dovahkiin", "dovakin"],
+    ["Aksiyon RPG", "Açık dünya", "Fantastik keşif"],
+    ["Değişebilir karakter görünümü", "Nord zırhı", "Miğfer ve kılıç"],
+    ["Skyrim", "Ejderhalar", "Tamriel"],
+    ["Ejderha ruhu emer", "Thu'um yani bağırış gücü kullanır", "Oyuncunun ana karakteridir"]
+  ),
+
+  createGameCharacter(
+    1198,
+    "Vault Dweller",
+    ["vault dweller", "sığınak sakini", "vault survivor"],
+    ["RPG", "Kıyamet sonrası", "Retro-fütüristik dünya"],
+    ["Mavi sarı Vault tulumu", "Pip-Boy", "Sığınak ekipmanı"],
+    ["Nükleer çorak arazi", "Vault sistemleri", "Retro Amerika"],
+    ["Sığınaktan dış dünyaya çıkar", "Pip-Boy kullanır", "Seçimlerle hikayesi şekillenir"]
+  ),
+
+  createGameCharacter(
+    1199,
+    "Arthur Morgan'ın Atı",
+    ["arthurun atı", "arthur morganın atı", "horse"],
+    ["Açık dünya", "Vahşi Batı", "Yolculuk ve kamp hayatı"],
+    ["Eyerli at", "Tozlu yol görünümü", "Kovboy ekipmanları"],
+    ["Amerikan batısı", "Van der Linde kampı", "Uzun yolculuklar"],
+    ["Oyuncuyla bağ kurar", "Taşıma ve kaçışlarda önemlidir", "Vahşi Batı atmosferinin parçasıdır"]
+  ),
+
+  createGameCharacter(
+    1200,
+    "Cortana",
+    ["cortana"],
+    ["FPS", "Xbox klasiği", "Bilim kurgu hikayesi"],
+    ["Mavi hologram görünümü", "Kısa saç", "Dijital form"],
+    ["Halo evreni", "UNSC", "Yapay zeka sistemleri"],
+    ["Master Chief'in yapay zeka yoldaşıdır", "Stratejik rehberlik yapar", "Serinin hikayesinde merkezi rol oynar"]
+  ),
+
 ];

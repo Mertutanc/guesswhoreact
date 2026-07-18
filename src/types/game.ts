@@ -11,6 +11,8 @@ export type HintGroup = {
   hints: string[];
 };
 
+export type GuessTag = string;
+
 export type GuessItem = {
   id: number;
   mode: GuessMode;
@@ -18,6 +20,7 @@ export type GuessItem = {
   name: string;
   answers: string[];
   hintGroups: HintGroup[];
+  tags?: GuessTag[];
 };
 
 export type GameStatus = "playing" | "won" | "passed";
