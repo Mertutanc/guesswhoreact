@@ -946,8 +946,6 @@ function App() {
 
           <div className="submode-grid">
             {subModes.map((subMode) => {
-              const itemCount = getItemsForSubMode(selectedSubModeMenu, subMode).length;
-
               return (
                 <button
                   key={subMode.key}
@@ -957,7 +955,6 @@ function App() {
                   <span className="submode-emoji">{subMode.emoji}</span>
                   <strong>{subMode.label}</strong>
                   <small>{subMode.description}</small>
-                  <em>{itemCount} içerik</em>
                 </button>
               );
             })}
