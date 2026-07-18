@@ -1186,7 +1186,7 @@ export const historicalFigures: GuessItem[] = [
   h(
     5087,
     "Benjamin Franklin",
-    ["benjamin franklin"],
+    ["benjamin franklin", "franklin"],
     ["ABD", "Philadelphia", "Avrupa"],
     ["18. yüzyıl", "Amerikan kuruluş dönemi", "Aydınlanma Çağı"],
     ["Bilim insanı", "Devlet adamı", "Mucit", "Diplomat"],
@@ -1208,7 +1208,7 @@ export const historicalFigures: GuessItem[] = [
   h(
     5089,
     "Theodore Roosevelt",
-    ["theodore roosevelt", "teddy roosevelt"],
+    ["theodore roosevelt", "roosevelt", "teddy roosevelt"],
     ["ABD", "Washington", "New York"],
     ["19. yüzyıl sonu", "20. yüzyıl başı"],
     ["Başkan", "Devlet adamı", "Reformcu"],
@@ -1703,7 +1703,7 @@ export const historicalFigures: GuessItem[] = [
   h(
     5134,
     "Rosalind Franklin",
-    ["rosalind franklin"],
+    ["rosalind franklin", "franklin"],
     ["Birleşik Krallık", "Londra", "Cambridge"],
     ["20. yüzyıl", "Moleküler biyoloji dönemi"],
     ["Bilim insanı", "Kimyager", "Kristalograf"],
@@ -2363,7 +2363,7 @@ export const historicalFigures: GuessItem[] = [
   h(
     5194,
     "Eleanor Roosevelt",
-    ["eleanor roosevelt"],
+    ["eleanor roosevelt", "roosevelt"],
     ["ABD", "New York", "Washington"],
     ["20. yüzyıl", "II. Dünya Savaşı sonrası dönem"],
     ["First Lady", "Diplomat", "İnsan hakları savunucusu"],

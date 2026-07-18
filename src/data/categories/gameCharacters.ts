@@ -294,7 +294,7 @@ export const gameCharacters: GuessItem[] = [
   createGameCharacter(
     1026,
     "Peter Parker",
-    ["peter", "peter parker"],
+    ["peter", "peter parker", "spider-man", "spiderman", "örümcek adam"],
     ["Süper kahraman", "Açık dünya aksiyon", "PlayStation klasiği"],
     ["Kırmızı ve mavi ağ desenli kostüm", "Beyaz büyük örümcek logosu", "Ağ atıcılar"],
     ["New York (Manhattan)", "Günlük Bugle", "Marvel Evreni"],
@@ -304,7 +304,7 @@ export const gameCharacters: GuessItem[] = [
   createGameCharacter(
     1027,
     "Miles Morales",
-    ["miles", "miles morales"],
+    ["miles", "miles morales", "spider-man", "spiderman"],
     ["Süper kahraman", "Açık dünya aksiyon"],
     ["Siyah ve kırmızı örümcek kostümü", "Kapüşonlu ceket (bazen)"],
     ["New York (Harlem)", "Marvel Evreni"],
@@ -994,7 +994,7 @@ export const gameCharacters: GuessItem[] = [
   createGameCharacter(
     1096,
     "Jin Kazama",
-    ["jin kazama"],
+    ["jin", "jin kazama"],
     ["Dövüş oyunu", "3D arena", "Aile dramı"],
     ["Siyah saç", "Alev desenli pantolon", "Dövüş eldiveni"],
     ["Mishima ailesi", "Iron Fist turnuvası", "Devil Gene"],
@@ -1805,7 +1805,7 @@ export const gameCharacters: GuessItem[] = [
   createGameCharacter(
     1177,
     "Jin Sakai",
-    ["jin sakai", "ghost of tsushima"],
+    ["jin", "jin sakai", "ghost of tsushima"],
     ["Aksiyon-macera", "Açık dünya", "Samuray temalı"],
     ["Samuray zırhı", "Katana", "Maske ve pelerin"],
     ["Tsushima Adası", "Moğol istilası", "Japonya"],

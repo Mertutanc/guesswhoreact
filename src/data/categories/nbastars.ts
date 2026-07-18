@@ -669,7 +669,7 @@ export const nbaStars: GuessItem[] = [
   n(
     4033,
     "Nikola Jokic",
-    ["jokic", "nikola jokic"],
+    ["jokic", "nikola jokic", "joker"],
     ["Denver Nuggets"],
     ["Sırp"],
     ["Center"],
@@ -759,7 +759,7 @@ export const nbaStars: GuessItem[] = [
   n(
     4038,
     "Anthony Davis",
-    ["anthony davis", "ad"],
+    ["anthony davis", "ad", "davis"],
     ["New Orleans Pelicans", "Los Angeles Lakers"],
     ["ABD'li"],
     ["Power Forward", "Center"],
@@ -840,7 +840,7 @@ export const nbaStars: GuessItem[] = [
       "Topu yere vurmadan 60 sayı atmasıyla bilinir",
       "Bir çeyrekte 37 sayı rekoru",
       "Game 6 Klay lakabı",
-      "Elit şutör ve savunmacı",
+      "Şutör ve savunmacı",
     ]
   ,
     ["nba:active"]
@@ -867,7 +867,7 @@ export const nbaStars: GuessItem[] = [
   n(
     4044,
     "Carmelo Anthony",
-    ["carmelo", "carmelo anthony"],
+    ["carmelo", "carmelo anthony", "melo"],
     ["Denver Nuggets", "New York Knicks", "Oklahoma City Thunder", "Houston Rockets", "Portland Trail Blazers", "Los Angeles Lakers"],
     ["ABD'li"],
     ["Small Forward", "Power Forward"],
@@ -1601,7 +1601,7 @@ n(
   n(
     4085,
     "LaMelo Ball",
-    ["lamelo", "lamelo ball"],
+    ["lamelo", "melo", "lamelo ball"],
     ["Charlotte Hornets"],
     ["ABD'li"],
     ["Point Guard"],
@@ -1871,7 +1871,7 @@ n(
   n(
     4100,
     "DeAndre Jordan",
-    ["deandre jordan"],
+    ["deandre jordan", "dj"],
     ["Los Angeles Clippers", "Dallas Mavericks", "Brooklyn Nets", "Los Angeles Lakers", "Denver Nuggets"],
     ["ABD'li"],
     ["Center"],
@@ -2141,7 +2141,7 @@ n(
   n(
     4117,
     "Dennis Johnson",
-    ["dennis johnson"],
+    ["dennis johnson", "dj"],
     ["Seattle SuperSonics", "Phoenix Suns", "Boston Celtics"],
     ["ABD'li"],
     ["Point Guard", "Shooting Guard"],
@@ -2801,7 +2801,7 @@ n(
   n(
     4172,
     "Baron Davis",
-    ["baron davis", "bdiddy"],
+    ["baron davis", "bdiddy", "davis"],
     ["Charlotte Hornets", "New Orleans Hornets", "Golden State Warriors", "Los Angeles Clippers", "Cleveland Cavaliers", "New York Knicks"],
     ["ABD'li"],
     ["Point Guard"],

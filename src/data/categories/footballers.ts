@@ -302,7 +302,7 @@ export const footballers: GuessItem[] = [
     ["İtalyan"],
     ["10 Numara", "Forvet Arkası", "Forvet"],
     ["18 Şubat 1967"],
-    ["Ballon d'Or kazandı", "At kuyruğu", "1994 ABD penaltısı :(" , "Frikik", "Teknik 10 numara"]
+    ["Ballon d'Or kazandı", "At kuyruğu", "1994 Usa penaltı :(" , "Frikik", "Teknik 10 numara"]
   ),
 
   f(
@@ -423,7 +423,7 @@ export const footballers: GuessItem[] = [
     ["İspanyol"],
     ["Kaleci"],
     ["20 Mayıs 1981"],
-    ["Dünya Kupası kazandı", "Real Madrid kaptanı", "Saint Iker lakabı", "Şampiyonlar Ligi kazandı"]
+    ["Dünya Kupası kazandı", "Real Madrid kaptanı", "Lakabı Aziz (Saint)", "Şampiyonlar Ligi kazandı"]
   ),
 
   f(
@@ -1991,7 +1991,7 @@ export const footballers: GuessItem[] = [
   f(
     171,
     "David Silva",
-    ["david silva"],
+    ["david silva", "silva"],
     ["Valencia", "Manchester City", "Real Sociedad"],
     ["İspanyol"],
     ["Ofansif Orta Saha", "Kanat"],
@@ -2288,7 +2288,7 @@ export const footballers: GuessItem[] = [
   f(
     198,
     "Lilian Thuram",
-    ["lilian thuram"],
+    ["thuram", "lilian thuram"],
     ["Monaco", "Parma", "Juventus", "Barcelona"],
     ["Fransız"],
     ["Sağ Bek", "Stoper"],
@@ -2992,7 +2992,7 @@ export const footballers: GuessItem[] = [
   f(
     262,
     "Thiago Silva",
-    ["thiago silva"],
+    ["thiago silva", "silva"],
     ["Juventude", "Porto", "Dynamo Moscow", "Fluminense", "Milan", "PSG", "Chelsea"],
     ["Brezilyalı"],
     ["Stoper"],
@@ -3223,7 +3223,7 @@ export const footballers: GuessItem[] = [
   f(
     283,
     "Ashley Cole",
-    ["ashley cole"],
+    ["ashley cole", "cole"],
     ["Arsenal", "Chelsea", "Roma", "LA Galaxy", "Derby County"],
     ["İngiliz"],
     ["Sol Bek"],
@@ -3300,7 +3300,7 @@ export const footballers: GuessItem[] = [
   f(
     290,
     "Andy Cole",
-    ["andy cole"],
+    ["andy cole", "cole"],
     ["Arsenal", "Newcastle United", "Manchester United", "Blackburn Rovers", "Fulham", "Manchester City"],
     ["İngiliz"],
     ["Forvet", "Santrfor"],
@@ -4191,7 +4191,7 @@ export const footballers: GuessItem[] = [
   f(
     371,
     "Marcus Thuram",
-    ["marcus thuram"],
+    ["thuram", "marcus thuram"],
     ["Sochaux", "Guingamp", "Borussia Mönchengladbach", "Inter"],
     ["Fransız"],
     ["Forvet"],
@@ -4587,7 +4587,7 @@ export const footballers: GuessItem[] = [
   f(
     407,
     "Suat Mamat",
-    ["suat mamat"],
+    ["suat mamat", "suat"],
     ["Galatasaray", "Beşiktaş"],
     ["Türk"],
     ["Forvet", "Kanat"],
@@ -4906,7 +4906,7 @@ export const footballers: GuessItem[] = [
   f(
     436,
     "Suat Kaya",
-    ["suat kaya"],
+    ["suat kaya", "suat"],
     ["Konyaspor", "Galatasaray"],
     ["Türk"],
     ["Merkez Orta Saha", "Ön Libero"],
@@ -5153,7 +5153,7 @@ export const footballers: GuessItem[] = [
     ["Türk", "Almanya doğumlu"],
     ["Forvet", "Forvet Arkası"],
     ["1982 doğumlu"],
-    ["Bundesliga'da uzun yıllar forma giydi", "Hamit Altıntop'un ikiz kardeşidir", "Tekniği ve bağlantı oyunuyla bilinir", "A Milli Takım formasını giydi"]
+    ["Bundesliga'da uzun yıllar forma giydi", "ikiz kardeşi daha ünlü", "Tekniği ve bağlantı oyunuyla bilinir", "A Milli Takım formasını giydi"]
   ),
 
   f(
