@@ -536,7 +536,7 @@ function App() {
 
         return (isMatchingName || isMatchingAnswer) && !isExactSame;
       })
-      .slice(0, 8);
+      .slice(0, 12);
   }, [currentItem, currentPool, gameStatus, guess]);
 
   const filteredLeaderboard = useMemo<LeaderboardRecord[]>(() => {
@@ -807,13 +807,22 @@ function App() {
 
   if (isLeaderboardOpen) {
     return (
-      <main className="page">
-        <section className="game-card leaderboard-page-card">
-          <div className="screen-kicker">ARCADE RECORDS</div>
-          <h1 className="title">🏆 Skor Tablosu</h1>
-          <p className="subtitle">Filtrele, ilk 10 skorunu gör, sonra yeni seriye bas.</p>
+      <main className="page leaderboard-page">
+        <section className="game-card leaderboard-page-card leaderboard-arcade-card">
+          <div className="leaderboard-hero">
+            <div>
+              <div className="screen-kicker">ARCADE RECORDS</div>
+              <h1 className="title">🏆 Skor Tablosu</h1>
+              <p className="subtitle leaderboard-subtitle">İlk 3 podium, kalan skorlar kompakt arcade tablo.</p>
+            </div>
 
-          <div className="filter-panel">
+            <div className="leaderboard-total-chip">
+              <span>Kayıt</span>
+              <strong>{filteredLeaderboard.length}</strong>
+            </div>
+          </div>
+
+          <div className="filter-panel leaderboard-filter-panel">
             <div className="filter-row">
               {(["all", "classic", "timeAttack", "mixed"] as LeaderboardTypeFilter[]).map((filter) => (
                 <button
@@ -840,38 +849,60 @@ function App() {
           </div>
 
           {filteredLeaderboard.length > 0 ? (
-            <div className="leaderboard-table">
-              {filteredLeaderboard.slice(0, 10).map((record, index) => (
-                <div className={`leaderboard-table-row rank-${index + 1}`} key={record.id}>
-                  <div className="rank-cell">#{index + 1}</div>
-
-                  <div className="player-cell">
-                    <strong>{record.initials}</strong>
-                    <span>{record.date}</span>
+            <>
+              <div className="podium-grid">
+                {filteredLeaderboard.slice(0, 3).map((record, index) => (
+                  <div className={`podium-card podium-rank-${index + 1}`} key={record.id}>
+                    <div className="podium-rank">#{index + 1}</div>
+                    <div className="podium-initials">{record.initials}</div>
+                    <div className="podium-score">{record.totalScore}</div>
+                    <div className="podium-meta">
+                      <span>{record.correctAnswers} doğru</span>
+                      <span>{record.bestStreak} combo</span>
+                    </div>
+                    <div className="podium-tags">
+                      <span>{record.scoreType === "classic" ? "Klasik" : record.scoreType === "timeAttack" ? "Time Attack" : "Karışık"}</span>
+                      {record.categoriesPlayed.slice(0, 1).map((mode) => (
+                        <span key={mode}>{modeShortLabels[mode]}</span>
+                      ))}
+                    </div>
                   </div>
+                ))}
+              </div>
 
-                  <div className="leaderboard-main-score">{record.totalScore}</div>
+              <div className="leaderboard-table compact-leaderboard-table">
+                {filteredLeaderboard.slice(3, 10).map((record, index) => (
+                  <div className="leaderboard-table-row compact-record-row" key={record.id}>
+                    <div className="rank-cell">#{index + 4}</div>
 
-                  <div className="leaderboard-badges">
-                    <span className="score-badge">{record.scoreType === "classic" ? "Klasik" : record.scoreType === "timeAttack" ? "Time Attack" : "Karışık"}</span>
-                    {record.categoriesPlayed.slice(0, 2).map((mode) => (
-                      <span className="score-badge muted" key={mode}>{modeShortLabels[mode]}</span>
-                    ))}
+                    <div className="player-cell">
+                      <strong>{record.initials}</strong>
+                      <span>{record.date}</span>
+                    </div>
+
+                    <div className="leaderboard-main-score">{record.totalScore}</div>
+
+                    <div className="leaderboard-badges">
+                      <span className="score-badge">{record.scoreType === "classic" ? "Klasik" : record.scoreType === "timeAttack" ? "Time Attack" : "Karışık"}</span>
+                      {record.categoriesPlayed.slice(0, 2).map((mode) => (
+                        <span className="score-badge muted" key={mode}>{modeShortLabels[mode]}</span>
+                      ))}
+                    </div>
+
+                    <div className="leaderboard-metrics">
+                      <span><b>{record.correctAnswers}</b> Doğru</span>
+                      <span><b>{record.passedAnswers}</b> Pas</span>
+                      <span><b>{record.gamesPlayed}</b> Tur</span>
+                      <span><b>{record.bestStreak}</b> Combo</span>
+                    </div>
+
+                    <div className="leaderboard-modes">{record.modesPlayed.join(" • ") || "Klasik seri"}</div>
                   </div>
-
-                  <div className="leaderboard-metrics">
-                    <span><b>{record.correctAnswers}</b> Doğru</span>
-                    <span><b>{record.passedAnswers}</b> Pas</span>
-                    <span><b>{record.gamesPlayed}</b> Tur</span>
-                    <span><b>{record.bestStreak}</b> Combo</span>
-                  </div>
-
-                  <div className="leaderboard-modes">{record.modesPlayed.join(" • ") || "Klasik seri"}</div>
-                </div>
-              ))}
-            </div>
+                ))}
+              </div>
+            </>
           ) : (
-            <div className="result-card pass"><p>Bu filtrede skor kaydı yok.</p></div>
+            <div className="result-card pass empty-leaderboard-card"><p>Bu filtrede skor kaydı yok.</p></div>
           )}
 
           <div className="result-actions summary-actions">
@@ -885,36 +916,79 @@ function App() {
 
   if (isSessionEnded) {
     return (
-      <main className="page">
-        <section className="game-card session-summary-card">
-          <div className="screen-kicker">SESSION COMPLETE</div>
-          <div className="end-title">
-            <span className="end-flag">🏁</span>
-            <h1>Oyun Bitti</h1>
+      <main className="page summary-page">
+        <section className="game-card session-summary-card polished-summary-card">
+          <div className="summary-hero">
+            <div>
+              <div className="screen-kicker">SESSION COMPLETE</div>
+              <div className="end-title compact-end-title">
+                <span className="end-flag">🏁</span>
+                <h1>Oyun Bitti</h1>
+              </div>
+              <p className="subtitle summary-subtitle">Seri özeti, skor kaydı ve son turlar burada.</p>
+            </div>
+
+            <div className="summary-score-tower">
+              <span>Toplam Skor</span>
+              <strong>{totalScore}</strong>
+              <em>{scoreSaved ? "Leaderboard’a kaydedildi" : "Kaydetmeye hazır"}</em>
+            </div>
           </div>
 
-          <p className="subtitle">Bu seride topladığın skor ve oyun özeti aşağıda.</p>
-
-          <div className="summary-grid">
-            <div className="summary-item"><span>Toplam Skor</span><strong>{totalScore}</strong></div>
+          <div className="summary-grid polished-summary-grid">
+            <div className="summary-item hero-summary-item"><span>Ortalama Skor</span><strong>{averageScore}</strong></div>
             <div className="summary-item"><span>Oynanan Tur</span><strong>{gamesPlayed}</strong></div>
             <div className="summary-item"><span>Doğru Cevap</span><strong>{correctAnswers}</strong></div>
             <div className="summary-item"><span>Pas Geçilen</span><strong>{passedAnswers}</strong></div>
-            <div className="summary-item"><span>Ortalama Skor</span><strong>{averageScore}</strong></div>
             <div className="summary-item"><span>En İyi Combo</span><strong>{bestStreak}</strong></div>
+            <div className="summary-item"><span>İpucusuz Doğru</span><strong>{noHintCorrectAnswers}</strong></div>
+            <div className="summary-item"><span>Normal İpucu</span><strong>{normalHintsUsed}</strong></div>
+            <div className="summary-item"><span>Büyük İpucu</span><strong>{bigHintsUsed}</strong></div>
           </div>
 
-          {gamesPlayed > 0 && (
-            <div className="initials-panel">
-              <label htmlFor="initials">3 harfli skor adı</label>
-              <div className="initials-row">
-                <input
-                  id="initials"
-                  value={initials}
-                  maxLength={3}
-                  onChange={(event) => setInitials(cleanInitials(event.target.value))}
-                />
-                <button onClick={saveCurrentScore} disabled={scoreSaved}>{scoreSaved ? "Kaydedildi" : "Skoru Kaydet"}</button>
+          <div className="summary-detail-grid">
+            {gamesPlayed > 0 && (
+              <div className="initials-panel polished-initials-panel">
+                <label htmlFor="initials">3 harfli skor adı</label>
+                <div className="initials-row">
+                  <input
+                    id="initials"
+                    value={initials}
+                    maxLength={3}
+                    onChange={(event) => setInitials(cleanInitials(event.target.value))}
+                    disabled={scoreSaved}
+                  />
+                  <button onClick={saveCurrentScore} disabled={scoreSaved}>{scoreSaved ? "Kaydedildi" : "Skoru Kaydet"}</button>
+                </div>
+                <p>{scoreSaved ? "Bu seri skor tablosuna eklendi." : "Skor adı boş kalırsa AAA olarak kaydedilir."}</p>
+              </div>
+            )}
+
+            <div className="summary-modes-panel">
+              <div className="screen-kicker">PLAYED MODES</div>
+              <div className="summary-chip-list">
+                {Array.from(new Set(playedCategories)).map((mode) => (
+                  <span key={mode}>{modeShortLabels[mode]}</span>
+                ))}
+                {Array.from(new Set(playedModes)).slice(0, 5).map((mode) => (
+                  <span key={mode}>{mode}</span>
+                ))}
+                {playedModes.length === 0 && <span>Henüz mod yok</span>}
+              </div>
+            </div>
+          </div>
+
+          {roundHistory.length > 0 && (
+            <div className="summary-rounds-panel">
+              <div className="screen-kicker">LAST ROUNDS</div>
+              <div className="summary-rounds-grid">
+                {roundHistory.slice(0, 6).map((round) => (
+                  <div className={round.status === "won" ? "summary-round-card won" : "summary-round-card passed"} key={round.id}>
+                    <strong>{round.name}</strong>
+                    <span>{round.modeLabel} / {round.subModeLabel}</span>
+                    <em>{round.status === "won" ? `+${round.score}` : "PAS"}</em>
+                  </div>
+                ))}
               </div>
             </div>
           )}
@@ -968,6 +1042,7 @@ function App() {
     return (
       <main className="page home-page">
         <section className="game-card home-card">
+          <div className="screen-kicker">WEB ARCADE</div>
           <h1 className="title">🧠 GuessWho</h1>
           <p className="subtitle">Mobildeki data ve mod sistemi web’e taşındı. Kategori seç, alt moda gir, seriyi başlat.</p>
 
