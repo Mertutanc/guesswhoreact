@@ -276,6 +276,7 @@ button {
 .mode-card-gameCharacter { background-color: rgba(59, 130, 246, 0.16); }
 .mode-card-nbaStar { background-color: rgba(249, 115, 22, 0.16); }
 .mode-card-historicalFigure { background-color: rgba(168, 85, 247, 0.16); }
+.mode-card-musician { background-color: rgba(244, 63, 94, 0.16); }
 
 .mini-score-card {
   margin: 0 auto 24px;
@@ -1279,6 +1280,11 @@ button {
   --theme-alt-rgb: 251, 191, 36;
 }
 
+.mode-musician {
+  --theme-rgb: 244, 63, 94;
+  --theme-alt-rgb: 168, 85, 247;
+}
+
 .page {
   position: relative;
   overflow: hidden;
@@ -1474,6 +1480,11 @@ button {
 .mode-card-historicalFigure {
   --theme-rgb: 168, 85, 247;
   --theme-alt-rgb: 251, 191, 36;
+}
+
+.mode-card-musician {
+  --theme-rgb: 244, 63, 94;
+  --theme-alt-rgb: 168, 85, 247;
 }
 
 /* === Final polish pack: leaderboard, end screen, responsive === */
@@ -1966,4 +1977,128 @@ button {
   100% {
     box-shadow: 0 0 0 rgba(148, 163, 184, 0);
   }
+}
+
+
+/* Time Attack polish + button text refresh */
+.timer-card {
+  position: relative;
+  overflow: hidden;
+}
+
+.timer-card span {
+  position: relative;
+  z-index: 2;
+  display: block;
+}
+
+.timer-card small {
+  position: relative;
+  z-index: 2;
+  display: block;
+  margin-top: 7px;
+  color: inherit;
+  font-size: 11px;
+  font-weight: 950;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.timer-progress-track {
+  position: relative;
+  z-index: 2;
+  height: 7px;
+  margin-top: 10px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.timer-progress-track i {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, rgba(var(--theme-rgb), 0.95), rgba(255, 255, 255, 0.88));
+  transition: width 0.35s ease;
+}
+
+.timer-card.warning {
+  animation: timerWarningGlow 1.1s ease-in-out infinite alternate;
+}
+
+.timer-card.danger {
+  animation: timerDangerPulse 0.62s ease-in-out infinite;
+}
+
+.timer-card.danger .timer-progress-track i {
+  background: linear-gradient(90deg, #fca5a5, #ffffff);
+}
+
+.time-up-summary-card {
+  border-color: rgba(248, 113, 113, 0.36);
+  box-shadow:
+    0 28px 90px rgba(0, 0, 0, 0.52),
+    0 0 42px rgba(248, 113, 113, 0.12);
+}
+
+.time-up-summary-card .end-flag {
+  animation: timerDangerPulse 0.8s ease-in-out infinite;
+}
+
+.score-pop-card {
+  width: fit-content;
+  margin: 12px 0;
+  padding: 10px 14px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border: 1px solid rgba(var(--theme-rgb), 0.34);
+  border-radius: 999px;
+  background: rgba(var(--theme-rgb), 0.13);
+  color: #dbeafe;
+  animation: scorePop 0.42s ease-out;
+}
+
+.score-pop-card strong {
+  color: #ffffff;
+  font-size: 20px;
+  line-height: 1;
+}
+
+.score-pop-card span {
+  color: #cbd5e1;
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+@keyframes timerWarningGlow {
+  from { box-shadow: 0 0 0 rgba(251, 191, 36, 0); }
+  to { box-shadow: 0 0 24px rgba(251, 191, 36, 0.2); }
+}
+
+@keyframes timerDangerPulse {
+  0%, 100% { transform: scale(1); box-shadow: 0 0 0 rgba(248, 113, 113, 0); }
+  50% { transform: scale(1.025); box-shadow: 0 0 30px rgba(248, 113, 113, 0.28); }
+}
+
+@keyframes scorePop {
+  0% { opacity: 0; transform: translateY(8px) scale(0.94); }
+  70% { opacity: 1; transform: translateY(-2px) scale(1.03); }
+  100% { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+
+/* === Musician category patch === */
+.mode-musician .game-card::before,
+.mode-card-musician::before {
+  background:
+    linear-gradient(115deg, transparent 0%, rgba(255, 255, 255, 0.04) 35%, transparent 70%),
+    radial-gradient(circle at 50% -16%, rgba(var(--theme-rgb), 0.18), transparent 34%);
+}
+
+.mode-musician .mode-pill,
+.mode-musician .screen-kicker {
+  box-shadow: 0 0 28px rgba(var(--theme-rgb), 0.12);
 }

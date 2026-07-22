@@ -38,4 +38,10 @@ export const gameModes: GameModeCard[] = [
     emoji: "🏛️",
     description: "Dönem, ülke ve olaylardan tarihi kişiyi bul.",
   },
+  {
+    key: "musician",
+    label: "Müzisyen",
+    emoji: "🎤",
+    description: "Tarz, grup/proje, dönem ve vokal/enstrüman ipuçlarından müzisyeni bul.",
+  },
 ];

@@ -3,15 +3,14 @@ export type GuessMode =
   | "gameCharacter"
   | "movieCharacter"
   | "nbaStar"
-  | "historicalFigure";
+  | "historicalFigure"
+  | "musician";
 
 export type HintGroup = {
   key: string;
   label: string;
   hints: string[];
 };
-
-export type GuessTag = string;
 
 export type GuessItem = {
   id: number;
@@ -20,7 +19,7 @@ export type GuessItem = {
   name: string;
   answers: string[];
   hintGroups: HintGroup[];
-  tags?: GuessTag[];
+  tags?: string[];
 };
 
 export type GameStatus = "playing" | "won" | "passed";

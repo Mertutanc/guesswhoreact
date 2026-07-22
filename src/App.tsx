@@ -29,6 +29,7 @@ type RoundHistoryItem = {
 };
 
 type ScoreType = "classic" | "timeAttack" | "mixed";
+type SessionEndReason = "manual" | "timeUp" | null;
 
 type LeaderboardRecord = {
   id: string;
@@ -62,6 +63,7 @@ const modeLabels: Record<GuessMode, string> = {
   movieCharacter: "Film Karakteri",
   nbaStar: "NBA Yıldızı",
   historicalFigure: "Tarihi Kişi",
+  musician: "Müzisyen",
 };
 
 const modeShortLabels: Record<GuessMode, string> = {
@@ -70,6 +72,7 @@ const modeShortLabels: Record<GuessMode, string> = {
   movieCharacter: "Film",
   nbaStar: "NBA",
   historicalFigure: "Tarih",
+  musician: "Müzik",
 };
 
 const subModesByMode: Record<GuessMode, SubModeOption[]> = {
@@ -265,6 +268,69 @@ const subModesByMode: Record<GuessMode, SubModeOption[]> = {
       label: "Zamana Karşı",
       emoji: "⏱️",
       description: "120 saniyede en çok tarihi kişiyi bil.",
+      playKind: "timeAttack",
+    },
+  ],
+  musician: [
+    {
+      key: "classic",
+      label: "Klasik Mod",
+      emoji: "🎤",
+      description: "Tüm müzisyenler karışık gelir.",
+      playKind: "classic",
+    },
+    {
+      key: "rockMetal",
+      label: "Rock / Metal",
+      emoji: "🎸",
+      description: "Rock, metal, grunge ve alternatif gitar dünyası.",
+      playKind: "classic",
+      tags: ["musician:rockMetal"],
+    },
+    {
+      key: "rapHipHop",
+      label: "Rap / Hip-Hop",
+      emoji: "🎧",
+      description: "Rap, hip-hop, trap ve lirik anlatım odaklı isimler.",
+      playKind: "classic",
+      tags: ["musician:rapHipHop"],
+    },
+    {
+      key: "popStars",
+      label: "Pop Yıldızları",
+      emoji: "✨",
+      description: "Global ve yerli pop sahnesinin güçlü isimleri.",
+      playKind: "classic",
+      tags: ["musician:pop"],
+    },
+    {
+      key: "turkishMusicians",
+      label: "Türk Müzisyenler",
+      emoji: "🇹🇷",
+      description: "Türk pop, rock, rap, klasik ve alternatif sahneden isimler.",
+      playKind: "classic",
+      tags: ["musician:turkish"],
+    },
+    {
+      key: "legends",
+      label: "Efsaneler",
+      emoji: "🐐",
+      description: "Müzik tarihinin kült ve ikonik isimleri.",
+      playKind: "classic",
+      tags: ["musician:legend"],
+    },
+    {
+      key: "anagram",
+      label: "Anagram",
+      emoji: "🔤",
+      description: "Müzisyenin adı karışık verilir, cevabı çözersin.",
+      playKind: "anagram",
+    },
+    {
+      key: "timeAttack",
+      label: "Zamana Karşı",
+      emoji: "⏱️",
+      description: "120 saniyede en çok müzisyeni bil.",
       playKind: "timeAttack",
     },
   ],
@@ -477,6 +543,7 @@ function App() {
   const [playedCategories, setPlayedCategories] = useState<GuessMode[]>([]);
 
   const [timeLeft, setTimeLeft] = useState(TIME_ATTACK_SECONDS);
+  const [sessionEndReason, setSessionEndReason] = useState<SessionEndReason>(null);
   const [isSessionEnded, setIsSessionEnded] = useState(false);
   const [isLeaderboardOpen, setIsLeaderboardOpen] = useState(false);
   const [scoreSaved, setScoreSaved] = useState(false);
@@ -489,6 +556,11 @@ function App() {
 
   const isTimeAttackMode = selectedSubMode?.playKind === "timeAttack";
   const isAnagramMode = selectedSubMode?.playKind === "anagram";
+  const isTimeWarning = isTimeAttackMode && timeLeft <= 30 && timeLeft > 10;
+  const isTimeDanger = isTimeAttackMode && timeLeft <= 10;
+  const timeAttackProgress = isTimeAttackMode
+    ? Math.max(0, Math.min(100, Math.round((timeLeft / TIME_ATTACK_SECONDS) * 100)))
+    : 0;
 
   const currentPool = useMemo<GuessItem[]>(() => {
     if (!selectedMode || !selectedSubMode) {
@@ -517,6 +589,7 @@ function App() {
   const noHintBonus = currentItem && totalHintCount === 0 && !isBigHintUsed ? NO_HINT_BONUS : 0;
   const nextComboMultiplier = getComboMultiplier(currentStreak + 1);
   const currentScore = Math.round((baseRoundScore + noHintBonus) * nextComboMultiplier);
+  const displayedRoundMultiplier = gameStatus === "won" ? getComboMultiplier(currentStreak) : nextComboMultiplier;
   const averageScore = gamesPlayed > 0 ? Math.round(totalScore / gamesPlayed) : 0;
   const bigHintText = currentItem ? createBigHintText(currentItem.name) : "";
   const anagramText = currentItem ? createAnagramText(currentItem.name) : "";
@@ -556,6 +629,7 @@ function App() {
     }
 
     if (timeLeft <= 0) {
+      setSessionEndReason("timeUp");
       setGameStatus("passed");
       setMessage("Süre bitti! Skorunu kaydet.");
       setIsSessionEnded(true);
@@ -614,6 +688,9 @@ function App() {
     setIsSessionEnded(false);
     setIsLeaderboardOpen(false);
     setScoreSaved(false);
+    if (!currentItem && gamesPlayed === 0) {
+      setSessionEndReason(null);
+    }
 
     if (subMode.playKind === "timeAttack" && !currentItem) {
       setTimeLeft(TIME_ATTACK_SECONDS);
@@ -665,12 +742,14 @@ function App() {
     setPlayedModes([]);
     setPlayedCategories([]);
     setTimeLeft(TIME_ATTACK_SECONDS);
+    setSessionEndReason(null);
     setIsSessionEnded(false);
     setIsLeaderboardOpen(false);
     setScoreSaved(false);
   };
 
   const endSession = () => {
+    setSessionEndReason("manual");
     setIsSessionEnded(true);
     setIsLeaderboardOpen(false);
     setMessage("");
@@ -870,7 +949,7 @@ function App() {
             </div>
 
             <div className="filter-row">
-              {(["all", "footballer", "movieCharacter", "gameCharacter", "nbaStar", "historicalFigure"] as LeaderboardCategoryFilter[]).map((filter) => (
+              {(["all", "footballer", "movieCharacter", "gameCharacter", "nbaStar", "historicalFigure", "musician"] as LeaderboardCategoryFilter[]).map((filter) => (
                 <button
                   key={filter}
                   className={leaderboardCategoryFilter === filter ? "filter-chip active" : "filter-chip"}
@@ -951,15 +1030,17 @@ function App() {
   if (isSessionEnded) {
     return (
       <main className="page summary-page">
-        <section className="game-card session-summary-card polished-summary-card">
+        <section className={`game-card session-summary-card polished-summary-card ${sessionEndReason === "timeUp" ? "time-up-summary-card" : ""}`}>
           <div className="summary-hero">
             <div>
-              <div className="screen-kicker">SESSION COMPLETE</div>
+              <div className="screen-kicker">{sessionEndReason === "timeUp" ? "TIME ATTACK COMPLETE" : "SESSION COMPLETE"}</div>
               <div className="end-title compact-end-title">
-                <span className="end-flag">🏁</span>
-                <h1>Oyun Bitti</h1>
+                <span className="end-flag">{sessionEndReason === "timeUp" ? "⏱️" : "🏁"}</span>
+                <h1>{sessionEndReason === "timeUp" ? "TIME UP" : "Oyun Bitti"}</h1>
               </div>
-              <p className="subtitle summary-subtitle">Seri özeti, skor kaydı ve son turlar burada.</p>
+              <p className="subtitle summary-subtitle">
+                {sessionEndReason === "timeUp" ? "Süre doldu. Seriyi skor tablosuna kaydedebilirsin." : "Seri özeti, skor kaydı ve son turlar burada."}
+              </p>
             </div>
 
             <div className="summary-score-tower">
@@ -1100,7 +1181,7 @@ function App() {
           </div>
 
           <div className="support-actions menu-actions">
-            {gamesPlayed > 0 && <button className="end-game-button" onClick={endSession}>End Game</button>}
+            {gamesPlayed > 0 && <button className="end-game-button" onClick={endSession}>Oyunu Bitir</button>}
             <button className="secondary-action-button" onClick={() => setIsLeaderboardOpen(true)}>Skor Tablosu</button>
           </div>
         </section>
@@ -1142,7 +1223,17 @@ function App() {
               <strong>{formatComboMultiplier(nextComboMultiplier)}</strong>
             </div>
 
-            {isTimeAttackMode && <div className={timeLeft <= 10 ? "timer-card danger" : timeLeft <= 30 ? "timer-card warning" : "timer-card"}>⏱️ {formatTime(timeLeft)}</div>}
+            {isTimeAttackMode && (
+              <div className={isTimeDanger ? "timer-card danger" : isTimeWarning ? "timer-card warning" : "timer-card"}>
+                <span>⏱️ {formatTime(timeLeft)}</span>
+                <div className="timer-progress-track">
+                  <i style={{ width: `${timeAttackProgress}%` }} />
+                </div>
+                {(isTimeWarning || isTimeDanger) && (
+                  <small>{isTimeDanger ? "Son saniyeler!" : "Hızlan!"}</small>
+                )}
+              </div>
+            )}
           </aside>
 
           <section className="main-play-panel">
@@ -1254,7 +1345,7 @@ function App() {
             <div className="support-actions">
               <button className="big-hint-button" onClick={useBigHint} disabled={isBigHintUsed || gameStatus !== "playing"}>Büyük İpucu -50</button>
               <button className="pass-button" onClick={passGame} disabled={gameStatus !== "playing"}>Pas Geç</button>
-              <button className="end-game-button" onClick={endSession}>End Game</button>
+              <button className="end-game-button" onClick={endSession}>Oyunu Bitir</button>
             </div>
 
             {message && (
@@ -1264,13 +1355,19 @@ function App() {
                 {(gameStatus === "won" || gameStatus === "passed") && (
                   <>
                     <h2>Tur Skoru: {gameStatus === "won" ? roundScore : 0}</h2>
+                    {gameStatus === "won" && (
+                      <div className="score-pop-card">
+                        <strong>+{roundScore}</strong>
+                        <span>{formatComboMultiplier(displayedRoundMultiplier)} combo</span>
+                      </div>
+                    )}
                     <p>Toplam Seri Skoru: {totalScore}</p>
                     <p>Cevap: {currentItem.name}</p>
 
                     <div className="result-actions">
-                      <button onClick={nextRound}>{isTimeAttackMode ? "Sonraki Soru" : "Aynı Modda Yeni Oyun"}</button>
+                      <button onClick={nextRound}>Sonraki Soru</button>
                       <button onClick={goToMenu}>Ana Menüye Dön</button>
-                      <button onClick={endSession}>End Game</button>
+                      <button onClick={endSession}>Oyunu Bitir</button>
                     </div>
                   </>
                 )}

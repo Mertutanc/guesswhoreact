@@ -6,10 +6,12 @@ const categoryMultipliers: Record<GuessMode, number> = {
   gameCharacter: 1.1,
   nbaStar: 1.2,
   historicalFigure: 1.5,
+  musician: 1.2,
 };
 
 export const hintCosts: Record<GuessMode, Record<string, number>> = {
   footballer: {
+    identity: 8,
     nationality: 5,
     positions: 5,
     birthDate: 10,
@@ -44,6 +46,14 @@ export const hintCosts: Record<GuessMode, Record<string, number>> = {
     nationality: 10,
     teams: 15,
     skills: 25,
+  },
+
+  musician: {
+    style: 5,
+    origin: 10,
+    role: 10,
+    projects: 15,
+    features: 25,
   },
 };
 
