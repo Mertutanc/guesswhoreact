@@ -484,6 +484,8 @@ function App() {
   const [leaderboardTypeFilter, setLeaderboardTypeFilter] = useState<LeaderboardTypeFilter>("all");
   const [leaderboardCategoryFilter, setLeaderboardCategoryFilter] = useState<LeaderboardCategoryFilter>("all");
   const [leaderboard, setLeaderboard] = useState<LeaderboardRecord[]>(getSavedLeaderboard);
+  const [selectedSuggestionIndex, setSelectedSuggestionIndex] = useState(-1);
+  const [feedbackState, setFeedbackState] = useState<"correct" | "wrong" | "pass" | null>(null);
 
   const isTimeAttackMode = selectedSubMode?.playKind === "timeAttack";
   const isAnagramMode = selectedSubMode?.playKind === "anagram";
@@ -526,18 +528,16 @@ function App() {
       return [];
     }
 
-return currentPool
-  .filter((item) => {
-    const normalizedName = normalizeText(item.name);
-    const normalizedAnswers = item.answers.map(normalizeText);
-    const isMatchingName = normalizedName.includes(normalizedGuessText);
-    const isMatchingAnswer = normalizedAnswers.some((answer) =>
-      answer.includes(normalizedGuessText)
-    );
+    return currentPool
+      .filter((item) => {
+        const normalizedName = normalizeText(item.name);
+        const normalizedAnswers = item.answers.map(normalizeText);
+        const isMatchingName = normalizedName.includes(normalizedGuessText);
+        const isMatchingAnswer = normalizedAnswers.some((answer) => answer.includes(normalizedGuessText));
 
-    return isMatchingName || isMatchingAnswer;
-  })
-  .slice(0, 12);
+        return isMatchingName || isMatchingAnswer;
+      })
+      .slice(0, 12);
   }, [currentItem, currentPool, gameStatus, guess]);
 
   const filteredLeaderboard = useMemo<LeaderboardRecord[]>(() => {
@@ -569,6 +569,22 @@ return currentPool
 
     return () => window.clearInterval(timer);
   }, [currentItem, isSessionEnded, isTimeAttackMode, timeLeft]);
+
+  useEffect(() => {
+    setSelectedSuggestionIndex(-1);
+  }, [answerSuggestions]);
+
+  useEffect(() => {
+    if (!feedbackState) {
+      return;
+    }
+
+    const feedbackTimer = window.setTimeout(() => {
+      setFeedbackState(null);
+    }, 450);
+
+    return () => window.clearTimeout(feedbackTimer);
+  }, [feedbackState]);
 
   const openSubModeMenu = (mode: GuessMode) => {
     setSelectedSubModeMenu(mode);
@@ -757,6 +773,7 @@ return currentPool
     }
 
     setGameStatus("passed");
+    setFeedbackState("pass");
     setRoundScore(0);
     setGamesPlayed((previous) => previous + 1);
     setPassedAnswers((previous) => previous + 1);
@@ -767,17 +784,20 @@ return currentPool
     setMessage(`Pas geçtin. Cevap: ${currentItem.name}`);
   };
 
-  const checkGuess = () => {
+  const checkGuess = (guessOverride?: string) => {
     if (!currentItem || gameStatus !== "playing") {
       return;
     }
 
-    if (guess.trim() === "") {
+    const activeGuess = guessOverride ?? guess;
+
+    if (activeGuess.trim() === "") {
+      setFeedbackState("wrong");
       setMessage("Önce bir tahmin yazmalısın.");
       return;
     }
 
-    const normalizedGuess = normalizeText(guess);
+    const normalizedGuess = normalizeText(activeGuess);
     const possibleCorrectAnswers = [currentItem.name, ...currentItem.answers];
     const isCorrect = possibleCorrectAnswers.some((answer) => normalizeText(answer) === normalizedGuess);
 
@@ -785,6 +805,8 @@ return currentPool
       const finalScore = currentScore;
       const newStreak = currentStreak + 1;
 
+      setGuess(activeGuess);
+      setFeedbackState("correct");
       setGameStatus("won");
       setRoundScore(finalScore);
       setTotalScore((previous) => previous + finalScore);
@@ -802,7 +824,18 @@ return currentPool
       addRoundHistory(currentItem, "won", finalScore);
       setMessage(`Doğru! ${currentItem.name} cevabını ${totalHintCount} ipucuyla bildin.`);
     } else {
+      setFeedbackState("wrong");
       setMessage("Yanlış tahmin. Bir ipucu daha alıp tekrar dene.");
+    }
+  };
+
+  const selectSuggestion = (item: GuessItem, shouldSubmit = false) => {
+    setGuess(item.name);
+    setMessage("");
+    setSelectedSuggestionIndex(-1);
+
+    if (shouldSubmit) {
+      checkGuess(item.name);
     }
   };
 
@@ -1077,7 +1110,7 @@ return currentPool
 
   return (
     <main className={`page mode-${currentItem.mode}`}>
-      <section className="game-card play-card">
+      <section className={`game-card play-card ${feedbackState ? `feedback-${feedbackState}` : ""}`}>
         <div className="play-header">
           <button className="secondary-button play-menu-button" onClick={goToMenu}>Ana Menü</button>
 
@@ -1155,9 +1188,41 @@ return currentPool
                   type="text"
                   placeholder="Cevabı tahmin et..."
                   value={guess}
-                  onChange={(event) => setGuess(event.target.value)}
+                  onChange={(event) => {
+                    setGuess(event.target.value);
+                    setSelectedSuggestionIndex(-1);
+                  }}
                   onKeyDown={(event) => {
+                    if (answerSuggestions.length > 0 && event.key === "ArrowDown") {
+                      event.preventDefault();
+                      setSelectedSuggestionIndex((previous) =>
+                        previous < answerSuggestions.length - 1 ? previous + 1 : 0
+                      );
+                      return;
+                    }
+
+                    if (answerSuggestions.length > 0 && event.key === "ArrowUp") {
+                      event.preventDefault();
+                      setSelectedSuggestionIndex((previous) =>
+                        previous > 0 ? previous - 1 : answerSuggestions.length - 1
+                      );
+                      return;
+                    }
+
+                    if (event.key === "Escape") {
+                      setSelectedSuggestionIndex(-1);
+                      return;
+                    }
+
                     if (event.key === "Enter") {
+                      const selectedSuggestion = answerSuggestions[selectedSuggestionIndex];
+
+                      if (selectedSuggestion) {
+                        event.preventDefault();
+                        selectSuggestion(selectedSuggestion, true);
+                        return;
+                      }
+
                       checkGuess();
                     }
                   }}
@@ -1167,15 +1232,14 @@ return currentPool
 
                 {answerSuggestions.length > 0 && (
                   <div className="suggestion-list">
-                    {answerSuggestions.map((item) => (
+                    {answerSuggestions.map((item, index) => (
                       <button
                         key={item.id}
                         type="button"
-                        className="suggestion-item"
-                        onClick={() => {
-                          setGuess(item.name);
-                          setMessage("");
-                        }}
+                        className={index === selectedSuggestionIndex ? "suggestion-item active" : "suggestion-item"}
+                        onMouseEnter={() => setSelectedSuggestionIndex(index)}
+                        onMouseDown={(event) => event.preventDefault()}
+                        onClick={() => selectSuggestion(item)}
                       >
                         {item.name}
                       </button>
@@ -1184,7 +1248,7 @@ return currentPool
                 )}
               </div>
 
-              <button onClick={checkGuess} disabled={gameStatus !== "playing"}>Tahmin Et</button>
+              <button onClick={() => checkGuess()} disabled={gameStatus !== "playing"}>Tahmin Et</button>
             </div>
 
             <div className="support-actions">
