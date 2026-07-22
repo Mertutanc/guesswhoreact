@@ -526,7 +526,7 @@ function App() {
       return [];
     }
 
-    return currentPool
+return currentPool
   .filter((item) => {
     const normalizedName = normalizeText(item.name);
     const normalizedAnswers = item.answers.map(normalizeText);
