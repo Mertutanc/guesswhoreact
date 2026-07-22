@@ -1208,3 +1208,34 @@ button {
     text-align: left;
   }
 }
+
+/* Roadmap fix 1: prevent opened hint pills from spilling outside hint boxes */
+.inline-hint-card {
+  height: auto;
+  min-height: 144px;
+  max-height: none;
+  overflow: visible;
+}
+
+.inline-hint-card .hint-list,
+.hint-list {
+  width: 100%;
+  max-width: 100%;
+  align-content: flex-start;
+}
+
+.hint-pill {
+  max-width: 100%;
+  white-space: normal;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+  text-align: center;
+}
+
+/* Roadmap fix 2: hide any leftover content-count badges on submode cards */
+.submode-button em,
+.submode-count,
+.item-count,
+.content-count {
+  display: none !important;
+}

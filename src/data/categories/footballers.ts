@@ -929,7 +929,7 @@ export const footballers: GuessItem[] = [
     ["Rumen"],
     ["10 Numara", "Ofansif Orta Saha"],
     ["5 Şubat 1965"],
-    ["Uefa Finali Tony Adam'a dirsek attı :(", "UEFA Kupası kazandı", "Sol ayak", "Karpatların Maradonası"]
+    ["Uefa Finali Tony Adams'a dirsek attı :(", "UEFA Kupası kazandı", "Sol ayak", "Karpatların Maradonası"]
   ),
 
   f(
