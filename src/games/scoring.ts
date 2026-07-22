@@ -52,7 +52,6 @@ export const hintCosts: Record<GuessMode, Record<string, number>> = {
     style: 5,
     origin: 10,
     role: 10,
-    projects: 15,
     features: 25,
   },
 };

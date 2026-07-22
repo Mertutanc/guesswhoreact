@@ -552,6 +552,7 @@ function App() {
   const [leaderboardCategoryFilter, setLeaderboardCategoryFilter] = useState<LeaderboardCategoryFilter>("all");
   const [leaderboard, setLeaderboard] = useState<LeaderboardRecord[]>(getSavedLeaderboard);
   const [selectedSuggestionIndex, setSelectedSuggestionIndex] = useState(-1);
+  const [isSuggestionListHidden, setIsSuggestionListHidden] = useState(false);
   const [feedbackState, setFeedbackState] = useState<"correct" | "wrong" | "pass" | null>(null);
 
   const isTimeAttackMode = selectedSubMode?.playKind === "timeAttack";
@@ -597,7 +598,7 @@ function App() {
   const answerSuggestions = useMemo<GuessItem[]>(() => {
     const normalizedGuessText = normalizeText(guess);
 
-    if (!currentItem || normalizedGuessText.length < 2 || gameStatus !== "playing") {
+    if (isSuggestionListHidden || !currentItem || normalizedGuessText.length < 2 || gameStatus !== "playing") {
       return [];
     }
 
@@ -611,7 +612,7 @@ function App() {
         return isMatchingName || isMatchingAnswer;
       })
       .slice(0, 12);
-  }, [currentItem, currentPool, gameStatus, guess]);
+  }, [currentItem, currentPool, gameStatus, guess, isSuggestionListHidden]);
 
   const filteredLeaderboard = useMemo<LeaderboardRecord[]>(() => {
     return leaderboard.filter((record) => {
@@ -681,6 +682,7 @@ function App() {
     setCurrentItem(randomItem);
     setRevealedHints(createEmptyHints(randomItem));
     setGuess("");
+    setIsSuggestionListHidden(false);
     setMessage("");
     setGameStatus("playing");
     setIsBigHintUsed(false);
@@ -712,6 +714,7 @@ function App() {
     setCurrentItem(null);
     setRevealedHints({});
     setGuess("");
+    setIsSuggestionListHidden(false);
     setMessage("");
     setGameStatus("playing");
     setIsBigHintUsed(false);
@@ -725,6 +728,7 @@ function App() {
     setCurrentItem(null);
     setRevealedHints({});
     setGuess("");
+    setIsSuggestionListHidden(false);
     setMessage("");
     setGameStatus("playing");
     setIsBigHintUsed(false);
@@ -912,6 +916,7 @@ function App() {
     setGuess(item.name);
     setMessage("");
     setSelectedSuggestionIndex(-1);
+    setIsSuggestionListHidden(true);
 
     if (shouldSubmit) {
       checkGuess(item.name);
@@ -1282,6 +1287,7 @@ function App() {
                   onChange={(event) => {
                     setGuess(event.target.value);
                     setSelectedSuggestionIndex(-1);
+                    setIsSuggestionListHidden(false);
                   }}
                   onKeyDown={(event) => {
                     if (answerSuggestions.length > 0 && event.key === "ArrowDown") {
@@ -1302,6 +1308,7 @@ function App() {
 
                     if (event.key === "Escape") {
                       setSelectedSuggestionIndex(-1);
+                      setIsSuggestionListHidden(true);
                       return;
                     }
 

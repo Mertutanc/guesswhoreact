@@ -14,7 +14,7 @@ const createMusician = (
   name: string,
   answers: string[],
   style: string[],
-  projects: string[],
+  _projects: string[],
   origin: string[],
   role: string[],
   features: string[],
@@ -29,7 +29,6 @@ const createMusician = (
     tags,
     hintGroups: [
       { key: "style", label: "Tarz", hints: style },
-      { key: "projects", label: "Grup / Proje", hints: projects },
       { key: "origin", label: "Ülke / Dönem", hints: origin },
       { key: "role", label: "Rol / Enstrüman", hints: role },
       { key: "features", label: "Özellik", hints: features },
