@@ -527,16 +527,17 @@ function App() {
     }
 
     return currentPool
-      .filter((item) => {
-        const normalizedName = normalizeText(item.name);
-        const normalizedAnswers = item.answers.map(normalizeText);
-        const isMatchingName = normalizedName.includes(normalizedGuessText);
-        const isMatchingAnswer = normalizedAnswers.some((answer) => answer.includes(normalizedGuessText));
-        const isExactSame = normalizedName === normalizedGuessText;
+  .filter((item) => {
+    const normalizedName = normalizeText(item.name);
+    const normalizedAnswers = item.answers.map(normalizeText);
+    const isMatchingName = normalizedName.includes(normalizedGuessText);
+    const isMatchingAnswer = normalizedAnswers.some((answer) =>
+      answer.includes(normalizedGuessText)
+    );
 
-        return (isMatchingName || isMatchingAnswer) && !isExactSame;
-      })
-      .slice(0, 12);
+    return isMatchingName || isMatchingAnswer;
+  })
+  .slice(0, 12);
   }, [currentItem, currentPool, gameStatus, guess]);
 
   const filteredLeaderboard = useMemo<LeaderboardRecord[]>(() => {
