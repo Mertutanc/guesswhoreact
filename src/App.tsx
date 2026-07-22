@@ -1042,9 +1042,8 @@ function App() {
     return (
       <main className="page home-page">
         <section className="game-card home-card">
-          <div className="screen-kicker">WEB ARCADE</div>
           <h1 className="title">🧠 GuessWho</h1>
-          <p className="subtitle">Mobildeki data ve mod sistemi web’e taşındı. Kategori seç, alt moda gir, seriyi başlat.</p>
+          <p className="subtitle">Kategori seç, alt moda gir, seriyi başlat.</p>
 
           {gamesPlayed > 0 && (
             <div className="mini-score-card">
