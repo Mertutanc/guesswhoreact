@@ -923,6 +923,16 @@ function App() {
     setMessage("");
   };
 
+  // YENİ EKLENEN FONKSİYON: Tüm kategorilerdeki tüm gizli ipuçlarını tek tıkla açar
+  const revealAllHints = () => {
+    if (!currentItem) return;
+    const allRevealed: Record<string, string[]> = {};
+    currentItem.hintGroups.forEach((group) => {
+      allRevealed[group.key] = [...group.hints];
+    });
+    setRevealedHints(allRevealed);
+  };
+
   const useBigHint = () => {
     if (!currentItem || isBigHintUsed || gameStatus !== "playing") {
       return;
@@ -1575,6 +1585,12 @@ function App() {
 
                     <div className="result-actions">
                       <button onClick={nextRound}>Sonraki Soru</button>
+                      
+                      {/* --- YENİ EKLENEN "Tüm İpuçlarını Göster" BUTONU --- */}
+                      <button className="secondary-button" onClick={revealAllHints}>
+                        🔍 Tüm İpuçlarını Göster
+                      </button>
+
                       <button onClick={goToMenu}>Ana Menüye Dön</button>
                       <button onClick={endSession}>Oyunu Bitir</button>
                     </div>
