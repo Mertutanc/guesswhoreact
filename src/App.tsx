@@ -1397,14 +1397,61 @@ function App() {
                   </article>
                 </div>
 
-                <div className="how-to-tips">
-                  <div>
+                <div className="how-to-tips how-to-tips-expanded">
+                  <div className="how-to-rule-card featured-rule-card">
                     <strong>Skor mantığı</strong>
-                    <p>Az ipucu daha yüksek skor getirir. İpucusuz doğruya bonus eklenir, combo skoru büyütür.</p>
+                    <p>Her soru 100 puandan başlar. Açtığın ipuçları puanı düşürür; kategori katsayısı ve combo çarpanı son skoru büyütür.</p>
                   </div>
-                  <div>
+                  <div className="how-to-rule-card">
                     <strong>Kısayollar</strong>
                     <p>Önerilerde ↑ / ↓ ile gezebilir, Enter ile seçebilir, Escape ile listeyi kapatabilirsin.</p>
+                  </div>
+                </div>
+
+                <div className="score-guide-grid">
+                  <article className="score-guide-card">
+                    <strong>Bonus / Ceza</strong>
+                    <div className="score-rule-list">
+                      <span>İpucusuz doğru</span><b>+20</b>
+                      <span>Büyük İpucu</span><b>-50</b>
+                      <span>Adam Asmaca yanlış harf</span><b>-5</b>
+                      <span>Minimum tur tabanı</span><b>30</b>
+                    </div>
+                  </article>
+
+                  <article className="score-guide-card">
+                    <strong>Combo katsayısı</strong>
+                    <div className="score-rule-list">
+                      <span>3 doğru seri</span><b>x1.25</b>
+                      <span>5 doğru seri</span><b>x1.5</b>
+                      <span>10 doğru seri</span><b>x2</b>
+                    </div>
+                  </article>
+
+                  <article className="score-guide-card">
+                    <strong>Kategori katsayısı</strong>
+                    <div className="score-rule-list compact-rules">
+                      <span>Futbol / Film</span><b>x1.0</b>
+                      <span>Oyun</span><b>x1.1</b>
+                      <span>NBA / Müzik</span><b>x1.2</b>
+                      <span>Tarih</span><b>x1.5</b>
+                    </div>
+                  </article>
+                </div>
+
+                <div className="hint-cost-guide">
+                  <div className="hint-cost-header">
+                    <strong>İpucu puanları</strong>
+                    <p>Örnek: Futbolda “Takımlar” açarsan -15, “Yetenek / Özellik” gibi daha güçlü ipuçları genelde -25 götürür.</p>
+                  </div>
+
+                  <div className="hint-cost-grid">
+                    <div><span>⚽ Futbolcu</span><em>Kimlik -8</em><em>Takımlar -15</em><em>Yetenek -25</em></div>
+                    <div><span>🎬 Film</span><em>Rol -10</em><em>Film -20</em><em>Özellik -25</em></div>
+                    <div><span>🎮 Oyun</span><em>Oyun -10</em><em>Dünya -20</em><em>Özellik -25</em></div>
+                    <div><span>🏀 NBA</span><em>Pozisyon -5</em><em>Takımlar -15</em><em>Yetenek -25</em></div>
+                    <div><span>🏺 Tarih</span><em>Dönem -5</em><em>Olaylar -20</em><em>Özellik -25</em></div>
+                    <div><span>🎤 Müzisyen</span><em>Tarz -5</em><em>Rol -10</em><em>Özellik -25</em></div>
                   </div>
                 </div>
               </section>
