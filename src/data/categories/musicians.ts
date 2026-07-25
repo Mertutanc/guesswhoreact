@@ -7,7 +7,9 @@ type MusicianTag =
   | "musician:turkish"
   | "musician:legend"
   | "musician:jazzSoul"
-  | "musician:electronicAlternative";
+  | "musician:electronicAlternative"
+  | "musician:folkCountry"
+  | "musician:classicalWorld";
 
 const createMusician = (
   id: number,
@@ -1104,7 +1106,7 @@ export const musicians: GuessItem[] = [
     ["Türkiye", "1990lar ve sonrası"],
     ["Piyanist", "Besteci"],
     ["Virtüöz piyano tekniğiyle bilinir", "Klasik müzikle Anadolu etkilerini birleştirir", "Türkiye’nin en tanınan piyanistlerindendir"],
-    ["musician:turkish", "musician:legend"]
+    ["musician:turkish", "musician:classicalWorld", "musician:legend"]
   ),
   m(
     6098,
@@ -1115,7 +1117,7 @@ export const musicians: GuessItem[] = [
     ["Türkiye", "1950ler ve sonrası"],
     ["Piyanist"],
     ["Klasik piyano repertuvarıyla tanınır", "Uzun soluklu uluslararası kariyere sahiptir", "Türkiye’nin önemli klasik müzik yorumcularındandır"],
-    ["musician:turkish", "musician:legend"]
+    ["musician:turkish", "musician:classicalWorld", "musician:legend"]
   ),
   m(
     6099,
@@ -2248,7 +2250,7 @@ m(
     ["ABD", "1960lar ve sonrası"],
     ["Vokalist", "Gitarist", "Söz yazarı"],
     ["Derin ve hikâye anlatıcısı sözleriyle bilinir", "Nobel Edebiyat Ödülü sahibidir", "Amerikan folk rock geleneğinin en önemli ismidir"],
-    ["musician:rockMetal", "musician:legend"]
+    ["musician:folkCountry", "musician:legend"]
   ),
   m(
     6202,
@@ -2270,7 +2272,7 @@ m(
     ["ABD", "1970ler ve sonrası"],
     ["Vokalist", "Gitarist", "Söz yazarı"],
     ["The Boss lakabıyla anılır", "İşçi sınıfı hikâyelerini anlatan marş benzeri şarkıları vardır", "Enerjik stadyum konserleriyle bilinir"],
-    ["musician:rockMetal", "musician:legend"]
+    ["musician:rockMetal", "musician:folkCountry", "musician:legend"]
   ),
   m(
     6204,
@@ -2281,7 +2283,7 @@ m(
     ["Kanada / ABD", "1960lar ve sonrası"],
     ["Vokalist", "Gitarist", "Söz yazarı"],
     ["Hem akustik baladlar hem sert gitar soloları çalabilir", "Titrek ve samimi bir vokal tarzı vardır", "Müzik endüstrisindeki duruşuyla tanınır"],
-    ["musician:rockMetal", "musician:legend"]
+    ["musician:rockMetal", "musician:folkCountry", "musician:legend"]
   ),
   m(
     6205,
@@ -2292,7 +2294,7 @@ m(
     ["ABD", "1950ler ve sonrası"],
     ["Vokalist", "Gitarist", "Söz yazarı"],
     ["Man in Black olarak bilinir", "Derin ve tok bariton sesi vardır", "Country müziğin en asi ve saygın isimlerindendir"],
-    ["musician:rockMetal", "musician:legend"]
+    ["musician:folkCountry", "musician:legend"]
   ),
   m(
     6206,
@@ -2303,7 +2305,7 @@ m(
     ["Kanada / ABD", "1960lar ve sonrası"],
     ["Vokalist", "Gitarist", "Piyanist"],
     ["Özgün akor yapıları ve şiirsel sözleriyle bilinir", "Folk ve caz müziği harmanlamıştır", "Kuşe kağıt gibi saf bir vokal tonu vardır"],
-    ["musician:jazzSoul", "musician:legend"]
+    ["musician:folkCountry", "musician:jazzSoul", "musician:legend"]
   ),
   m(
     6207,
@@ -2314,7 +2316,7 @@ m(
     ["Kanada", "1960lar ve sonrası"],
     ["Vokalist", "Şair", "Söz yazarı"],
     ["Derin, fısıltılı ve karanlık bir ses tonu vardır", "Şiirsel ve melankolik sözler yazar", "Edebiyat ile müziği birleştiren önemli bir figürdür"],
-    ["musician:jazzSoul", "musician:legend"]
+    ["musician:folkCountry", "musician:legend"]
   ),
   m(
     6208,
@@ -2325,7 +2327,7 @@ m(
     ["Kuzey İrlanda", "1960lar ve sonrası"],
     ["Vokalist", "Söz yazarı", "Multi-enstrümantalist"],
     ["Celtic soul akımının öncüsüdür", "Doğaçlama ve hüzünlü vokal yapısıyla bilinir", "Saksofon ve akustik öğeleri birleştirir"],
-    ["musician:jazzSoul", "musician:legend"]
+    ["musician:jazzSoul", "musician:folkCountry", "musician:legend"]
   ),
   m(
     6209,
@@ -2358,7 +2360,7 @@ m(
     ["ABD", "1940lar ve sonrası"],
     ["Vokalist", "Gitarist"],
     ["Chicago blues soundunun kurucusudur", "Rock and roll'u doğrudan etkilemiştir", "Güçlü ve hırıltılı bir sese sahiptir"],
-    ["musician:rockMetal", "musician:legend"]
+    ["musician:jazzSoul", "musician:rockMetal", "musician:legend"]
   ),
   m(
     6212,
@@ -2390,7 +2392,7 @@ m(
     ["The Crickets", "Solo kariyer"],
     ["ABD", "1950ler ve sonrası"],
     ["Vokalist", "Gitarist", "Söz yazarı"],
-    ["Gözlükleri ve takım elbisesiyle rock sahnesinde yer almıştır", "Gitar-bas-davul formatını popülerleştirmiştir", "Erken yaşta trajik bir uçak kazasında ölmüştür"],
+    ["Gözlükleri ve takım elbisesiyle rock sahnesinde yer almıştır", "Gitar-bas-davul formatını popülerleştirmiştir", "Kısa kariyerine rağmen kalıcı etki bırakmıştır"],
     ["musician:rockMetal", "musician:legend"]
   ),
   m(
@@ -2423,7 +2425,7 @@ m(
     ["Pink Floyd", "Solo kariyer"],
     ["Birleşik Krallık", "1960lar"],
     ["Gitarist", "Vokalist", "Söz yazarı"],
-    ["Pink Floyd'un kurucu üyesidir", "Psikedelik dönemin uçarı ve dahi figürlerindendir", "Akıl sağlığı sorunları nedeniyle erken ayrılmıştır"],
+    ["Pink Floyd'un kurucu üyesidir", "Psikedelik dönemin uçarı ve dahi figürlerindendir", "Gruptan erken ayrılan kült bir figürdür"],
     ["musician:rockMetal", "musician:legend"]
   ),
   m(
@@ -2475,7 +2477,7 @@ m(
     "Chino Moreno",
     ["chino moreno", "camilo moreno"],
     ["Alternative metal", "Nu metal", "Dream pop"],
-    ["Deftones", "Perrion", "Crosses"],
+    ["Deftones", "Team Sleep", "Crosses", "Palms"],
     ["ABD", "1980lar ve sonrası"],
     ["Vokalist", "Gitarist"],
     ["Atmospheric ve duygu dolu vokal tarzıyla bilinir", "Sert metal ile rüya popu harmanlayan Deftones'un sesidir", "Sahnedeki hipnotik duruşuyla tanınır"],
@@ -2577,7 +2579,7 @@ m(
     ["Stone Temple Pilots", "Velvet Revolver"],
     ["ABD", "1990lar ve sonrası"],
     ["Vokalist", "Söz yazarı"],
-    ["Teatral ve buğulu bir vokal stiline sahiptir", "90'ların en karizmatik ve şekil değiştiren frontmanlerinden biridir", "Megolu sahne şovlarıyla tanınır"],
+    ["Teatral ve buğulu bir vokal stiline sahiptir", "90'ların en karizmatik ve şekil değiştiren frontmanlerinden biridir", "Etkileyici sahne şovlarıyla tanınır"],
     ["musician:rockMetal"]
   ),
   m(
@@ -2676,7 +2678,7 @@ m(
     ["Solo kariyer"],
     ["ABD", "1970ler ve sonrası"],
     ["Vokalist", "Piyanist", "Söz yazarı"],
-    ["Çok hırıltılı, sigara dumanlı ve paslı vokal tonuyla tanınriptir", "Avangart, blues ve caz unsurlarını birleştiren eşsiz bir diskografisi vardır"],
+    ["Çok hırıltılı, paslı ve tiyatral vokal tonuyla tanınır", "Avangart, blues ve caz unsurlarını birleştiren eşsiz bir diskografisi vardır"],
     ["musician:jazzSoul", "musician:legend"]
   ),
   m(
@@ -2688,7 +2690,7 @@ m(
     ["ABD", "1950ler ve sonrası"],
     ["Vokalist", "Gitarist", "Söz yazarı"],
     ["Örgülü saçları ve şapkasıyla ikoniktir", "Outlaw country akımının en önemli isimlerindendir", "Trigger adını verdiği aşınmış akustik gitarı ile bilinir"],
-    ["musician:rockMetal", "musician:legend"]
+    ["musician:folkCountry", "musician:legend"]
   ),
   m(
     6242,
@@ -2699,7 +2701,7 @@ m(
     ["ABD", "1950ler ve sonrası"],
     ["Vokalist", "Gitarist", "Söz yazarı"],
     ["Nashville'in kalıplaşmış sesine başkaldıran Outlaw country hareketinin kurucularındandır", "Tok sesi ve sakallı imajıyla tanınır"],
-    ["musician:rockMetal", "musician:legend"]
+    ["musician:folkCountry", "musician:legend"]
   ),
   m(
     6243,
@@ -2710,7 +2712,7 @@ m(
     ["ABD", "1960lar ve sonrası"],
     ["Vokalist", "Gitarist", "Söz yazarı"],
     ["İşçi sınıfının ve sıradan insanların hayatını anlatan gerçekçi country şarkıları yazar", "Amerikan müzik tarihinin en büyük yazarlarından biridir"],
-    ["musician:rockMetal", "musician:legend"]
+    ["musician:folkCountry", "musician:legend"]
   ),
   m(
     6244,
@@ -2721,7 +2723,7 @@ m(
     ["ABD", "1960lar ve sonrası"],
     ["Vokalist", "Söz yazarı", "Oyuncu"],
     ["Helikopter pilotluğundan müzisyenliğe geçen efsanevi bir hayata sahiptir", "Derin anlamlı country şarkıları yazmıştır"],
-    ["musician:rockMetal", "musician:legend"]
+    ["musician:folkCountry", "musician:legend"]
   ),
   m(
     6245,
@@ -2732,7 +2734,7 @@ m(
     ["ABD", "1960lar ve sonrası"],
     ["Vokalist", "Gitarist", "Söz yazarı"],
     ["Son derece melankolik, karanlık ve şiirsel folk şarkılarıyla cult bir hayran kitlesi vardır", "Şarkı yazarları için şarkı yazarı olarak anılır"],
-    ["musician:rockMetal"]
+    ["musician:folkCountry"]
   ),
   m(
     6246,
@@ -2743,7 +2745,7 @@ m(
     ["ABD", "1970ler ve sonrası"],
     ["Vokalist", "Gitarist", "Söz yazarı"],
     ["Günlük hayatı mizahi ve bir o kadar da yürek burkan bir dille anlatan usta bir hikâye anlatıcısıdır"],
-    ["musician:rockMetal", "musician:legend"]
+    ["musician:folkCountry", "musician:legend"]
   ),
   m(
     6247,
@@ -2754,7 +2756,7 @@ m(
     ["ABD", "1970ler ve sonrası"],
     ["Vokalist", "Gitarist", "Söz yazarı"],
     ["Gümüş rengi saçları ve melekleri andıran saf armonik vokaliyle tanınır", "Country müziği pek çok farklı türle harmanlamıştır"],
-    ["musician:rockMetal", "musician:legend"]
+    ["musician:folkCountry", "musician:legend"]
   ),
   m(
     6248,
@@ -2765,7 +2767,7 @@ m(
     ["ABD", "1960lar ve sonrası"],
     ["Vokalist", "Söz yazarı", "Oyuncu"],
     ["Country müziğin en başarılı ve sevilen kadın figürlerinden biridir", "Kendine has tarzı ve hayırseverliğiyle tanınır"],
-    ["musician:pop", "musician:legend"]
+    ["musician:folkCountry", "musician:pop", "musician:legend"]
   ),
   m(
     6249,
@@ -2776,7 +2778,7 @@ m(
     ["ABD", "1960lar ve sonrası"],
     ["Vokalist", "Söz yazarı"],
     ["Country müzikte kadınların sesini yükselten cesur ve dürüst şarkılar yapmıştır", "Kırsal kesimin yaşadığı zorlukları işlemiştir"],
-    ["musician:rockMetal", "musician:legend"]
+    ["musician:folkCountry", "musician:legend"]
   ),
   m(
     6250,
@@ -2787,7 +2789,7 @@ m(
     ["ABD", "1960lar ve sonrası"],
     ["Vokalist", "Söz yazarı"],
     ["Country müziğin First Lady'si olarak anılır", "Duygulu ve acıklı ses tonuyla klasikleşmiş country baladları seslendirmiştir"],
-    ["musician:rockMetal", "musician:legend"]
+    ["musician:folkCountry", "musician:legend"]
   ),
   m(
     6251,
@@ -2798,7 +2800,7 @@ m(
     ["ABD", "1950ler ve sonrası"],
     ["Vokalist", "Söz yazarı"],
     ["Tarihin en iyi country erkek seslerinden biri kabul edilir", "Şarkılarına yüklediği hırs ve acı hissiyle ünlüdür"],
-    ["musician:rockMetal", "musician:legend"]
+    ["musician:folkCountry", "musician:legend"]
   ),
   m(
     6252,
@@ -2809,7 +2811,7 @@ m(
     ["ABD", "1940lar"],
     ["Vokalist", "Gitarist", "Söz yazarı"],
     ["Erken dönem country müziğinin ve modern şarkı yazarlığının temel taşlarından biridir", "Kısa ömrüne rağmen unutulmaz klasiklere imza atmıştır"],
-    ["musician:rockMetal", "musician:legend"]
+    ["musician:folkCountry", "musician:legend"]
   ),
   m(
     6253,
@@ -2820,7 +2822,7 @@ m(
     ["ABD", "2010lar ve sonrası"],
     ["Vokalist", "Gitarist", "Söz yazarı"],
     ["Geleneksel country kalıplarını kırarak deneysel ve psikedelik öğeler ekleyen modern bir yenilikçidir"],
-    ["musician:rockMetal"]
+    ["musician:folkCountry"]
   ),
   m(
     6254,
@@ -2831,7 +2833,7 @@ m(
     ["ABD", "2010lar ve sonrası"],
     ["Vokalist", "Gitarist", "Söz yazarı"],
     ["Güçlü, blues soslu hırıltılı bir country sesine sahiptir", "Modern Nashville sahnesinin en çok ödül alan isimlerindendir"],
-    ["musician:rockMetal"]
+    ["musician:folkCountry", "musician:rockMetal"]
   ),
   m(
     6255,
@@ -2842,7 +2844,7 @@ m(
     ["ABD", "2010lar ve sonrası"],
     ["Vokalist", "Gitarist", "Söz yazarı"],
     ["Appalachia kültüründen beslenen otantik hikâyeler anlatır", "Güçlü Appalachian folk-country tarzını yeniden canlandırmıştır"],
-    ["musician:rockMetal"]
+    ["musician:folkCountry"]
   ),
   m(
     6256,
@@ -2853,7 +2855,7 @@ m(
     ["Kanada", "2010lar ve sonrası"],
     ["Vokalist", "Gitarist", "Söz yazarı"],
     ["Oldukça derin, yaşlı bir insanı andıran tok bariton bir sese sahiptir", "Geleneksel cowboy ve folk şarkılarını minimalist bir şekilde yorumlar"],
-    ["musician:rockMetal"]
+    ["musician:folkCountry"]
   ),
   m(
     6257,
@@ -2864,7 +2866,7 @@ m(
     ["Kanada / ABD", "2010lar ve sonrası"],
     ["Vokalist", "Gitarist", "Söz yazarı"],
     ["Yüzünü tamamen kapatan püsküllü bir maskeyle sahneye çıkar", "Gizemli kimliği ve sinematik alternatif country tarzıyla dikkat çeker"],
-    ["musician:rockMetal"]
+    ["musician:folkCountry"]
   ),
   m(
     6258,
@@ -2875,7 +2877,7 @@ m(
     ["ABD", "2010lar ve sonrası"],
     ["Vokalist", "Gitarist", "Söz yazarı"],
     ["Sokak müzisyenliğinden gelen, klasik 50'ler ve 60'lar country/blues estetiğini modern döneme taşıyan üretken bir sanatçıdır"],
-    ["musician:rockMetal"]
+    ["musician:folkCountry", "musician:jazzSoul"]
   ),
   m(
     6259,
@@ -2886,7 +2888,7 @@ m(
     ["ABD", "2010lar ve sonrası"],
     ["Gitarist", "Vokalist"],
     ["İnanılmaz bir akustik gitar virtüözlüğüne sahiptir", "Geleneksel bluegrass müziğini psikedelik rock doğaçlamalarıyla harmanlar"],
-    ["musician:rockMetal"]
+    ["musician:folkCountry", "musician:rockMetal"]
   ),
   m(
     6260,
@@ -3304,7 +3306,7 @@ m(
     ["ABD", "1990lar ve sonrası"],
     ["Gitarist"],
     ["Slide gitar tekniğini rock ve Hindistan müziğiyle birleştiren yaşayan en iyi gitaristlerden biridir"],
-    ["musician:rockMetal"]
+    ["musician:rockMetal", "musician:jazzSoul"]
   ),
   m(
     6298,
@@ -3326,7 +3328,7 @@ m(
     ["ABD", "1970ler ve sonrası"],
     ["Vokalist", "Gitarist", "Söz yazarı"],
     ["Slide gitar çalmaktaki ustalığı ve blues ile popu harmanlayan sıcak sesiyle Grammy ödülleri kazanmış bir sanatçıdır"],
-    ["musician:rockMetal", "musician:legend"]
+    ["musician:rockMetal", "musician:jazzSoul", "musician:legend"]
   ),
   m(
     6300,
@@ -3337,8 +3339,1106 @@ m(
     ["ABD", "1990lar ve sonrası"],
     ["Vokalist", "Gitarist", "Piyanist"],
     ["90'ların başında akustik tabanlı pop-rock şarkılarıyla büyük başarı yakalamış, çok yönlü bir müzisyendir"],
-    ["musician:rockMetal", "musician:pop"]
+    ["musician:rockMetal", "musician:pop", "musician:folkCountry"]
+  ),
+m(
+    6301,
+    "Whitney Houston",
+    ["whitney houston", "whitney"],
+    ["Pop", "R&B", "Soul"],
+    ["Solo kariyer"],
+    ["ABD", "1980ler ve sonrası"],
+    ["Vokalist", "Oyuncu"],
+    ["Güçlü ve parlak vokal tekniğiyle bilinir", "Pop ve R&B baladlarında ikonikleşmiştir", "Sahne yorumu çok etkileyicidir"],
+    ["musician:pop", "musician:jazzSoul", "musician:legend"]
+  ),
+  m(
+    6302,
+    "Mariah Carey",
+    ["mariah carey", "mariah"],
+    ["Pop", "R&B", "Soul pop"],
+    ["Solo kariyer"],
+    ["ABD", "1990lar ve sonrası"],
+    ["Vokalist", "Söz yazarı", "Prodüktör"],
+    ["Çok geniş vokal aralığıyla tanınır", "Melizmatik vokal süslemeleriyle bilinir", "Pop ve R&B listelerinde uzun süre etkili olmuştur"],
+    ["musician:pop", "musician:jazzSoul", "musician:legend"]
+  ),
+  m(
+    6303,
+    "Usher",
+    ["usher", "usher raymond"],
+    ["R&B", "Pop", "Dance pop"],
+    ["Solo kariyer"],
+    ["ABD", "1990lar ve sonrası"],
+    ["Vokalist", "Dansçı", "Söz yazarı"],
+    ["Dans ve vokal performansını birlikte kullanır", "Modern R&B sahnesinin büyük isimlerindendir", "Yumuşak ama enerjik sahne tarzı vardır"],
+    ["musician:pop", "musician:jazzSoul"]
+  ),
+  m(
+    6304,
+    "Justin Timberlake",
+    ["justin timberlake", "timberlake"],
+    ["Pop", "R&B", "Dance pop"],
+    ["NSYNC", "Solo kariyer"],
+    ["ABD", "1990lar ve sonrası"],
+    ["Vokalist", "Dansçı", "Söz yazarı"],
+    ["Pop ve R&B soundunu dans performansıyla birleştirir", "Solo kariyerinde ritmik pop üretimleriyle öne çıkar", "Falsetto vokal kullanımıyla bilinir"],
+    ["musician:pop", "musician:jazzSoul"]
+  ),
+  m(
+    6305,
+    "P!nk",
+    ["pink", "p!nk", "alecia moore"],
+    ["Pop rock", "Pop", "Dance pop"],
+    ["Solo kariyer"],
+    ["ABD", "2000ler ve sonrası"],
+    ["Vokalist", "Söz yazarı"],
+    ["Güçlü ve hafif raspy vokaliyle bilinir", "Pop rock tavrı ve atletik sahne şovlarıyla öne çıkar", "Asi ama duygusal şarkılar yapar"],
+    ["musician:pop", "musician:rockMetal"]
+  ),
+  m(
+    6306,
+    "Gwen Stefani",
+    ["gwen stefani", "gwen"],
+    ["Pop", "Ska punk", "New wave"],
+    ["No Doubt", "Solo kariyer"],
+    ["ABD", "1990lar ve sonrası"],
+    ["Vokalist", "Söz yazarı"],
+    ["Ska ve pop estetiğini birleştirmiştir", "Moda stiliyle de tanınır", "Ayırt edici vokal rengi vardır"],
+    ["musician:pop", "musician:rockMetal"]
+  ),
+  m(
+    6307,
+    "Annie Lennox",
+    ["annie lennox"],
+    ["Pop", "New wave", "Soul pop"],
+    ["Eurythmics", "Solo kariyer"],
+    ["Birleşik Krallık", "1980ler ve sonrası"],
+    ["Vokalist", "Söz yazarı"],
+    ["Derin ve güçlü vokaliyle bilinir", "Androjen sahne estetiğiyle öne çıkar", "Synth-pop ve soul arasında güçlü bir köprü kurar"],
+    ["musician:pop", "musician:jazzSoul", "musician:legend"]
+  ),
+  m(
+    6308,
+    "Cher",
+    ["cher", "cherilyn sarkisian"],
+    ["Pop", "Dance pop", "Rock pop"],
+    ["Solo kariyer", "Sonny & Cher"],
+    ["ABD", "1960lar ve sonrası"],
+    ["Vokalist", "Oyuncu"],
+    ["Tok ve ayırt edici vokaliyle bilinir", "Pop kültüründe dönemler arası kalıcıdır", "Sahne imajını sürekli yenileyen ikonlardandır"],
+    ["musician:pop", "musician:legend"]
+  ),
+  m(
+    6309,
+    "SZA",
+    ["sza", "solana rowe"],
+    ["R&B", "Alternative R&B", "Neo soul"],
+    ["Solo kariyer"],
+    ["ABD", "2010lar ve sonrası"],
+    ["Vokalist", "Söz yazarı"],
+    ["Kırılgan ve konuşur gibi R&B vokaliyle bilinir", "İlişki ve iç dünya temalarını modern bir dille anlatır", "Alternatif R&B sahnesinde güçlüdür"],
+    ["musician:jazzSoul", "musician:pop"]
+  ),
+  m(
+    6310,
+    "Tori Amos",
+    ["tori amos"],
+    ["Alternative pop", "Piano rock", "Art pop"],
+    ["Solo kariyer"],
+    ["ABD", "1990lar ve sonrası"],
+    ["Vokalist", "Piyanist", "Söz yazarı"],
+    ["Piyano odaklı yoğun anlatımıyla bilinir", "Alternatif pop içinde kişisel ve dramatik bir dil kurar", "Sahne performanslarında teatral enerji taşır"],
+    ["musician:pop", "musician:electronicAlternative"]
+  ),
+  m(
+    6311,
+    "Dave Mustaine",
+    ["dave mustaine", "mustaine"],
+    ["Thrash metal", "Heavy metal"],
+    ["Megadeth", "Metallica bağlantısı"],
+    ["ABD", "1980ler ve sonrası"],
+    ["Vokalist", "Gitarist", "Söz yazarı"],
+    ["Keskin riffleriyle bilinir", "Thrash metal sahnesinin ana figürlerindendir", "Sert ve teknik gitar yazımıyla öne çıkar"],
+    ["musician:rockMetal", "musician:legend"]
+  ),
+  m(
+    6312,
+    "Tom Araya",
+    ["tom araya"],
+    ["Thrash metal", "Extreme metal"],
+    ["Slayer"],
+    ["Şili / ABD", "1980ler ve sonrası"],
+    ["Vokalist", "Bas gitarist"],
+    ["Agresif vokal tavrıyla bilinir", "Thrash metalin sert kanadında önemli bir figürdür", "Bas ve vokali birlikte yürütür"],
+    ["musician:rockMetal", "musician:legend"]
+  ),
+  m(
+    6313,
+    "Kerry King",
+    ["kerry king"],
+    ["Thrash metal"],
+    ["Slayer", "Solo kariyer"],
+    ["ABD", "1980ler ve sonrası"],
+    ["Gitarist", "Söz yazarı"],
+    ["Sert ve hızlı riffleriyle tanınır", "Keskin gitar tonu ve sahne imajıyla öne çıkar", "Thrash metal gitarının önemli isimlerindendir"],
+    ["musician:rockMetal", "musician:legend"]
+  ),
+  m(
+    6314,
+    "Tom Morello",
+    ["tom morello"],
+    ["Rap rock", "Alternative metal", "Funk metal"],
+    ["Rage Against the Machine", "Audioslave", "Solo kariyer"],
+    ["ABD", "1990lar ve sonrası"],
+    ["Gitarist", "Söz yazarı"],
+    ["Gitarından DJ benzeri sesler çıkarabilir", "Politik rock sahnesinde çok görünürdür", "Riff ve efekt kullanımında ayırt edicidir"],
+    ["musician:rockMetal", "musician:rapHipHop", "musician:legend"]
+  ),
+  m(
+    6315,
+    "Zack de la Rocha",
+    ["zack de la rocha", "zack"],
+    ["Rap rock", "Alternative metal", "Political rap"],
+    ["Rage Against the Machine"],
+    ["ABD", "1990lar ve sonrası"],
+    ["Vokalist", "Rapper", "Söz yazarı"],
+    ["Rap ve rock vokalini yüksek enerjiyle birleştirir", "Politik sözleriyle bilinir", "Sert ve ateşli sahne tavrı vardır"],
+    ["musician:rockMetal", "musician:rapHipHop"]
+  ),
+  m(
+    6316,
+    "Anthony Kiedis",
+    ["anthony kiedis", "kiedis"],
+    ["Funk rock", "Alternative rock", "Rap rock"],
+    ["Red Hot Chili Peppers"],
+    ["ABD", "1980ler ve sonrası"],
+    ["Vokalist", "Söz yazarı"],
+    ["Funk ve rap etkili vokal akışıyla bilinir", "Enerjik sahne hareketleri vardır", "Red Hot Chili Peppers’ın frontmanidir"],
+    ["musician:rockMetal", "musician:rapHipHop"]
+  ),
+  m(
+    6317,
+    "John Frusciante",
+    ["john frusciante", "frusciante"],
+    ["Funk rock", "Alternative rock", "Experimental rock"],
+    ["Red Hot Chili Peppers", "Solo kariyer"],
+    ["ABD", "1980ler ve sonrası"],
+    ["Gitarist", "Vokalist", "Söz yazarı"],
+    ["Melodik ve duygusal gitar yaklaşımıyla bilinir", "Funk ritimleriyle atmosferik gitarları birleştirir", "Solo işlerinde deneysel üretimler yapar"],
+    ["musician:rockMetal", "musician:electronicAlternative", "musician:legend"]
+  ),
+  m(
+    6318,
+    "Geddy Lee",
+    ["geddy lee"],
+    ["Progressive rock", "Hard rock"],
+    ["Rush"],
+    ["Kanada", "1970ler ve sonrası"],
+    ["Vokalist", "Bas gitarist", "Klavyeci"],
+    ["Bas, vokal ve klavyeyi aynı anda yürütmesiyle bilinir", "Yüksek ve karakteristik sesi vardır", "Progressive rock’ın teknik figürlerindendir"],
+    ["musician:rockMetal", "musician:legend"]
+  ),
+  m(
+    6319,
+    "Neil Peart",
+    ["neil peart", "peart"],
+    ["Progressive rock", "Hard rock"],
+    ["Rush"],
+    ["Kanada", "1970ler ve sonrası"],
+    ["Davulcu", "Söz yazarı"],
+    ["Teknik ve disiplinli davul çalışıyla bilinir", "Uzun davul partisyonlarıyla öne çıkar", "Progressive rock davulculuğunda efsaneleşmiştir"],
+    ["musician:rockMetal", "musician:legend"]
+  ),
+  m(
+    6320,
+    "Alex Lifeson",
+    ["alex lifeson"],
+    ["Progressive rock", "Hard rock"],
+    ["Rush"],
+    ["Kanada", "1970ler ve sonrası"],
+    ["Gitarist", "Söz yazarı"],
+    ["Katmanlı gitar dokularıyla bilinir", "Sert riffler ile atmosferik akorları birleştirir", "Rush soundunun ana parçalarındandır"],
+    ["musician:rockMetal", "musician:legend"]
+  ),
+  m(
+    6321,
+    "Mike Portnoy",
+    ["mike portnoy", "portnoy"],
+    ["Progressive metal", "Progressive rock"],
+    ["Dream Theater", "The Winery Dogs", "Sons of Apollo"],
+    ["ABD", "1980ler ve sonrası"],
+    ["Davulcu", "Söz yazarı"],
+    ["Teknik ve gösterişli davul partileriyle bilinir", "Progressive metal sahnesinde çok etkilidir", "Karmaşık ritimlerle öne çıkar"],
+    ["musician:rockMetal"]
+  ),
+  m(
+    6322,
+    "John Petrucci",
+    ["john petrucci", "petrucci"],
+    ["Progressive metal", "Instrumental rock"],
+    ["Dream Theater", "Solo kariyer"],
+    ["ABD", "1980ler ve sonrası"],
+    ["Gitarist", "Söz yazarı"],
+    ["Çok teknik gitar çalımıyla bilinir", "Hızlı alternate picking ve uzun sololarla öne çıkar", "Progressive metal gitarının önemli ismidir"],
+    ["musician:rockMetal"]
+  ),
+  m(
+    6323,
+    "Devin Townsend",
+    ["devin townsend"],
+    ["Progressive metal", "Industrial metal", "Ambient"],
+    ["Strapping Young Lad", "Solo kariyer", "Devin Townsend Project"],
+    ["Kanada", "1990lar ve sonrası"],
+    ["Vokalist", "Gitarist", "Prodüktör"],
+    ["Çok katmanlı ve büyük prodüksiyonlar yapar", "Hem sert hem melodik vokal kullanır", "Mizahi ve kozmik temaları müziğe taşır"],
+    ["musician:rockMetal", "musician:electronicAlternative"]
+  ),
+  m(
+    6324,
+    "Tobias Forge",
+    ["tobias forge", "papa emeritus", "cardinal copia"],
+    ["Hard rock", "Heavy metal", "Theatrical rock"],
+    ["Ghost"],
+    ["İsveç", "2010lar ve sonrası"],
+    ["Vokalist", "Söz yazarı"],
+    ["Maskeli ve teatral sahne personasıyla bilinir", "Melodik hard rock ile gotik estetiği birleştirir", "Ghost’un yaratıcı merkezidir"],
+    ["musician:rockMetal"]
+  ),
+  m(
+    6325,
+    "Floor Jansen",
+    ["floor jansen"],
+    ["Symphonic metal", "Power metal"],
+    ["Nightwish", "After Forever", "Solo kariyer"],
+    ["Hollanda", "2000ler ve sonrası"],
+    ["Vokalist", "Söz yazarı"],
+    ["Operatik ve güçlü metal vokaliyle bilinir", "Geniş vokal tekniği vardır", "Symphonic metal sahnesinin önemli seslerindendir"],
+    ["musician:rockMetal"]
+  ),
+  m(
+    6326,
+    "Tarja Turunen",
+    ["tarja turunen", "tarja"],
+    ["Symphonic metal", "Classical crossover"],
+    ["Nightwish", "Solo kariyer"],
+    ["Finlandiya", "1990lar ve sonrası"],
+    ["Vokalist"],
+    ["Klasik eğitimli operatik vokaliyle bilinir", "Metal ile klasik vokali birleştirir", "Symphonic metalin erken dönem ikonlarındandır"],
+    ["musician:rockMetal", "musician:classicalWorld"]
+  ),
+  m(
+    6327,
+    "Simone Simons",
+    ["simone simons"],
+    ["Symphonic metal"],
+    ["Epica"],
+    ["Hollanda", "2000ler ve sonrası"],
+    ["Vokalist", "Söz yazarı"],
+    ["Parlak ve dramatik vokal rengiyle bilinir", "Senfonik metal sahnesinde öne çıkar", "Epica’nın ana sesidir"],
+    ["musician:rockMetal"]
+  ),
+  m(
+    6328,
+    "Sharon den Adel",
+    ["sharon den adel"],
+    ["Symphonic metal", "Gothic metal"],
+    ["Within Temptation"],
+    ["Hollanda", "1990lar ve sonrası"],
+    ["Vokalist", "Söz yazarı"],
+    ["Yumuşak ama güçlü vokaliyle bilinir", "Gotik ve senfonik rock estetiğini birleştirir", "Within Temptation’ın frontwoman’ıdır"],
+    ["musician:rockMetal"]
+  ),
+  m(
+    6329,
+    "RZA",
+    ["rza", "robert diggs"],
+    ["Hip-hop", "East Coast rap", "Boom bap"],
+    ["Wu-Tang Clan", "Solo kariyer", "Prodüksiyon işleri"],
+    ["ABD", "1990lar ve sonrası"],
+    ["Prodüktör", "Rapper"],
+    ["Karanlık ve sinematik beatleriyle bilinir", "Wu-Tang Clan’ın ana prodüktör figürüdür", "Kung fu filmi estetiğini hip-hop’a taşır"],
+    ["musician:rapHipHop", "musician:legend"]
+  ),
+  m(
+    6330,
+    "GZA",
+    ["gza", "the genius", "gary grice"],
+    ["Hip-hop", "East Coast rap"],
+    ["Wu-Tang Clan", "Solo kariyer"],
+    ["ABD", "1990lar ve sonrası"],
+    ["Rapper", "Söz yazarı"],
+    ["Keskin ve sakin lirik tarzıyla bilinir", "Bilimsel ve soyut imgeler kullanır", "Wu-Tang’in en teknik anlatıcılarındandır"],
+    ["musician:rapHipHop", "musician:legend"]
+  ),
+  m(
+    6331,
+    "Method Man",
+    ["method man", "clifford smith"],
+    ["Hip-hop", "East Coast rap"],
+    ["Wu-Tang Clan", "Method Man & Redman"],
+    ["ABD", "1990lar ve sonrası"],
+    ["Rapper", "Oyuncu"],
+    ["Tok ve akıcı vokal tonuyla bilinir", "Karizmatik sahne tavrı vardır", "Wu-Tang’in en tanınan seslerindendir"],
+    ["musician:rapHipHop", "musician:legend"]
+  ),
+  m(
+    6332,
+    "Ghostface Killah",
+    ["ghostface killah", "ghostface", "dennis coles"],
+    ["Hip-hop", "East Coast rap"],
+    ["Wu-Tang Clan", "Solo kariyer"],
+    ["ABD", "1990lar ve sonrası"],
+    ["Rapper", "Söz yazarı"],
+    ["Yoğun ve görsel hikâye anlatımıyla bilinir", "Duygusal ve hızlı akışları vardır", "Wu-Tang sonrası solo kariyeri güçlüdür"],
+    ["musician:rapHipHop", "musician:legend"]
+  ),
+  m(
+    6333,
+    "André 3000",
+    ["andre 3000", "andré 3000", "andre benjamin"],
+    ["Hip-hop", "Funk", "Alternative rap"],
+    ["Outkast", "Solo işler"],
+    ["ABD", "1990lar ve sonrası"],
+    ["Rapper", "Vokalist", "Multi-enstrümantalist"],
+    ["Yaratıcı flow ve sıra dışı imajıyla bilinir", "Rap ile funk ve soul etkilerini birleştirir", "Alternatif hip-hop’ın en özgün figürlerindendir"],
+    ["musician:rapHipHop", "musician:jazzSoul", "musician:legend"]
+  ),
+  m(
+    6334,
+    "Big Boi",
+    ["big boi", "antwan patton"],
+    ["Hip-hop", "Southern rap", "Funk rap"],
+    ["Outkast", "Solo kariyer"],
+    ["ABD", "1990lar ve sonrası"],
+    ["Rapper", "Söz yazarı"],
+    ["Hızlı ve ritmik southern rap flowuyla bilinir", "Funk etkili altyapılarla güçlü uyum sağlar", "Outkast’ın enerjik yarısıdır"],
+    ["musician:rapHipHop", "musician:legend"]
+  ),
+  m(
+    6335,
+    "Q-Tip",
+    ["q tip", "q-tip", "kamaal fareed"],
+    ["Hip-hop", "Jazz rap", "Alternative rap"],
+    ["A Tribe Called Quest", "Solo kariyer"],
+    ["ABD", "1990lar ve sonrası"],
+    ["Rapper", "Prodüktör"],
+    ["Jazz sample’larıyla bilinir", "Sakin ve akıcı rap tarzı vardır", "Alternatif hip-hop’ın önemli mimarlarındandır"],
+    ["musician:rapHipHop", "musician:jazzSoul", "musician:legend"]
+  ),
+  m(
+    6336,
+    "Yasiin Bey",
+    ["yasiin bey", "mos def", "dante smith"],
+    ["Hip-hop", "Conscious rap", "Soul"],
+    ["Black Star", "Solo kariyer"],
+    ["ABD", "1990lar ve sonrası"],
+    ["Rapper", "Vokalist", "Oyuncu"],
+    ["Şiirsel ve bilinçli rap tarzıyla bilinir", "Soul etkili vokal geçişleri yapar", "Alternatif rap sahnesinin saygın isimlerindendir"],
+    ["musician:rapHipHop", "musician:jazzSoul"]
+  ),
+  m(
+    6337,
+    "Talib Kweli",
+    ["talib kweli"],
+    ["Hip-hop", "Conscious rap"],
+    ["Black Star", "Reflection Eternal", "Solo kariyer"],
+    ["ABD", "1990lar ve sonrası"],
+    ["Rapper", "Söz yazarı"],
+    ["Bilinçli rap ve sosyal temalı sözlerle bilinir", "Yoğun kafiye örgüleri kullanır", "New York alternatif rap sahnesinde etkilidir"],
+    ["musician:rapHipHop"]
+  ),
+  m(
+    6338,
+    "DMX",
+    ["dmx", "earl simmons"],
+    ["Hip-hop", "Hardcore rap"],
+    ["Solo kariyer"],
+    ["ABD", "1990lar ve sonrası"],
+    ["Rapper", "Oyuncu"],
+    ["Hırıltılı ve yoğun vokal tarzıyla bilinir", "Duygusal ve sert rap anlatımını birleştirir", "1990lar sonu rap sahnesinde büyük etki yaratmıştır"],
+    ["musician:rapHipHop", "musician:legend"]
+  ),
+  m(
+    6339,
+    "Big L",
+    ["big l", "lamont coleman"],
+    ["Hip-hop", "East Coast rap"],
+    ["D.I.T.C.", "Solo kariyer"],
+    ["ABD", "1990lar"],
+    ["Rapper", "Söz yazarı"],
+    ["Punchline ve kelime oyunlarıyla bilinir", "Teknik rap yazımında çok saygı görür", "New York underground rap sahnesinin kült ismidir"],
+    ["musician:rapHipHop", "musician:legend"]
+  ),
+  m(
+    6340,
+    "Aesop Rock",
+    ["aesop rock", "ian bavitz"],
+    ["Alternative hip-hop", "Underground rap"],
+    ["Solo kariyer", "The Weathermen"],
+    ["ABD", "2000ler ve sonrası"],
+    ["Rapper", "Prodüktör"],
+    ["Yoğun ve soyut kelime dağarcığıyla bilinir", "Alternatif rapte karmaşık anlatımıyla öne çıkar", "Karanlık ve deneysel beatler kullanır"],
+    ["musician:rapHipHop", "musician:electronicAlternative"]
+  ),
+  m(
+    6341,
+    "Kraftwerk",
+    ["kraftwerk"],
+    ["Electronic", "Krautrock", "Synth pop"],
+    ["Kraftwerk"],
+    ["Almanya", "1970ler ve sonrası"],
+    ["Elektronik müzik grubu"],
+    ["Robotik sahne estetiğiyle bilinir", "Elektronik pop ve techno için temel ilham kaynaklarındandır", "Minimal ve mekanik ritimler kullanır"],
+    ["musician:electronicAlternative", "musician:legend"]
+  ),
+  m(
+    6342,
+    "Beth Gibbons",
+    ["beth gibbons"],
+    ["Trip hop", "Alternative", "Art pop"],
+    ["Portishead", "Solo kariyer"],
+    ["Birleşik Krallık", "1990lar ve sonrası"],
+    ["Vokalist", "Söz yazarı"],
+    ["Kırılgan ve sinematik vokaliyle bilinir", "Trip hop atmosferinde melankolik bir ses yaratır", "Portishead’in karakteristik sesidir"],
+    ["musician:electronicAlternative", "musician:pop"]
+  ),
+  m(
+    6343,
+    "Geoff Barrow",
+    ["geoff barrow"],
+    ["Trip hop", "Electronic", "Alternative"],
+    ["Portishead", "BEAK>"],
+    ["Birleşik Krallık", "1990lar ve sonrası"],
+    ["Prodüktör", "Enstrümantalist"],
+    ["Karanlık trip hop dokularıyla bilinir", "Sample ve analog sesleri sinematik kullanır", "Portishead soundunun ana üreticilerindendir"],
+    ["musician:electronicAlternative"]
+  ),
+  m(
+    6344,
+    "Massive Attack",
+    ["massive attack"],
+    ["Trip hop", "Electronic", "Downtempo"],
+    ["Massive Attack"],
+    ["Birleşik Krallık", "1990lar ve sonrası"],
+    ["Elektronik müzik kolektifi"],
+    ["Trip hop’un en önemli temsilcilerindendir", "Karanlık ve yavaş elektronik atmosferler kurar", "Sinematik bas hatlarıyla bilinir"],
+    ["musician:electronicAlternative", "musician:legend"]
+  ),
+  m(
+    6345,
+    "Jamie xx",
+    ["jamie xx", "jamie smith"],
+    ["Electronic", "UK garage", "Indie electronic"],
+    ["The xx", "Solo kariyer"],
+    ["Birleşik Krallık", "2010lar ve sonrası"],
+    ["Prodüktör", "DJ"],
+    ["Minimal elektronik dokularla bilinir", "Kulüp ritimlerini duygusal atmosferle birleştirir", "The xx’in prodüksiyon tarafında öne çıkar"],
+    ["musician:electronicAlternative", "musician:pop"]
+  ),
+  m(
+    6346,
+    "Four Tet",
+    ["four tet", "kieran hebden"],
+    ["Electronic", "Folktronica", "Experimental"],
+    ["Solo kariyer"],
+    ["Birleşik Krallık", "2000ler ve sonrası"],
+    ["Prodüktör", "DJ"],
+    ["Organik sample’ları elektronik ritimlerle birleştirir", "Sıcak ve deneysel kulüp sounduyla bilinir", "Folktronica sahnesinde etkilidir"],
+    ["musician:electronicAlternative"]
+  ),
+  m(
+    6347,
+    "Burial",
+    ["burial", "william bevan"],
+    ["Dubstep", "Ambient", "UK garage"],
+    ["Solo kariyer"],
+    ["Birleşik Krallık", "2000ler ve sonrası"],
+    ["Prodüktör"],
+    ["Gece atmosferli elektronik prodüksiyonlarıyla bilinir", "Kırık ritimler ve uzak vokal sample’ları kullanır", "UK bass müziğinde kült figürdür"],
+    ["musician:electronicAlternative"]
+  ),
+  m(
+    6348,
+    "Caribou",
+    ["caribou", "dan snaith"],
+    ["Electronic", "Indie electronic", "Psychedelic pop"],
+    ["Caribou", "Daphni"],
+    ["Kanada", "2000ler ve sonrası"],
+    ["Prodüktör", "Multi-enstrümantalist"],
+    ["Psikedelik melodileri elektronik ritimlerle birleştirir", "Hem konser hem kulüp sahnesine yakın üretimler yapar", "Sıcak ve katmanlı sounduyla bilinir"],
+    ["musician:electronicAlternative", "musician:pop"]
+  ),
+  m(
+    6349,
+    "Nicolas Jaar",
+    ["nicolas jaar"],
+    ["Electronic", "Experimental", "Downtempo"],
+    ["Solo kariyer", "Darkside"],
+    ["Şili / ABD", "2010lar ve sonrası"],
+    ["Prodüktör", "Besteci"],
+    ["Minimal ve atmosferik elektronik yapılarıyla bilinir", "Sessizlik ve ritmi yaratıcı biçimde kullanır", "Deneysel kulüp müziğinde öne çıkar"],
+    ["musician:electronicAlternative"]
+  ),
+  m(
+    6350,
+    "Bonobo",
+    ["bonobo", "simon green"],
+    ["Downtempo", "Electronic", "Nu jazz"],
+    ["Solo kariyer"],
+    ["Birleşik Krallık", "2000ler ve sonrası"],
+    ["Prodüktör", "DJ"],
+    ["Sıcak downtempo düzenlemeleriyle bilinir", "Elektronik müziği canlı enstrüman dokularıyla birleştirir", "Melodik ve atmosferik prodüksiyonlar yapar"],
+    ["musician:electronicAlternative", "musician:jazzSoul"]
+  ),
+  m(
+    6351,
+    "Wolfgang Amadeus Mozart",
+    ["mozart", "wolfgang amadeus mozart"],
+    ["Klasik müzik", "Opera", "Senfoni"],
+    ["Solo bestecilik", "Saray ve konser üretimleri"],
+    ["Avusturya", "18. yüzyıl"],
+    ["Besteci", "Piyanist"],
+    ["Çok üretken klasik dönem bestecisidir", "Melodik zekâsıyla bilinir", "Opera ve senfoni repertuvarında temel isimlerdendir"],
+    ["musician:classicalWorld", "musician:legend"]
+  ),
+  m(
+    6352,
+    "Ludwig van Beethoven",
+    ["beethoven", "ludwig van beethoven"],
+    ["Klasik müzik", "Romantik dönem başlangıcı", "Senfoni"],
+    ["Solo bestecilik"],
+    ["Almanya", "18. ve 19. yüzyıl"],
+    ["Besteci", "Piyanist"],
+    ["Klasik ve romantik dönem arasında köprü kurmuştur", "Güçlü senfonik diliyle bilinir", "Dramatik müzik anlatımıyla öne çıkar"],
+    ["musician:classicalWorld", "musician:legend"]
+  ),
+  m(
+    6353,
+    "Johann Sebastian Bach",
+    ["bach", "johann sebastian bach"],
+    ["Barok müzik", "Klasik müzik"],
+    ["Kilise ve saray besteleri"],
+    ["Almanya", "18. yüzyıl"],
+    ["Besteci", "Orgcu"],
+    ["Kontrapunkt ustalığıyla bilinir", "Barok müziğin en büyük bestecilerindendir", "Klavye ve koro repertuvarında temel isimdir"],
+    ["musician:classicalWorld", "musician:legend"]
+  ),
+  m(
+    6354,
+    "Frédéric Chopin",
+    ["chopin", "frederic chopin", "frédéric chopin"],
+    ["Romantik dönem", "Klasik piyano"],
+    ["Solo bestecilik"],
+    ["Polonya / Fransa", "19. yüzyıl"],
+    ["Besteci", "Piyanist"],
+    ["Piyano için yazdığı şiirsel eserlerle bilinir", "Romantik piyano repertuvarının merkezindedir", "Zarif ve duygusal melodiler kullanır"],
+    ["musician:classicalWorld", "musician:legend"]
+  ),
+  m(
+    6355,
+    "Pyotr Ilyich Tchaikovsky",
+    ["tchaikovsky", "pyotr ilyich tchaikovsky", "çaykovski", "caykovski"],
+    ["Romantik dönem", "Bale müziği", "Senfoni"],
+    ["Solo bestecilik"],
+    ["Rusya", "19. yüzyıl"],
+    ["Besteci"],
+    ["Bale müziği ve senfonik eserleriyle bilinir", "Dramatik ve melodik anlatımı güçlüdür", "Rus romantik müziğinin büyük isimlerindendir"],
+    ["musician:classicalWorld", "musician:legend"]
+  ),
+  m(
+    6356,
+    "Antonio Vivaldi",
+    ["vivaldi", "antonio vivaldi"],
+    ["Barok müzik", "Konçerto"],
+    ["Solo bestecilik"],
+    ["İtalya", "18. yüzyıl"],
+    ["Besteci", "Keman virtüözü"],
+    ["Canlı ritimli konçertolarıyla bilinir", "Keman repertuvarında çok etkilidir", "Barok dönemin üretken bestecilerindendir"],
+    ["musician:classicalWorld", "musician:legend"]
+  ),
+  m(
+    6357,
+    "Claude Debussy",
+    ["debussy", "claude debussy"],
+    ["Empresyonist klasik", "Piyano müziği"],
+    ["Solo bestecilik"],
+    ["Fransa", "19. ve 20. yüzyıl"],
+    ["Besteci", "Piyanist"],
+    ["Renkli armonilerle bilinir", "Empresyonist müzik diliyle öne çıkar", "Piyano ve orkestra eserlerinde atmosfer kurar"],
+    ["musician:classicalWorld", "musician:legend"]
+  ),
+  m(
+    6358,
+    "Maurice Ravel",
+    ["ravel", "maurice ravel"],
+    ["Empresyonist klasik", "Orkestra müziği"],
+    ["Solo bestecilik"],
+    ["Fransa", "20. yüzyıl"],
+    ["Besteci", "Piyanist"],
+    ["Parlak orkestrasyonuyla bilinir", "Detaycı ve rafine müzik dili vardır", "Fransız klasik müziğinin önemli isimlerindendir"],
+    ["musician:classicalWorld", "musician:legend"]
+  ),
+  m(
+    6359,
+    "Igor Stravinsky",
+    ["stravinsky", "igor stravinsky"],
+    ["Modern klasik", "Bale müziği", "Neoklasik"],
+    ["Solo bestecilik"],
+    ["Rusya / Fransa / ABD", "20. yüzyıl"],
+    ["Besteci"],
+    ["Ritmik yenilikleriyle bilinir", "Modern klasik müziği derinden etkilemiştir", "Bale müziğinde güçlü bir imza bırakmıştır"],
+    ["musician:classicalWorld", "musician:legend"]
+  ),
+  m(
+    6360,
+    "Philip Glass",
+    ["philip glass"],
+    ["Minimalist klasik", "Film müziği"],
+    ["Solo bestecilik", "Ensemble çalışmaları"],
+    ["ABD", "20. yüzyıl ve sonrası"],
+    ["Besteci", "Klavyeci"],
+    ["Tekrarlı motifleriyle bilinir", "Minimalist müziğin en tanınan isimlerindendir", "Film ve sahne müziklerinde etkili olmuştur"],
+    ["musician:classicalWorld", "musician:electronicAlternative", "musician:legend"]
+  ),
+  m(
+    6361,
+    "Yo-Yo Ma",
+    ["yo yo ma", "yo-yo ma"],
+    ["Klasik müzik", "Dünya müziği"],
+    ["Solo kariyer", "Silk Road Ensemble"],
+    ["Fransa / ABD", "20. yüzyıl ve sonrası"],
+    ["Çellist"],
+    ["Çello yorumuyla dünya çapında tanınır", "Klasik müziği farklı kültürlerle buluşturur", "Yumuşak ve etkileyici tonuyla bilinir"],
+    ["musician:classicalWorld", "musician:legend"]
+  ),
+  m(
+    6362,
+    "Lang Lang",
+    ["lang lang"],
+    ["Klasik müzik", "Piyano"],
+    ["Solo kariyer"],
+    ["Çin", "2000ler ve sonrası"],
+    ["Piyanist"],
+    ["Gösterişli piyano tekniğiyle bilinir", "Klasik müziği geniş kitlelere taşır", "Enerjik sahne dili vardır"],
+    ["musician:classicalWorld"]
+  ),
+  m(
+    6363,
+    "Ludovico Einaudi",
+    ["ludovico einaudi", "einaudi"],
+    ["Minimalist piyano", "Çağdaş klasik"],
+    ["Solo kariyer", "Film ve sahne müzikleri"],
+    ["İtalya", "1990lar ve sonrası"],
+    ["Piyanist", "Besteci"],
+    ["Sade ve duygusal piyano melodileriyle bilinir", "Modern klasik dinleyicileri arasında çok popülerdir", "Tekrarlı ve atmosferik yapı kurar"],
+    ["musician:classicalWorld", "musician:electronicAlternative"]
+  ),
+  m(
+    6364,
+    "Nils Frahm",
+    ["nils frahm"],
+    ["Modern classical", "Ambient", "Electronic"],
+    ["Solo kariyer"],
+    ["Almanya", "2010lar ve sonrası"],
+    ["Piyanist", "Besteci", "Prodüktör"],
+    ["Akustik piyano ile elektronik dokuları birleştirir", "Ambient sahnesinde güçlü bir yere sahiptir", "Canlı performanslarında çok katmanlı kurulumlar kullanır"],
+    ["musician:classicalWorld", "musician:electronicAlternative"]
+  ),
+  m(
+    6365,
+    "Max Richter",
+    ["max richter"],
+    ["Modern classical", "Ambient", "Film müziği"],
+    ["Solo kariyer", "Film ve dizi müzikleri"],
+    ["Almanya / Birleşik Krallık", "2000ler ve sonrası"],
+    ["Besteci", "Piyanist"],
+    ["Modern klasik ile elektronik atmosferi birleştirir", "Sinematik ve duygusal besteleriyle bilinir", "Minimalist yapıları sık kullanır"],
+    ["musician:classicalWorld", "musician:electronicAlternative"]
+  ),
+  m(
+    6366,
+    "Anouar Brahem",
+    ["anouar brahem"],
+    ["World music", "Jazz", "Oud"],
+    ["Solo kariyer"],
+    ["Tunus", "1980ler ve sonrası"],
+    ["Ud sanatçısı", "Besteci"],
+    ["Ud enstrümanını caz ve dünya müziğiyle birleştirir", "Sakin ve atmosferik eserleriyle bilinir", "Akdeniz ve Ortadoğu tınılarını kullanır"],
+    ["musician:classicalWorld", "musician:jazzSoul"]
+  ),
+  m(
+    6367,
+    "Anoushka Shankar",
+    ["anoushka shankar"],
+    ["Hint klasik müziği", "World music"],
+    ["Solo kariyer"],
+    ["Birleşik Krallık / Hindistan", "2000ler ve sonrası"],
+    ["Sitar sanatçısı", "Besteci"],
+    ["Sitar yorumuyla tanınır", "Hint klasik müziğini modern düzenlemelerle buluşturur", "Dünya müziği sahnesinde öne çıkar"],
+    ["musician:classicalWorld"]
+  ),
+  m(
+    6368,
+    "Ravi Shankar",
+    ["ravi shankar"],
+    ["Hint klasik müziği", "World music"],
+    ["Solo kariyer"],
+    ["Hindistan", "20. yüzyıl"],
+    ["Sitar sanatçısı", "Besteci"],
+    ["Sitarı küresel dinleyiciye tanıtan isimlerdendir", "Hint klasik müziğinin büyük ustalarındandır", "Doğu ve Batı müzik köprülerinde etkili olmuştur"],
+    ["musician:classicalWorld", "musician:legend"]
+  ),
+  m(
+    6369,
+    "Nusrat Fateh Ali Khan",
+    ["nusrat fateh ali khan", "nusrat"],
+    ["Qawwali", "World music", "Sufi müzik"],
+    ["Solo kariyer", "Qawwali topluluğu"],
+    ["Pakistan", "1970ler ve sonrası"],
+    ["Vokalist"],
+    ["Çok güçlü doğaçlama vokaliyle bilinir", "Qawwali müziğini dünyaya tanıtmıştır", "Uzun ve trans etkili yorumlarıyla öne çıkar"],
+    ["musician:classicalWorld", "musician:legend"]
+  ),
+  m(
+    6370,
+    "Youssou N'Dour",
+    ["youssou ndour", "youssou n'dour"],
+    ["Mbalax", "World music", "Afropop"],
+    ["Solo kariyer"],
+    ["Senegal", "1980ler ve sonrası"],
+    ["Vokalist", "Söz yazarı"],
+    ["Afrika pop müziğinin global temsilcilerindendir", "Güçlü ve parlak vokali vardır", "Senegal ritimlerini popla birleştirir"],
+    ["musician:classicalWorld", "musician:pop", "musician:legend"]
+  ),
+  m(
+    6371,
+    "Salif Keita",
+    ["salif keita"],
+    ["Afropop", "Mande music", "World music"],
+    ["Solo kariyer"],
+    ["Mali", "1970ler ve sonrası"],
+    ["Vokalist", "Söz yazarı"],
+    ["Altın ses lakabıyla bilinir", "Batı Afrika melodilerini modern düzenlemelerle buluşturur", "Güçlü ve duygusal vokali vardır"],
+    ["musician:classicalWorld", "musician:jazzSoul", "musician:legend"]
+  ),
+  m(
+    6372,
+    "Cesária Évora",
+    ["cesaria evora", "cesária évora"],
+    ["Morna", "World music"],
+    ["Solo kariyer"],
+    ["Yeşil Burun Adaları", "1990lar ve sonrası"],
+    ["Vokalist"],
+    ["Duygulu ve yalın vokaliyle bilinir", "Morna müziğini dünya sahnesine taşımıştır", "Sakin ve hüzünlü yorumlarıyla tanınır"],
+    ["musician:classicalWorld", "musician:jazzSoul", "musician:legend"]
+  ),
+  m(
+    6373,
+    "Bebel Gilberto",
+    ["bebel gilberto"],
+    ["Bossa nova", "Latin pop", "Electronic"],
+    ["Solo kariyer"],
+    ["Brezilya", "1990lar ve sonrası"],
+    ["Vokalist", "Söz yazarı"],
+    ["Bossa nova’yı elektronik ve pop dokularla birleştirir", "Yumuşak ve sıcak vokaliyle bilinir", "Brezilya müziğini modernleştiren isimlerdendir"],
+    ["musician:classicalWorld", "musician:jazzSoul", "musician:electronicAlternative"]
+  ),
+  m(
+    6374,
+    "Antônio Carlos Jobim",
+    ["antonio carlos jobim", "antônio carlos jobim", "tom jobim"],
+    ["Bossa nova", "Jazz", "Latin"],
+    ["Solo kariyer", "Bestecilik işleri"],
+    ["Brezilya", "1950ler ve sonrası"],
+    ["Besteci", "Piyanist", "Vokalist"],
+    ["Bossa nova’nın temel bestecilerindendir", "Caz armonisini Brezilya ritimleriyle birleştirir", "Yumuşak ve zarif melodileriyle bilinir"],
+    ["musician:classicalWorld", "musician:jazzSoul", "musician:legend"]
+  ),
+  m(
+    6375,
+    "João Gilberto",
+    ["joao gilberto", "joão gilberto"],
+    ["Bossa nova", "Samba", "Jazz"],
+    ["Solo kariyer"],
+    ["Brezilya", "1950ler ve sonrası"],
+    ["Vokalist", "Gitarist"],
+    ["Bossa nova gitar ritmini belirginleştiren isimlerdendir", "Fısıltıya yakın sakin vokaliyle bilinir", "Brezilya müziğinde kült figürdür"],
+    ["musician:classicalWorld", "musician:jazzSoul", "musician:legend"]
+  ),
+  m(
+    6376,
+    "Yıldız Tilbe",
+    ["yıldız tilbe", "yildiz tilbe"],
+    ["Türk pop", "Arabesk pop"],
+    ["Solo kariyer", "Söz yazarlığı"],
+    ["Türkiye", "1990lar ve sonrası"],
+    ["Vokalist", "Söz yazarı", "Besteci"],
+    ["Duygusal ve içten vokal tavrıyla bilinir", "Çok sayıda popüler şarkı yazmıştır", "Sahne enerjisi ve doğaçlama yorumlarıyla tanınır"],
+    ["musician:turkish", "musician:pop", "musician:legend"]
+  ),
+  m(
+    6377,
+    "Nilüfer",
+    ["nilüfer", "nilufer"],
+    ["Türk pop"],
+    ["Solo kariyer"],
+    ["Türkiye", "1970ler ve sonrası"],
+    ["Vokalist"],
+    ["Türk popunun uzun soluklu isimlerindendir", "Yumuşak ve temiz vokaliyle bilinir", "Pop baladlarıyla geniş kitlelere ulaşmıştır"],
+    ["musician:turkish", "musician:pop", "musician:legend"]
+  ),
+  m(
+    6378,
+    "Candan Erçetin",
+    ["candan erçetin", "candan ercetin"],
+    ["Türk pop", "Balkan etkili pop"],
+    ["Solo kariyer"],
+    ["Türkiye", "1990lar ve sonrası"],
+    ["Vokalist", "Söz yazarı"],
+    ["Akdeniz ve Balkan tınılarını popla birleştirir", "Duru vokaliyle bilinir", "Söz odaklı pop şarkılarıyla öne çıkar"],
+    ["musician:turkish", "musician:pop"]
+  ),
+  m(
+    6379,
+    "Levent Yüksel",
+    ["levent yüksel", "levent yuksel"],
+    ["Türk pop", "Pop rock"],
+    ["Solo kariyer"],
+    ["Türkiye", "1990lar ve sonrası"],
+    ["Vokalist", "Bas gitarist"],
+    ["Güçlü pop vokaliyle bilinir", "1990lar Türk pop sahnesinin önemli seslerindendir", "Duygusal ve ritmik şarkıları vardır"],
+    ["musician:turkish", "musician:pop"]
+  ),
+  m(
+    6380,
+    "Fikret Kızılok",
+    ["fikret kızılok", "fikret kizilok"],
+    ["Anadolu rock", "Folk rock"],
+    ["Solo kariyer", "Bülent Ortaçgil ile çalışmalar"],
+    ["Türkiye", "1960lar ve sonrası"],
+    ["Vokalist", "Gitarist", "Söz yazarı"],
+    ["Anadolu rock ve folk çizgisinde üretmiştir", "Şiirsel ve düşünsel sözleriyle bilinir", "Türk müziğinde kült bir şarkı yazarıdır"],
+    ["musician:turkish", "musician:rockMetal", "musician:folkCountry", "musician:legend"]
+  ),
+  m(
+    6381,
+    "Bülent Ortaçgil",
+    ["bülent ortaçgil", "bulent ortacgil"],
+    ["Folk", "Singer-songwriter", "Türkçe alternatif"],
+    ["Solo kariyer"],
+    ["Türkiye", "1970ler ve sonrası"],
+    ["Vokalist", "Gitarist", "Söz yazarı"],
+    ["Sade ve şiirsel şarkı yazımıyla bilinir", "Gündelik hayatı incelikli sözlerle anlatır", "Türkçe alternatif müziğin saygı gören isimlerindendir"],
+    ["musician:turkish", "musician:folkCountry", "musician:legend"]
+  ),
+  m(
+    6382,
+    "İlhan İrem",
+    ["ilhan irem", "ilhan"],
+    ["Türk pop", "Progressive pop"],
+    ["Solo kariyer"],
+    ["Türkiye", "1970ler ve sonrası"],
+    ["Vokalist", "Söz yazarı", "Besteci"],
+    ["Romantik ve mistik sözlerle bilinir", "Kavramsal albüm yaklaşımı kullanmıştır", "Türk popunda kendine özgü bir evren kurmuştur"],
+    ["musician:turkish", "musician:pop", "musician:legend"]
+  ),
+  m(
+    6383,
+    "Orhan Gencebay",
+    ["orhan gencebay", "orhan baba"],
+    ["Arabesk", "Türk sanat müziği etkili pop"],
+    ["Solo kariyer"],
+    ["Türkiye", "1960lar ve sonrası"],
+    ["Vokalist", "Bağlama sanatçısı", "Besteci"],
+    ["Arabesk müziğin kurucu figürlerindendir", "Bağlama ve orkestral düzenlemeleri birleştirir", "Orhan Baba lakabıyla bilinir"],
+    ["musician:turkish", "musician:classicalWorld", "musician:legend"]
+  ),
+  m(
+    6384,
+    "Ferdi Tayfur",
+    ["ferdi tayfur"],
+    ["Arabesk"],
+    ["Solo kariyer"],
+    ["Türkiye", "1970ler ve sonrası"],
+    ["Vokalist", "Söz yazarı"],
+    ["Duygulu arabesk yorumuyla bilinir", "Geniş halk kitlesine ulaşan şarkıları vardır", "Sinemayla da ilişkilenen güçlü bir popüler kültür figürüdür"],
+    ["musician:turkish", "musician:legend"]
+  ),
+  m(
+    6385,
+    "İbrahim Tatlıses",
+    ["ibrahim tatlıses", "ibo"],
+    ["Arabesk", "Türk halk müziği"],
+    ["Solo kariyer"],
+    ["Türkiye", "1970ler ve sonrası"],
+    ["Vokalist"],
+    ["Güçlü ve yüksek sesli yorumuyla bilinir", "Arabesk ve halk müziği arasında geniş kitlelere ulaşmıştır", "Popüler kültürde çok tanınan bir figürdür"],
+    ["musician:turkish", "musician:classicalWorld", "musician:legend"]
+  ),
+  m(
+    6386,
+    "Ebru Gündeş",
+    ["ebru gündeş", "ebru gundes"],
+    ["Arabesk pop", "Türk pop"],
+    ["Solo kariyer"],
+    ["Türkiye", "1990lar ve sonrası"],
+    ["Vokalist"],
+    ["Güçlü ve duygusal vokaliyle bilinir", "Arabesk pop baladlarında öne çıkar", "Sahne yorumuyla geniş kitlelere ulaşır"],
+    ["musician:turkish", "musician:pop"]
+  ),
+  m(
+    6387,
+    "Sibel Can",
+    ["sibel can"],
+    ["Arabesk pop", "Türk sanat müziği", "Pop"],
+    ["Solo kariyer"],
+    ["Türkiye", "1990lar ve sonrası"],
+    ["Vokalist"],
+    ["Klasik ve popüler Türk müziği yorumlarıyla bilinir", "Geniş repertuvarı vardır", "Duygusal sahne tavrıyla öne çıkar"],
+    ["musician:turkish", "musician:pop", "musician:classicalWorld"]
+  ),
+  m(
+    6388,
+    "Kaan Tangöze",
+    ["kaan tangöze", "kaan tangoze"],
+    ["Alternative rock", "Türkçe rock"],
+    ["Duman", "Solo kariyer"],
+    ["Türkiye", "1990lar ve sonrası"],
+    ["Vokalist", "Gitarist", "Söz yazarı"],
+    ["Duman’ın karakteristik vokalidir", "Boğuk ve umursamaz rock tavrıyla bilinir", "Türkçe rock sahnesinde çok tanınır"],
+    ["musician:turkish", "musician:rockMetal"]
+  ),
+  m(
+    6389,
+    "Harun Tekin",
+    ["harun tekin"],
+    ["Alternative rock", "Türkçe rock"],
+    ["Mor ve Ötesi"],
+    ["Türkiye", "1990lar ve sonrası"],
+    ["Vokalist", "Gitarist", "Söz yazarı"],
+    ["Mor ve Ötesi’nin frontmanidir", "Alternatif rock içinde politik ve duygusal sözlerle bilinir", "Temiz ve güçlü vokal kullanır"],
+    ["musician:turkish", "musician:rockMetal"]
+  ),
+  m(
+    6390,
+    "Ferman Akgül",
+    ["ferman akgül", "ferman akgul"],
+    ["Alternative rock", "Rap rock", "Türkçe rock"],
+    ["maNga", "Solo kariyer"],
+    ["Türkiye", "2000ler ve sonrası"],
+    ["Vokalist", "Söz yazarı"],
+    ["Rock ve elektronik-rap etkilerini birleştiren bir grupla tanınır", "Sahne enerjisi yüksek bir vokalisttir", "Türkçe alternatif rock sahnesinde öne çıkar"],
+    ["musician:turkish", "musician:rockMetal", "musician:rapHipHop"]
+  ),
+  m(
+    6391,
+    "Hayko Cepkin",
+    ["hayko cepkin", "hayko"],
+    ["Industrial rock", "Alternative metal", "Türkçe rock"],
+    ["Solo kariyer"],
+    ["Türkiye", "2000ler ve sonrası"],
+    ["Vokalist", "Söz yazarı"],
+    ["Sert vokali ve teatral sahne diliyle bilinir", "Karanlık elektronik rock atmosferi kullanır", "Türkiye alternatif metal sahnesinde öne çıkar"],
+    ["musician:turkish", "musician:rockMetal", "musician:electronicAlternative"]
+  ),
+  m(
+    6392,
+    "Ogün Sanlısoy",
+    ["ogün sanlısoy", "ogun sanlisoy"],
+    ["Hard rock", "Türkçe rock"],
+    ["Pentagram", "Solo kariyer"],
+    ["Türkiye", "1990lar ve sonrası"],
+    ["Vokalist", "Söz yazarı"],
+    ["Güçlü rock vokaliyle bilinir", "Pentagram bağlantısıyla metal sahnesinde de tanınır", "Solo kariyerinde Türkçe rock parçaları üretmiştir"],
+    ["musician:turkish", "musician:rockMetal"]
+  ),
+  m(
+    6393,
+    "Murat İlkan",
+    ["murat ilkan"],
+    ["Heavy metal", "Power metal"],
+    ["Pentagram"],
+    ["Türkiye", "1990lar ve sonrası"],
+    ["Vokalist"],
+    ["Güçlü metal vokaliyle bilinir", "Pentagram’ın klasik dönem seslerinden biridir", "Türk metal sahnesinde saygı gören isimlerdendir"],
+    ["musician:turkish", "musician:rockMetal"]
+  ),
+  m(
+    6394,
+    "Gökhan Özoğuz",
+    ["gökhan özoğuz", "gokhan ozoguz"],
+    ["Ska punk", "Rock", "Pop rock"],
+    ["Athena"],
+    ["Türkiye", "1990lar ve sonrası"],
+    ["Vokalist", "Gitarist"],
+    ["Athena’nın enerjik frontmanidir", "Ska ve punk etkilerini Türkçe rock-popla birleştirir", "Sahne enerjisiyle bilinir"],
+    ["musician:turkish", "musician:rockMetal", "musician:pop"]
+  ),
+  m(
+    6395,
+    "Kalben",
+    ["kalben"],
+    ["Indie pop", "Singer-songwriter", "Alternatif"],
+    ["Solo kariyer"],
+    ["Türkiye", "2010lar ve sonrası"],
+    ["Vokalist", "Gitarist", "Söz yazarı"],
+    ["Sade ve içten şarkı yazımıyla bilinir", "Akustik temelli alternatif pop üretir", "Gündelik duyguları yalın bir dille anlatır"],
+    ["musician:turkish", "musician:pop", "musician:folkCountry"]
+  ),
+  m(
+    6396,
+    "Can Kazaz",
+    ["can kazaz"],
+    ["Indie folk", "Alternatif", "Singer-songwriter"],
+    ["Solo kariyer"],
+    ["Türkiye", "2010lar ve sonrası"],
+    ["Vokalist", "Gitarist", "Söz yazarı"],
+    ["Akustik ve sakin anlatımıyla bilinir", "Alternatif sahnede içe dönük şarkılar üretir", "Minimal düzenlemeler kullanır"],
+    ["musician:turkish", "musician:folkCountry", "musician:pop"]
+  ),
+  m(
+    6397,
+    "Melike Şahin",
+    ["melike şahin", "melike sahin"],
+    ["Alternative pop", "Arabesk etkili pop"],
+    ["Solo kariyer", "Baba Zula bağlantısı"],
+    ["Türkiye", "2010lar ve sonrası"],
+    ["Vokalist", "Söz yazarı"],
+    ["Güçlü ve dramatik vokaliyle bilinir", "Arabesk ve modern pop estetiğini birleştirir", "Sahne dili teatraldir"],
+    ["musician:turkish", "musician:pop", "musician:classicalWorld"]
+  ),
+  m(
+    6398,
+    "Büyük Ev Ablukada",
+    ["büyük ev ablukada", "buyuk ev ablukada"],
+    ["Alternative", "Indie rock", "Electronic"],
+    ["Büyük Ev Ablukada"],
+    ["Türkiye", "2010lar ve sonrası"],
+    ["Alternatif müzik grubu"],
+    ["Mizahi ve absürt sözlerle bilinir", "Akustik ve elektronik dönemleri vardır", "Alternatif sahnede kendine özgü bir dil kurmuştur"],
+    ["musician:turkish", "musician:rockMetal", "musician:electronicAlternative"]
+  ),
+  m(
+    6399,
+    "Can Bonomo",
+    ["can bonomo"],
+    ["Alternative pop", "Indie pop", "Folk pop"],
+    ["Solo kariyer"],
+    ["Türkiye", "2010lar ve sonrası"],
+    ["Vokalist", "Söz yazarı"],
+    ["Akdeniz ve folk etkili pop şarkılarıyla bilinir", "şefiiiiiim" , "Sahne dili renkli ve teatraldir", "Hikâye anlatan sözler kullanır"],
+    ["musician:turkish", "musician:pop", "musician:folkCountry"]
+  ),
+  m(
+    6400,
+    "Evrencan Gündüz",
+    ["evrencan gündüz", "evrencan gunduz"],
+    ["Blues rock", "Funk", "Türkçe alternatif"],
+    ["Solo kariyer"],
+    ["Türkiye", "2010lar ve sonrası"],
+    ["Gitarist", "Vokalist", "Söz yazarı"],
+    ["Blues ve funk etkili gitarıyla bilinir", "Rahat ve pozitif sahne enerjisi vardır", "Alternatif sahnede gitar odaklı üretimleriyle öne çıkar"],
+    ["musician:turkish", "musician:rockMetal", "musician:jazzSoul"]
   )
-
-
 ];

@@ -356,6 +356,38 @@ const subModesByMode: Record<GuessMode, SubModeOption[]> = {
       tags: ["musician:legend"],
     },
     {
+      key: "jazzSoul",
+      label: "Jazz / Soul / Blues",
+      emoji: "🎷",
+      description: "Caz, soul, blues, R&B ve groove odaklı isimler.",
+      playKind: "classic",
+      tags: ["musician:jazzSoul"],
+    },
+    {
+      key: "electronicAlternative",
+      label: "Elektronik / Alternatif",
+      emoji: "🎛️",
+      description: "Elektronik prodüktörler, alternatif pop ve deneysel isimler.",
+      playKind: "classic",
+      tags: ["musician:electronicAlternative"],
+    },
+    {
+      key: "folkCountry",
+      label: "Folk / Country",
+      emoji: "🪕",
+      description: "Folk, country, americana ve singer-songwriter çizgisi.",
+      playKind: "classic",
+      tags: ["musician:folkCountry"],
+    },
+    {
+      key: "classicalWorld",
+      label: "Klasik / Dünya Müziği",
+      emoji: "🎼",
+      description: "Klasik besteciler, yorumcular ve dünya müziği figürleri.",
+      playKind: "classic",
+      tags: ["musician:classicalWorld"],
+    },
+    {
       key: "hangman",
       label: "Adam Asmaca",
       emoji: "🧩",
@@ -638,6 +670,7 @@ function App() {
   const [letterGuess, setLetterGuess] = useState("");
   const [guessedLetters, setGuessedLetters] = useState<string[]>([]);
   const [wrongLetters, setWrongLetters] = useState<string[]>([]);
+  const [isPostAnswerAllHintsShown, setIsPostAnswerAllHintsShown] = useState(false);
 
   const isTimeAttackMode = selectedSubMode?.playKind === "timeAttack";
   const isAnagramMode = selectedSubMode?.playKind === "anagram";
@@ -660,6 +693,17 @@ function App() {
     () => Object.values(revealedHints).reduce((total, hints) => total + hints.length, 0),
     [revealedHints]
   );
+
+  const displayedRevealedHints = useMemo<Record<string, string[]>>(() => {
+    if (!currentItem || !isPostAnswerAllHintsShown || gameStatus === "playing") {
+      return revealedHints;
+    }
+
+    return currentItem.hintGroups.reduce<Record<string, string[]>>((allHints, group) => {
+      allHints[group.key] = [...group.hints];
+      return allHints;
+    }, {});
+  }, [currentItem, gameStatus, isPostAnswerAllHintsShown, revealedHints]);
 
   const openedHintKeys = useMemo<string[]>(
     () => Object.entries(revealedHints).flatMap(([groupKey, hints]) => hints.map(() => groupKey)),
@@ -791,6 +835,7 @@ function App() {
     setLetterGuess("");
     setGuessedLetters([]);
     setWrongLetters([]);
+    setIsPostAnswerAllHintsShown(false);
     setIsSuggestionListHidden(false);
     setMessage("");
     setGameStatus("playing");
@@ -827,6 +872,7 @@ function App() {
     setLetterGuess("");
     setGuessedLetters([]);
     setWrongLetters([]);
+    setIsPostAnswerAllHintsShown(false);
     setIsSuggestionListHidden(false);
     setMessage("");
     setGameStatus("playing");
@@ -845,6 +891,7 @@ function App() {
     setLetterGuess("");
     setGuessedLetters([]);
     setWrongLetters([]);
+    setIsPostAnswerAllHintsShown(false);
     setIsSuggestionListHidden(false);
     setMessage("");
     setGameStatus("playing");
@@ -951,6 +998,14 @@ function App() {
     setIsBigHintUsed(true);
     setBigHintsUsed((previous) => previous + 1);
     setMessage("");
+  };
+
+  const showAllHintsAfterAnswer = () => {
+    if (!currentItem || gameStatus === "playing") {
+      return;
+    }
+
+    setIsPostAnswerAllHintsShown(true);
   };
 
   const addRoundHistory = (item: GuessItem, status: "won" | "passed", score: number) => {
@@ -1564,10 +1619,10 @@ function App() {
 
             <div className="hint-board">
               {currentItem.hintGroups.map((group) => {
-                const revealedCount = revealedHints[group.key]?.length || 0;
+                const revealedCount = displayedRevealedHints[group.key]?.length || 0;
                 const totalCount = group.hints.length;
                 const isCompleted = revealedCount === totalCount;
-                const hints = revealedHints[group.key] || [];
+                const hints = displayedRevealedHints[group.key] || [];
 
                 return (
                   <div className="hint-column" key={group.key}>
@@ -1590,7 +1645,7 @@ function App() {
               })}
             </div>
 
-            {isBigHintUsed && <div className="big-hint-card"><strong>Büyük İpucu</strong><p>{bigHintText}</p></div>}
+            {(isBigHintUsed || (isPostAnswerAllHintsShown && gameStatus !== "playing")) && <div className="big-hint-card"><strong>Büyük İpucu</strong><p>{bigHintText}</p></div>}
 
             {isHangmanMode && (
               <div className="hangman-letter-controls">
@@ -1708,6 +1763,15 @@ function App() {
 
                     <div className="result-actions">
                       <button onClick={nextRound}>Sonraki Soru</button>
+                      {gameStatus === "won" && (
+                        <button
+                          className="show-all-hints-button"
+                          onClick={showAllHintsAfterAnswer}
+                          disabled={isPostAnswerAllHintsShown}
+                        >
+                          {isPostAnswerAllHintsShown ? "Tüm İpuçları Açıldı" : "Tüm İpuçlarını Göster"}
+                        </button>
+                      )}
                       <button onClick={goToMenu}>Ana Menüye Dön</button>
                       <button onClick={endSession}>Oyunu Bitir</button>
                     </div>
