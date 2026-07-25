@@ -4812,7 +4812,7 @@ export const footballers: GuessItem[] = [
     ["Türk"],
     ["Orta Saha", "10 Numara"],
     ["1966 doğumlu"],
-    ["Şifo Mehmet lakabıyla bilinir", "Beşiktaş'ın teknik orta saha liderlerindendi", "Kısa boyuna rağmen yüksek oyun zekasıyla öne çıktı", "Frikik ve pas kalitesiyle hatırlanır"]
+    ["Şifo lakabıyla bilinir", "Beşiktaş'ın teknik orta saha liderlerindendi", "Kısa boyuna rağmen yüksek oyun zekasıyla öne çıktı", "Frikik ve pas kalitesiyle hatırlanır"]
   ),
 
   f(

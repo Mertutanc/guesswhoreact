@@ -8,7 +8,7 @@ import { calculateScore } from "./games/scoring";
 
 import type { GameStatus, GuessItem, GuessMode } from "./types/game";
 
-type PlayKind = "classic" | "anagram" | "timeAttack";
+type PlayKind = "classic" | "anagram" | "timeAttack" | "hangman";
 
 type SubModeOption = {
   key: string;
@@ -56,6 +56,7 @@ const LEADERBOARD_STORAGE_KEY = "guesswho-web-leaderboard-v2";
 const LEGACY_LEADERBOARD_STORAGE_KEY = "guesswho-leaderboard";
 const TIME_ATTACK_SECONDS = 120;
 const NO_HINT_BONUS = 20;
+const HANGMAN_MAX_WRONG_GUESSES = 6;
 
 const modeLabels: Record<GuessMode, string> = {
   footballer: "Futbolcu",
@@ -109,6 +110,13 @@ const subModesByMode: Record<GuessMode, SubModeOption[]> = {
       tags: ["football:active"],
     },
     {
+      key: "hangman",
+      label: "Adam Asmaca",
+      emoji: "🧩",
+      description: "İsmi harf harf aç, 6 yanlış hakkın var.",
+      playKind: "hangman",
+    },
+    {
       key: "anagram",
       label: "Anagram",
       emoji: "🔤",
@@ -148,6 +156,13 @@ const subModesByMode: Record<GuessMode, SubModeOption[]> = {
       tags: ["movie:foreign"],
     },
     {
+      key: "hangman",
+      label: "Adam Asmaca",
+      emoji: "🧩",
+      description: "İsmi harf harf aç, 6 yanlış hakkın var.",
+      playKind: "hangman",
+    },
+    {
       key: "anagram",
       label: "Anagram",
       emoji: "🔤",
@@ -169,6 +184,13 @@ const subModesByMode: Record<GuessMode, SubModeOption[]> = {
       emoji: "🎮",
       description: "Tüm oyun karakterleri karışık gelir.",
       playKind: "classic",
+    },
+    {
+      key: "hangman",
+      label: "Adam Asmaca",
+      emoji: "🧩",
+      description: "İsmi harf harf aç, 6 yanlış hakkın var.",
+      playKind: "hangman",
     },
     {
       key: "anagram",
@@ -208,6 +230,13 @@ const subModesByMode: Record<GuessMode, SubModeOption[]> = {
       description: "Güncel dönemin NBA yıldızları.",
       playKind: "classic",
       tags: ["nba:active"],
+    },
+    {
+      key: "hangman",
+      label: "Adam Asmaca",
+      emoji: "🧩",
+      description: "İsmi harf harf aç, 6 yanlış hakkın var.",
+      playKind: "hangman",
     },
     {
       key: "anagram",
@@ -255,6 +284,13 @@ const subModesByMode: Record<GuessMode, SubModeOption[]> = {
       description: "Bilim insanları, sanatçılar, yazarlar ve düşünürler.",
       playKind: "classic",
       tags: ["historical:science", "historical:art", "historical:philosophy"],
+    },
+    {
+      key: "hangman",
+      label: "Adam Asmaca",
+      emoji: "🧩",
+      description: "İsmi harf harf aç, 6 yanlış hakkın var.",
+      playKind: "hangman",
     },
     {
       key: "anagram",
@@ -318,6 +354,13 @@ const subModesByMode: Record<GuessMode, SubModeOption[]> = {
       description: "Müzik tarihinin kült ve ikonik isimleri.",
       playKind: "classic",
       tags: ["musician:legend"],
+    },
+    {
+      key: "hangman",
+      label: "Adam Asmaca",
+      emoji: "🧩",
+      description: "İsmi harf harf aç, 6 yanlış hakkın var.",
+      playKind: "hangman",
     },
     {
       key: "anagram",
@@ -408,6 +451,43 @@ const createAnagramText = (name: string) => {
   }
 
   return shuffled.join(" ").toUpperCase();
+};
+
+const normalizeGuessLetter = (value: string) => {
+  return normalizeText(value).replace(/[^a-z0-9]/g, "").charAt(0);
+};
+
+const isHangmanCharacter = (character: string) => {
+  return /[\p{L}\p{N}]/u.test(character);
+};
+
+const getUniqueHangmanLetters = (name: string) => {
+  return Array.from(
+    new Set(
+      Array.from(name)
+        .filter(isHangmanCharacter)
+        .map((character) => normalizeGuessLetter(character))
+        .filter(Boolean)
+    )
+  );
+};
+
+const createHangmanDisplayName = (name: string, guessedLetters: string[]) => {
+  return Array.from(name)
+    .map((character) => {
+      if (!isHangmanCharacter(character)) {
+        return character === " " ? "   " : character;
+      }
+
+      return guessedLetters.includes(normalizeGuessLetter(character)) ? character : "_";
+    })
+    .join(" ");
+};
+
+const isHangmanSolved = (name: string, guessedLetters: string[]) => {
+  const uniqueLetters = getUniqueHangmanLetters(name);
+
+  return uniqueLetters.length > 0 && uniqueLetters.every((letter) => guessedLetters.includes(letter));
 };
 
 const itemHasAnyTag = (item: GuessItem, tags: string[]) => {
@@ -554,9 +634,13 @@ function App() {
   const [selectedSuggestionIndex, setSelectedSuggestionIndex] = useState(-1);
   const [isSuggestionListHidden, setIsSuggestionListHidden] = useState(false);
   const [feedbackState, setFeedbackState] = useState<"correct" | "wrong" | "pass" | null>(null);
+  const [letterGuess, setLetterGuess] = useState("");
+  const [guessedLetters, setGuessedLetters] = useState<string[]>([]);
+  const [wrongLetters, setWrongLetters] = useState<string[]>([]);
 
   const isTimeAttackMode = selectedSubMode?.playKind === "timeAttack";
   const isAnagramMode = selectedSubMode?.playKind === "anagram";
+  const isHangmanMode = selectedSubMode?.playKind === "hangman";
   const isTimeWarning = isTimeAttackMode && timeLeft <= 30 && timeLeft > 10;
   const isTimeDanger = isTimeAttackMode && timeLeft <= 10;
   const timeAttackProgress = isTimeAttackMode
@@ -590,10 +674,14 @@ function App() {
   const noHintBonus = currentItem && totalHintCount === 0 && !isBigHintUsed ? NO_HINT_BONUS : 0;
   const nextComboMultiplier = getComboMultiplier(currentStreak + 1);
   const currentScore = Math.round((baseRoundScore + noHintBonus) * nextComboMultiplier);
+  const activeRoundScore = isHangmanMode ? Math.max(10, currentScore - wrongLetters.length * 5) : currentScore;
   const displayedRoundMultiplier = gameStatus === "won" ? getComboMultiplier(currentStreak) : nextComboMultiplier;
   const averageScore = gamesPlayed > 0 ? Math.round(totalScore / gamesPlayed) : 0;
   const bigHintText = currentItem ? createBigHintText(currentItem.name) : "";
   const anagramText = currentItem ? createAnagramText(currentItem.name) : "";
+  const hangmanDisplayName = currentItem ? createHangmanDisplayName(currentItem.name, guessedLetters) : "";
+  const hangmanRemainingRights = Math.max(0, HANGMAN_MAX_WRONG_GUESSES - wrongLetters.length);
+  const guessedLetterCount = guessedLetters.length;
 
   const answerSuggestions = useMemo<GuessItem[]>(() => {
     const normalizedGuessText = normalizeText(guess);
@@ -682,6 +770,9 @@ function App() {
     setCurrentItem(randomItem);
     setRevealedHints(createEmptyHints(randomItem));
     setGuess("");
+    setLetterGuess("");
+    setGuessedLetters([]);
+    setWrongLetters([]);
     setIsSuggestionListHidden(false);
     setMessage("");
     setGameStatus("playing");
@@ -714,6 +805,9 @@ function App() {
     setCurrentItem(null);
     setRevealedHints({});
     setGuess("");
+    setLetterGuess("");
+    setGuessedLetters([]);
+    setWrongLetters([]);
     setIsSuggestionListHidden(false);
     setMessage("");
     setGameStatus("playing");
@@ -728,6 +822,9 @@ function App() {
     setCurrentItem(null);
     setRevealedHints({});
     setGuess("");
+    setLetterGuess("");
+    setGuessedLetters([]);
+    setWrongLetters([]);
     setIsSuggestionListHidden(false);
     setMessage("");
     setGameStatus("playing");
@@ -867,6 +964,34 @@ function App() {
     setMessage(`Pas geçtin. Cevap: ${currentItem.name}`);
   };
 
+  const finishCorrectRound = (activeGuess: string, successMessage?: string) => {
+    if (!currentItem) {
+      return;
+    }
+
+    const finalScore = activeRoundScore;
+    const newStreak = currentStreak + 1;
+
+    setGuess(activeGuess);
+    setFeedbackState("correct");
+    setGameStatus("won");
+    setRoundScore(finalScore);
+    setTotalScore((previous) => previous + finalScore);
+    setGamesPlayed((previous) => previous + 1);
+    setCorrectAnswers((previous) => previous + 1);
+    setCurrentStreak(newStreak);
+    setBestStreak((previous) => Math.max(previous, newStreak));
+    setPlayedModes((previous) => [...previous, `${currentItem.modeLabel} / ${selectedSubMode?.label || "Klasik Mod"}`]);
+    setPlayedCategories((previous) => [...previous, currentItem.mode]);
+
+    if (totalHintCount === 0 && !isBigHintUsed) {
+      setNoHintCorrectAnswers((previous) => previous + 1);
+    }
+
+    addRoundHistory(currentItem, "won", finalScore);
+    setMessage(successMessage || `Doğru! ${currentItem.name} cevabını ${totalHintCount} ipucuyla bildin.`);
+  };
+
   const checkGuess = (guessOverride?: string) => {
     if (!currentItem || gameStatus !== "playing") {
       return;
@@ -885,31 +1010,69 @@ function App() {
     const isCorrect = possibleCorrectAnswers.some((answer) => normalizeText(answer) === normalizedGuess);
 
     if (isCorrect) {
-      const finalScore = currentScore;
-      const newStreak = currentStreak + 1;
-
-      setGuess(activeGuess);
-      setFeedbackState("correct");
-      setGameStatus("won");
-      setRoundScore(finalScore);
-      setTotalScore((previous) => previous + finalScore);
-      setGamesPlayed((previous) => previous + 1);
-      setCorrectAnswers((previous) => previous + 1);
-      setCurrentStreak(newStreak);
-      setBestStreak((previous) => Math.max(previous, newStreak));
-      setPlayedModes((previous) => [...previous, `${currentItem.modeLabel} / ${selectedSubMode?.label || "Klasik Mod"}`]);
-      setPlayedCategories((previous) => [...previous, currentItem.mode]);
-
-      if (totalHintCount === 0 && !isBigHintUsed) {
-        setNoHintCorrectAnswers((previous) => previous + 1);
-      }
-
-      addRoundHistory(currentItem, "won", finalScore);
-      setMessage(`Doğru! ${currentItem.name} cevabını ${totalHintCount} ipucuyla bildin.`);
+      finishCorrectRound(activeGuess);
     } else {
       setFeedbackState("wrong");
       setMessage("Yanlış tahmin. Bir ipucu daha alıp tekrar dene.");
     }
+  };
+
+  const handleHangmanLetterGuess = () => {
+    if (!currentItem || gameStatus !== "playing") {
+      return;
+    }
+
+    const normalizedLetter = normalizeGuessLetter(letterGuess);
+
+    if (!normalizedLetter) {
+      setFeedbackState("wrong");
+      setMessage("Bir harf yazmalısın.");
+      return;
+    }
+
+    if (guessedLetters.includes(normalizedLetter) || wrongLetters.includes(normalizedLetter)) {
+      setFeedbackState("wrong");
+      setMessage("Bu harfi zaten denedin.");
+      setLetterGuess("");
+      return;
+    }
+
+    const answerLetters = getUniqueHangmanLetters(currentItem.name);
+
+    if (answerLetters.includes(normalizedLetter)) {
+      const updatedGuessedLetters = [...guessedLetters, normalizedLetter];
+      setGuessedLetters(updatedGuessedLetters);
+      setLetterGuess("");
+      setMessage(`Doğru harf: ${normalizedLetter.toUpperCase()}`);
+
+      if (isHangmanSolved(currentItem.name, updatedGuessedLetters)) {
+        finishCorrectRound(currentItem.name, `Doğru! ${currentItem.name} adını harf harf çözdün.`);
+      }
+
+      return;
+    }
+
+    const updatedWrongLetters = [...wrongLetters, normalizedLetter];
+    const remainingRights = Math.max(0, HANGMAN_MAX_WRONG_GUESSES - updatedWrongLetters.length);
+    setWrongLetters(updatedWrongLetters);
+    setLetterGuess("");
+    setFeedbackState("wrong");
+
+    if (remainingRights <= 0) {
+      setGameStatus("passed");
+      setFeedbackState("pass");
+      setRoundScore(0);
+      setGamesPlayed((previous) => previous + 1);
+      setPassedAnswers((previous) => previous + 1);
+      setCurrentStreak(0);
+      setPlayedModes((previous) => [...previous, `${currentItem.modeLabel} / ${selectedSubMode?.label || "Klasik Mod"}`]);
+      setPlayedCategories((previous) => [...previous, currentItem.mode]);
+      addRoundHistory(currentItem, "passed", 0);
+      setMessage(`Hakların bitti. Cevap: ${currentItem.name}`);
+      return;
+    }
+
+    setMessage(`Yanlış harf. ${remainingRights} hakkın kaldı.`);
   };
 
   const selectSuggestion = (item: GuessItem, shouldSubmit = false) => {
@@ -1244,8 +1407,26 @@ function App() {
           <section className="main-play-panel">
             {isAnagramMode && <div className="anagram-card"><span>Anagram</span><strong>{anagramText}</strong></div>}
 
+            {isHangmanMode && (
+              <div className="hangman-card">
+                <div className="hangman-topline">
+                  <span>Adam Asmaca</span>
+                  <strong>{hangmanRemainingRights}/{HANGMAN_MAX_WRONG_GUESSES} hak</strong>
+                </div>
+                <div className="hangman-word" aria-label="Açılan harfler">{hangmanDisplayName}</div>
+                <div className="hangman-stats">
+                  <span>Doğru harf: <b>{guessedLetterCount}</b></span>
+                  <span>Yanlış: <b>{wrongLetters.length}</b></span>
+                  <span>Ceza: <b>-{wrongLetters.length * 5}</b></span>
+                </div>
+                <div className="wrong-letter-list">
+                  {wrongLetters.length > 0 ? wrongLetters.map((letter) => <em key={letter}>{letter.toUpperCase()}</em>) : <small>Yanlış harf yok</small>}
+                </div>
+              </div>
+            )}
+
             <div className="round-score-line">
-              {totalHintCount} ipucu açıldı • Tur skoru: {currentScore}
+              {totalHintCount} ipucu açıldı • Tur skoru: {activeRoundScore}
             </div>
 
             <div className="hint-board">
@@ -1278,11 +1459,32 @@ function App() {
 
             {isBigHintUsed && <div className="big-hint-card"><strong>Büyük İpucu</strong><p>{bigHintText}</p></div>}
 
+            {isHangmanMode && (
+              <div className="hangman-letter-controls">
+                <input
+                  type="text"
+                  inputMode="text"
+                  maxLength={1}
+                  placeholder="Harf"
+                  value={letterGuess}
+                  onChange={(event) => setLetterGuess(event.target.value.slice(0, 1))}
+                  onKeyDown={(event) => {
+                    if (event.key === "Enter") {
+                      event.preventDefault();
+                      handleHangmanLetterGuess();
+                    }
+                  }}
+                  disabled={gameStatus !== "playing"}
+                />
+                <button onClick={handleHangmanLetterGuess} disabled={gameStatus !== "playing"}>Harf Dene</button>
+              </div>
+            )}
+
             <div className="guess-area">
               <div className="autocomplete-wrapper">
                 <input
                   type="text"
-                  placeholder="Cevabı tahmin et..."
+                  placeholder={isHangmanMode ? "Cevabı biliyorsan yaz..." : "Cevabı tahmin et..."}
                   value={guess}
                   onChange={(event) => {
                     setGuess(event.target.value);
