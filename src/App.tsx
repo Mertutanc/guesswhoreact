@@ -631,6 +631,7 @@ function App() {
   const [leaderboardTypeFilter, setLeaderboardTypeFilter] = useState<LeaderboardTypeFilter>("all");
   const [leaderboardCategoryFilter, setLeaderboardCategoryFilter] = useState<LeaderboardCategoryFilter>("all");
   const [leaderboard, setLeaderboard] = useState<LeaderboardRecord[]>(getSavedLeaderboard);
+  const [isHowToPlayOpen, setIsHowToPlayOpen] = useState(false);
   const [selectedSuggestionIndex, setSelectedSuggestionIndex] = useState(-1);
   const [isSuggestionListHidden, setIsSuggestionListHidden] = useState(false);
   const [feedbackState, setFeedbackState] = useState<"correct" | "wrong" | "pass" | null>(null);
@@ -749,10 +750,27 @@ function App() {
     return () => window.clearTimeout(feedbackTimer);
   }, [feedbackState]);
 
+  useEffect(() => {
+    if (!isHowToPlayOpen) {
+      return;
+    }
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setIsHowToPlayOpen(false);
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [isHowToPlayOpen]);
+
   const openSubModeMenu = (mode: GuessMode) => {
     setSelectedSubModeMenu(mode);
     setMessage("");
     setIsLeaderboardOpen(false);
+    setIsHowToPlayOpen(false);
   };
 
   const startRound = (mode: GuessMode, subMode: SubModeOption, previousItemId?: number) => {
@@ -799,6 +817,7 @@ function App() {
   };
 
   const goToMenu = () => {
+    setIsHowToPlayOpen(false);
     setSelectedSubModeMenu(null);
     setSelectedMode(null);
     setSelectedSubMode(null);
@@ -816,6 +835,7 @@ function App() {
   };
 
   const resetSession = () => {
+    setIsHowToPlayOpen(false);
     setSelectedSubModeMenu(null);
     setSelectedMode(null);
     setSelectedSubMode(null);
@@ -921,16 +941,6 @@ function App() {
     });
     setNormalHintsUsed((previous) => previous + 1);
     setMessage("");
-  };
-
-  // YENİ EKLENEN FONKSİYON: Tüm kategorilerdeki tüm gizli ipuçlarını tek tıkla açar
-  const revealAllHints = () => {
-    if (!currentItem) return;
-    const allRevealed: Record<string, string[]> = {};
-    currentItem.hintGroups.forEach((group) => {
-      allRevealed[group.key] = [...group.hints];
-    });
-    setRevealedHints(allRevealed);
   };
 
   const useBigHint = () => {
@@ -1338,6 +1348,69 @@ function App() {
           <h1 className="title">🧠 GuessWho</h1>
           <p className="subtitle">Kategori seç, alt moda gir, seriyi başlat.</p>
 
+          <div className="home-info-strip">
+            <span>6 kategori</span>
+            <span>4 oyun modu</span>
+            <span>Skor / combo / leaderboard</span>
+          </div>
+
+          {isHowToPlayOpen && (
+            <div className="how-to-backdrop" role="presentation" onClick={() => setIsHowToPlayOpen(false)}>
+              <section
+                className="how-to-modal"
+                role="dialog"
+                aria-modal="true"
+                aria-labelledby="how-to-title"
+                onClick={(event) => event.stopPropagation()}
+              >
+                <div className="how-to-header">
+                  <div>
+                    <div className="screen-kicker">QUICK GUIDE</div>
+                    <h2 id="how-to-title">Nasıl Oynanır?</h2>
+                    <p>Modu seç, ipuçlarını dikkatli kullan, cevabı bul ve skorunu kaydet.</p>
+                  </div>
+                  <button className="how-to-close-button" type="button" onClick={() => setIsHowToPlayOpen(false)} aria-label="Nasıl oynanır penceresini kapat">
+                    ×
+                  </button>
+                </div>
+
+                <div className="how-to-mode-grid">
+                  <article className="how-to-card">
+                    <span>🎯</span>
+                    <strong>Klasik</strong>
+                    <p>İpucu kategorilerinden bilgi açarak doğru cevabı tahmin edersin.</p>
+                  </article>
+                  <article className="how-to-card">
+                    <span>🔤</span>
+                    <strong>Anagram</strong>
+                    <p>Cevabın harfleri karışık verilir; ismi çözmeye çalışırsın.</p>
+                  </article>
+                  <article className="how-to-card">
+                    <span>⏱️</span>
+                    <strong>Zamana Karşı</strong>
+                    <p>120 saniye içinde mümkün olduğunca çok doğru cevapla skor kasarsın.</p>
+                  </article>
+                  <article className="how-to-card">
+                    <span>🪢</span>
+                    <strong>Adam Asmaca</strong>
+                    <p>Harf tahmin ederek ismi açarsın; 6 yanlış harf hakkın vardır.</p>
+                  </article>
+                </div>
+
+                <div className="how-to-tips">
+                  <div>
+                    <strong>Skor mantığı</strong>
+                    <p>Az ipucu daha yüksek skor getirir. İpucusuz doğruya bonus eklenir, combo skoru büyütür.</p>
+                  </div>
+                  <div>
+                    <strong>Kısayollar</strong>
+                    <p>Önerilerde ↑ / ↓ ile gezebilir, Enter ile seçebilir, Escape ile listeyi kapatabilirsin.</p>
+                  </div>
+                </div>
+              </section>
+            </div>
+          )}
+
           {gamesPlayed > 0 && (
             <div className="mini-score-card">
               Seri Skoru: <strong>{totalScore}</strong> / Oynanan Tur: <strong>{gamesPlayed}</strong> / Combo: <strong>{currentStreak}</strong>
@@ -1360,8 +1433,11 @@ function App() {
 
           <div className="support-actions menu-actions">
             {gamesPlayed > 0 && <button className="end-game-button" onClick={endSession}>Oyunu Bitir</button>}
+            <button className="secondary-action-button" onClick={() => setIsHowToPlayOpen(true)}>Nasıl Oynanır?</button>
             <button className="secondary-action-button" onClick={() => setIsLeaderboardOpen(true)}>Skor Tablosu</button>
           </div>
+
+          <div className="public-footer">GuessWho • beta test</div>
         </section>
       </main>
     );
@@ -1585,12 +1661,6 @@ function App() {
 
                     <div className="result-actions">
                       <button onClick={nextRound}>Sonraki Soru</button>
-                      
-                      {/* --- YENİ EKLENEN "Tüm İpuçlarını Göster" BUTONU --- */}
-                      <button className="secondary-button" onClick={revealAllHints}>
-                        🔍 Tüm İpuçlarını Göster
-                      </button>
-
                       <button onClick={goToMenu}>Ana Menüye Dön</button>
                       <button onClick={endSession}>Oyunu Bitir</button>
                     </div>
