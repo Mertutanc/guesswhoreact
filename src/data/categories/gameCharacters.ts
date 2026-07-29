@@ -1,5 +1,201 @@
 import type { GuessItem } from "../../types/game";
 
+type GameCharacterTag =
+  | "game:rpgSoulslike"
+  | "game:nintendoPlatform"
+  | "game:horror"
+  | "game:fpsAction"
+  | "game:openWorld"
+  | "game:indie"
+  | "game:fighting"
+  | "game:strategyMoba"
+  | "game:adventureStory";
+
+const uniqueTags = (tags: GameCharacterTag[]) => Array.from(new Set(tags));
+
+const includesAny = (text: string, keywords: string[]) => {
+  const normalizedText = text.toLocaleLowerCase("tr-TR");
+
+  return keywords.some((keyword) =>
+    normalizedText.includes(keyword.toLocaleLowerCase("tr-TR"))
+  );
+};
+
+const createGameCharacterTags = (
+  game: string[],
+  appearance: string[],
+  world: string[],
+  features: string[]
+): GameCharacterTag[] => {
+  const combinedText = [...game, ...appearance, ...world, ...features].join(" ");
+  const tags: GameCharacterTag[] = [];
+
+  if (
+    includesAny(combinedText, [
+      "rpg",
+      "rol yapma",
+      "crpg",
+      "jrpg",
+      "soulslike",
+      "dungeons",
+      "baldur",
+      "elden",
+      "skyrim",
+      "witcher",
+      "final fantasy",
+      "persona",
+      "hades",
+    ])
+  ) {
+    tags.push("game:rpgSoulslike");
+  }
+
+  if (
+    includesAny(combinedText, [
+      "nintendo",
+      "platform",
+      "mario",
+      "zelda",
+      "hyrule",
+      "mantar krallığı",
+      "metroid",
+      "kirby",
+      "pokemon",
+      "pokémon",
+      "donkey kong",
+      "sonic",
+      "crash",
+      "spyro",
+    ])
+  ) {
+    tags.push("game:nintendoPlatform");
+  }
+
+  if (
+    includesAny(combinedText, [
+      "korku",
+      "hayatta kalma",
+      "zombi",
+      "silent hill",
+      "resident evil",
+      "dead space",
+      "psikolojik",
+      "kabus",
+      "vampir",
+      "fnaf",
+      "five nights",
+    ])
+  ) {
+    tags.push("game:horror");
+  }
+
+  if (
+    includesAny(combinedText, [
+      "fps",
+      "shooter",
+      "birinci şahıs",
+      "askeri",
+      "savaş",
+      "silah",
+      "taktiksel",
+      "casusluk",
+      "doom",
+      "halo",
+      "half-life",
+      "call of duty",
+      "far cry",
+    ])
+  ) {
+    tags.push("game:fpsAction");
+  }
+
+  if (
+    includesAny(combinedText, [
+      "açık dünya",
+      "open world",
+      "vahşi batı",
+      "san andreas",
+      "los santos",
+      "vice city",
+      "liberty city",
+      "night city",
+      "gotham",
+      "skyrim",
+      "çorak arazi",
+      "wasteland",
+    ])
+  ) {
+    tags.push("game:openWorld");
+  }
+
+  if (
+    includesAny(combinedText, [
+      "bağımsız",
+      "indie",
+      "roguelike",
+      "metroidvania",
+      "pixel",
+      "stardew",
+      "hollow knight",
+      "celeste",
+      "cuphead",
+      "undertale",
+      "hades",
+      "disco elysium",
+    ])
+  ) {
+    tags.push("game:indie");
+  }
+
+  if (
+    includesAny(combinedText, [
+      "dövüş",
+      "fighting",
+      "tekken",
+      "street fighter",
+      "mortal kombat",
+      "king of fighters",
+      "guilty gear",
+      "arena",
+    ])
+  ) {
+    tags.push("game:fighting");
+  }
+
+  if (
+    includesAny(combinedText, [
+      "moba",
+      "strateji",
+      "rts",
+      "league of legends",
+      "dota",
+      "starcraft",
+      "warcraft",
+      "overwatch",
+      "valorant",
+    ])
+  ) {
+    tags.push("game:strategyMoba");
+  }
+
+  if (
+    includesAny(combinedText, [
+      "macera",
+      "hikaye",
+      "seçimlere dayalı",
+      "interaktif",
+      "dedektif",
+      "bulmaca",
+      "point and click",
+      "sinema",
+    ])
+  ) {
+    tags.push("game:adventureStory");
+  }
+
+  return uniqueTags(tags);
+};
+
 const createGameCharacter = (
   id: number,
   name: string,
@@ -15,6 +211,7 @@ const createGameCharacter = (
     modeLabel: "Oyun Karakteri",
     name,
     answers,
+    tags: createGameCharacterTags(game, appearance, world, features),
     hintGroups: [
       {
         key: "game",
@@ -41,6 +238,7 @@ const createGameCharacter = (
 };
 
 export const gameCharacters: GuessItem[] = [
+
   createGameCharacter(
     1001,
     "Luigi",
@@ -2042,4 +2240,1003 @@ export const gameCharacters: GuessItem[] = [
     ["Master Chief'in yapay zeka yoldaşıdır", "Stratejik rehberlik yapar", "Serinin hikayesinde merkezi rol oynar"]
   ),
 
+  createGameCharacter(
+    1201,
+    "Arthur Morgan",
+    ["arthur", "arthur morgan"],
+    ["Açık dünya", "Vahşi Batı", "Hikaye odaklı aksiyon-macera"],
+    ["Kovboy şapkası", "Sakallı yüz", "Tozlu uzun ceket", "Belinde tabanca"],
+    ["Van der Linde çetesi", "Amerikan batısı", "Kamp hayatı"],
+    ["Sadık ama sorgulayan bir kanun kaçağı", "Günlük tutar", "Red Dead Redemption 2'nin ana karakteridir"]
+  ),
+
+  createGameCharacter(
+    1202,
+    "Sadie Adler",
+    ["sadie", "sadie adler"],
+    ["Açık dünya", "Vahşi Batı", "Aksiyon-macera"],
+    ["Kovboy kıyafetleri", "Şapka", "Silah kuşanmış sert duruş"],
+    ["Amerikan batısı", "Van der Linde çetesi", "Ödül avcılığı"],
+    ["Güçlü ve intikamcı karakter", "Çete içinde giderek öne çıkar", "Kendi ayakları üzerinde duran bir savaşçıdır"]
+  ),
+
+  createGameCharacter(
+    1203,
+    "Max Payne",
+    ["max payne", "max"],
+    ["Noir aksiyon", "Üçüncü şahıs shooter", "Karanlık dedektif hikayesi"],
+    ["Deri ceket", "Yorgun yüz", "Tabancalar", "Noir atmosfer"],
+    ["New York", "Suç dünyası", "Yavaş çekim çatışmalar"],
+    ["Bullet time mekaniğiyle bilinir", "İç monologları çok yoğundur", "Trajik geçmişi vardır"]
+  ),
+
+  createGameCharacter(
+    1204,
+    "Mona Sax",
+    ["mona sax", "mona"],
+    ["Noir aksiyon", "Üçüncü şahıs shooter", "Dedektif hikayesi"],
+    ["Siyah kıyafet", "Keskin bakış", "Silahlı suikastçı görünümü"],
+    ["New York", "Yeraltı suç dünyası"],
+    ["Gizemli ve tehlikeli bir karakterdir", "Max Payne ile bağlantılıdır", "Keskin nişancılık ve soğukkanlılıkla bilinir"]
+  ),
+
+  createGameCharacter(
+    1205,
+    "Chell",
+    ["chell"],
+    ["Bulmaca", "Birinci şahıs", "Bilim kurgu mizahı"],
+    ["Turuncu test kıyafeti", "Uzun botlar", "Portal silahı"],
+    ["Aperture Science", "Test odaları", "Yapay zeka laboratuvarı"],
+    ["Sessiz ana karakterdir", "Portal açarak bulmacaları çözer", "GLaDOS'a karşı hayatta kalmaya çalışır"]
+  ),
+
+  createGameCharacter(
+    1206,
+    "GLaDOS",
+    ["glados", "gla dos"],
+    ["Bulmaca", "Bilim kurgu", "Kara mizah"],
+    ["Devasa robotik sistem", "Sarı tek göz/lens", "Tavandan sarkan yapay zeka"],
+    ["Aperture Science", "Test odaları", "Laboratuvar"],
+    ["Alaycı yapay zekadır", "Test yapmayı takıntı haline getirir", "Kek vaadiyle hatırlanır"]
+  ),
+
+  createGameCharacter(
+    1207,
+    "Wheatley",
+    ["wheatley"],
+    ["Bulmaca", "Bilim kurgu", "Komedi"],
+    ["Küçük mavi gözlü robot çekirdeği", "Yuvarlak metal gövde"],
+    ["Aperture Science", "Test sistemi"],
+    ["Çok konuşkan ve panikleyen bir yapay zekadır", "Yanlış kararlarıyla komik durumlar yaratır", "Portal 2'nin önemli karakterlerindendir"]
+  ),
+
+  createGameCharacter(
+    1208,
+    "Heavy",
+    ["heavy", "heavy weapons guy"],
+    ["Takım tabanlı FPS", "Komedi aksiyon", "Sınıf tabanlı shooter"],
+    ["Dev cüsse", "Mühimmat kemeri", "Kocaman minigun"],
+    ["Team Fortress evreni", "RED ve BLU takımları"],
+    ["Minigun'una Sasha der", "Yavaş ama çok güçlüdür", "Kalın aksanlı konuşmasıyla bilinir"]
+  ),
+
+  createGameCharacter(
+    1209,
+    "Scout",
+    ["scout"],
+    ["Takım tabanlı FPS", "Komedi aksiyon", "Sınıf tabanlı shooter"],
+    ["Beyzbol şapkası", "Kulaklıklı genç görünüm", "Sopa taşır"],
+    ["Team Fortress evreni", "RED ve BLU takımları"],
+    ["Çok hızlı koşar", "Geveze ve kendine güvenlidir", "Yakın mesafe agresif oyun tarzıyla bilinir"]
+  ),
+
+  createGameCharacter(
+    1210,
+    "Spy",
+    ["spy", "the spy"],
+    ["Takım tabanlı FPS", "Casusluk", "Komedi aksiyon"],
+    ["Takım elbise", "Yüz maskesi", "Bıçak ve sigara"],
+    ["Team Fortress evreni", "Gizli operasyonlar"],
+    ["Kılık değiştirebilir", "Görünmez olabilir", "Sırtından bıçaklamasıyla bilinir"]
+  ),
+
+  createGameCharacter(
+    1211,
+    "Soap MacTavish",
+    ["soap", "soap mactavish", "john mactavish"],
+    ["Askeri FPS", "Modern savaş", "Taktiksel aksiyon"],
+    ["Askeri teçhizat", "Mohawk saç", "Telsiz ve silah"],
+    ["Task Force 141", "Küresel operasyonlar"],
+    ["Captain Price'ın yakın ekip arkadaşıdır", "Cesaretiyle bilinir", "Modern Warfare serisinin sevilen karakteridir"]
+  ),
+
+  createGameCharacter(
+    1212,
+    "Gaz",
+    ["gaz", "kyle garrick"],
+    ["Askeri FPS", "Modern savaş", "Taktiksel aksiyon"],
+    ["Askeri ekipman", "Kulaklık", "Taktik yelek"],
+    ["Task Force 141", "Terörle mücadele operasyonları"],
+    ["Disiplinli ve sakin bir askerdir", "Price'ın ekibinde yer alır", "Modern Warfare hikayesinde önemli roldedir"]
+  ),
+
+  createGameCharacter(
+    1213,
+    "Vladimir Makarov",
+    ["makarov", "vladimir makarov"],
+    ["Askeri FPS", "Modern savaş", "Aksiyon"],
+    ["Takım elbise veya askeri kıyafet", "Soğuk bakış", "Silahlı lider görünümü"],
+    ["Küresel krizler", "Gizli örgütler", "Modern Warfare evreni"],
+    ["Serinin en bilinen antagonistlerinden biridir", "Manipülatif ve stratejik davranır", "Büyük kaos planlarıyla tanınır"]
+  ),
+
+  createGameCharacter(
+    1214,
+    "Alex Mason",
+    ["alex mason", "mason"],
+    ["Askeri FPS", "Soğuk Savaş", "Gizli operasyonlar"],
+    ["Askeri kıyafet", "Kısa saç", "Sert yüz ifadesi"],
+    ["CIA operasyonları", "Soğuk Savaş", "Black Ops evreni"],
+    ["Sorgu sahneleriyle hatırlanır", "Numbers/numaralar temasıyla bilinir", "Travmatik görevler yaşamıştır"]
+  ),
+
+  createGameCharacter(
+    1215,
+    "Vaas Montenegro",
+    ["vaas", "vaas montenegro"],
+    ["Açık dünya", "FPS", "Tropik ada aksiyonu"],
+    ["Kırmızı atlet", "Mohawk saç", "Delici bakış"],
+    ["Rook Islands", "Korsan kampı", "Tropik ada"],
+    ["Deliliğin tanımını anlatan monoloğuyla bilinir", "Karizmatik antagonisttir", "Dengesiz ve tehditkardır"]
+  ),
+
+  createGameCharacter(
+    1216,
+    "Pagan Min",
+    ["pagan min", "pagan"],
+    ["Açık dünya", "FPS", "Aksiyon-macera"],
+    ["Pembe takım elbise", "Sarı saç", "Şık ama tehlikeli görünüm"],
+    ["Kyrat", "Dağlık ülke", "İç savaş atmosferi"],
+    ["Eksantrik bir diktatör figürüdür", "Sakin konuşup tehlikeli davranır", "Far Cry serisinin akılda kalan kötülerindendir"]
+  ),
+
+  createGameCharacter(
+    1217,
+    "Joseph Seed",
+    ["joseph seed", "the father", "father"],
+    ["Açık dünya", "FPS", "Kült temalı aksiyon"],
+    ["Sarı gözlük", "Sakallı yüz", "Dini lider görünümü"],
+    ["Hope County", "Kült yerleşimleri", "Kırsal Amerika"],
+    ["The Father lakabıyla bilinir", "Kitleleri etkileyen bir liderdir", "Fanatik inanç temasıyla öne çıkar"]
+  ),
+
+  createGameCharacter(
+    1218,
+    "Isaac Clarke",
+    ["isaac clarke", "isaac"],
+    ["Hayatta kalma korku", "Bilim kurgu", "Üçüncü şahıs aksiyon"],
+    ["Mühendis zırhı", "Kaskında yatay ışık çizgileri", "Plazma kesici"],
+    ["Uzay gemisi", "Ishimura", "Karanlık koridorlar"],
+    ["Mühendis kökenlidir", "Uzayda kabus gibi olaylarla yüzleşir", "Plasma Cutter ile hatırlanır"]
+  ),
+
+  createGameCharacter(
+    1219,
+    "Heather Mason",
+    ["heather mason", "heather"],
+    ["Psikolojik korku", "Hayatta kalma korku", "Kült seri"],
+    ["Turuncu kolsuz üst", "Kısa sarı saç", "Beyaz yelek"],
+    ["Silent Hill", "Otherworld", "Kasvetli kasaba"],
+    ["Gizemli geçmişini keşfeder", "Korku atmosferinin merkezindedir", "Silent Hill serisinin güçlü ana karakterlerindendir"]
+  ),
+
+  createGameCharacter(
+    1220,
+    "Maria",
+    ["maria"],
+    ["Psikolojik korku", "Hayatta kalma korku", "Kült seri"],
+    ["Sarı saç", "Kırmızımsı kıyafet", "Gizemli ve tanıdık görünüm"],
+    ["Silent Hill", "Sisli kasaba", "James Sunderland'ın hikayesi"],
+    ["Ana karakterin geçmişiyle bağlantılıdır", "Gizemli varlığıyla kafa karıştırır", "Silent Hill 2'nin sembolik karakterlerindendir"]
+  ),
+
+  createGameCharacter(
+    1221,
+    "Rebecca Chambers",
+    ["rebecca chambers", "rebecca"],
+    ["Hayatta kalma korku", "Zombi salgını", "Klasik korku serisi"],
+    ["S.T.A.R.S. üniforması", "Kısa saç", "Tıbbi ekipman"],
+    ["Raccoon City", "Spencer Malikanesi", "Umbrella deneyleri"],
+    ["Genç sağlık uzmanıdır", "Destekleyici ve zeki karakterdir", "Resident Evil evreninde erken dönem figürlerdendir"]
+  ),
+
+  createGameCharacter(
+    1222,
+    "HUNK",
+    ["hunk", "mr death"],
+    ["Hayatta kalma korku", "Aksiyon", "Gizli operasyon"],
+    ["Gaz maskesi", "Siyah taktik kıyafet", "Kapalı yüz"],
+    ["Umbrella Corporation", "Raccoon City", "Biyolojik krizler"],
+    ["Mr. Death lakabıyla bilinir", "Hayatta kalma oranı çok yüksektir", "Gizemli ve profesyonel bir askerdir"]
+  ),
+
+  createGameCharacter(
+    1223,
+    "Alma Wade",
+    ["alma", "alma wade"],
+    ["Korku FPS", "Psikolojik gerilim", "Doğaüstü aksiyon"],
+    ["Uzun siyah saç", "Soluk görünüm", "Kırmızı elbise"],
+    ["F.E.A.R. evreni", "Laboratuvarlar", "Doğaüstü deneyler"],
+    ["Rahatsız edici hayalet figürüdür", "Zihinsel güçlerle bağlantılıdır", "Oyunun korku atmosferini taşır"]
+  ),
+
+  createGameCharacter(
+    1224,
+    "Slender Man",
+    ["slender man", "slenderman"],
+    ["Bağımsız korku", "Hayatta kalma", "İnternet efsanesi uyarlaması"],
+    ["Uzun siyah takım elbise", "Yüzsüz baş", "Aşırı uzun kollar"],
+    ["Karanlık orman", "Sayfa toplama oyunu", "Sessiz takip atmosferi"],
+    ["Oyuncuyu sessizce takip eder", "Yaklaşınca ekran bozulur", "Minimal korku ikonlarından biridir"]
+  ),
+
+  createGameCharacter(
+    1225,
+    "Bendy",
+    ["bendy"],
+    ["Bağımsız korku", "Çizgi film estetiği", "Bulmaca-macera"],
+    ["Siyah-beyaz çizgi film görünümü", "Boynuzlu kafa", "Geniş sırıtış"],
+    ["Mürekkep stüdyosu", "Eski animasyon atölyesi"],
+    ["Mürekkep temalı korku figürüdür", "Retro çizgi film atmosferi taşır", "Bendy and the Ink Machine ile bilinir"]
+  ),
+
+  createGameCharacter(
+    1226,
+    "Karlach",
+    ["karlach"],
+    ["CRPG", "Dungeons & Dragons", "Fantastik rol yapma"],
+    ["Kırmızı ten", "Boynuzlar", "Alevli enerji", "Büyük savaş baltası"],
+    ["Faerun", "Avernus geçmişi", "Baldur's Gate"],
+    ["Çok enerjik ve sıcak kanlıdır", "İçindeki cehennem motoruyla yaşar", "Güçlü barbar karakterdir"]
+  ),
+
+  createGameCharacter(
+    1227,
+    "Lae'zel",
+    ["laezel", "lae'zel", "lae zel"],
+    ["CRPG", "Dungeons & Dragons", "Fantastik rol yapma"],
+    ["Yeşilimsi ten", "Githyanki zırhı", "Keskin yüz hatları"],
+    ["Faerun", "Githyanki kültürü", "Mind flayer tehdidi"],
+    ["Sert ve disiplinli bir savaşçıdır", "Kendi halkının kurallarına çok bağlıdır", "Baldur's Gate 3 yoldaşlarındandır"]
+  ),
+
+  createGameCharacter(
+    1228,
+    "Gale",
+    ["gale", "gale of waterdeep"],
+    ["CRPG", "Dungeons & Dragons", "Fantastik rol yapma"],
+    ["Büyücü cübbesi", "Sakallı yüz", "Kitap ve asa havası"],
+    ["Waterdeep", "Faerun", "Baldur's Gate"],
+    ["Bilgili ve konuşkan büyücüdür", "Göğsünde tehlikeli büyülü sır taşır", "Esprili anlatımıyla bilinir"]
+  ),
+
+  createGameCharacter(
+    1229,
+    "Wyll",
+    ["wyll", "wyll ravengard", "blade of frontiers"],
+    ["CRPG", "Dungeons & Dragons", "Fantastik rol yapma"],
+    ["Kılıç", "Boynuzlu görünüm", "Asil savaşçı havası"],
+    ["Faerun", "Baldur's Gate", "Frontiers efsanesi"],
+    ["Blade of Frontiers olarak bilinir", "Kahraman olmak ister", "Bir anlaşmanın sonuçlarıyla yaşar"]
+  ),
+
+  createGameCharacter(
+    1230,
+    "Solas",
+    ["solas"],
+    ["Fantastik RPG", "Hikaye odaklı rol yapma", "Parti tabanlı macera"],
+    ["Kel kafa", "Elf görünümü", "Sade kıyafetler"],
+    ["Thedas", "Fade", "Elf tarihi"],
+    ["Rüya ve ruhlar alemiyle bağlantılıdır", "Bilgili ve gizemli bir elfdir", "Dragon Age evreninde büyük sır taşır"]
+  ),
+
+  createGameCharacter(
+    1231,
+    "Varric Tethras",
+    ["varric", "varric tethras"],
+    ["Fantastik RPG", "Parti tabanlı macera", "Hikaye odaklı"],
+    ["Cüce", "Arbalet", "Şık yelek"],
+    ["Thedas", "Kirkwall", "Inquisition ekibi"],
+    ["Bianca adlı arbaletiyle bilinir", "Hikaye anlatıcısıdır", "Esprili ve güvenilir yoldaştır"]
+  ),
+
+  createGameCharacter(
+    1232,
+    "Alistair",
+    ["alistair"],
+    ["Fantastik RPG", "Parti tabanlı rol yapma", "Karanlık fantezi"],
+    ["Zırh", "Kalkan", "Genç savaşçı görünümü"],
+    ["Ferelden", "Grey Wardens", "Darkspawn tehdidi"],
+    ["İyi niyetli ve esprili bir yoldaştır", "Grey Warden geçmişi vardır", "Tahtla bağlantılı önemli bir sır taşır"]
+  ),
+
+  createGameCharacter(
+    1233,
+    "Wrex",
+    ["wrex", "urdnot wrex"],
+    ["Bilim kurgu RPG", "Uzay operası", "Parti tabanlı hikaye"],
+    ["Büyük zırhlı Krogan", "Sert yüz", "Ağır silahlar"],
+    ["Mass Effect evreni", "Tuchanka", "Normandy ekibi"],
+    ["Krogan savaşçısıdır", "Kaba ama sadık bir yoldaştır", "Türünün geleceğiyle ilgili önemli rol oynar"]
+  ),
+
+  createGameCharacter(
+    1234,
+    "Miranda Lawson",
+    ["miranda", "miranda lawson"],
+    ["Bilim kurgu RPG", "Uzay operası", "Takım tabanlı görevler"],
+    ["Siyah-beyaz görev kıyafeti", "Düzenli saç", "Profesyonel görünüm"],
+    ["Cerberus", "Normandy", "Galaktik operasyonlar"],
+    ["Genetik olarak tasarlanmış üstün ajan olarak tanıtılır", "Zeki ve kontrollüdür", "Mass Effect 2'nin önemli ekip üyelerindendir"]
+  ),
+
+  createGameCharacter(
+    1235,
+    "Mordin Solus'un Klinik Defteri",
+    ["klinik defteri", "mordinin defteri"],
+    ["Bilim kurgu RPG", "Uzay operası", "Mizahi eşya/hatıra"],
+    ["Notlarla dolu dijital kayıt", "Bilimsel veri havası"],
+    ["Normandy", "Laboratuvar", "Mass Effect evreni"],
+    ["Mordin'in bilimsel takıntısını temsil eder", "Mizahi ve bilgi dolu notları çağrıştırır", "Karakter odaklı fan servisi hissi verir"]
+  ),
+
+  createGameCharacter(
+    1236,
+    "Panam Palmer",
+    ["panam", "panam palmer"],
+    ["Açık dünya RPG", "Siberpunk", "Hikaye odaklı aksiyon"],
+    ["Göçebe kıyafeti", "Siyah saç", "Araç ve silah ekipmanları"],
+    ["Night City çevresi", "Badlands", "Aldecaldos klanı"],
+    ["Göçebe savaşçıdır", "Sadık ve sert bir karakterdir", "Araçlı görevlerle öne çıkar"]
+  ),
+
+  createGameCharacter(
+    1237,
+    "Judy Alvarez",
+    ["judy", "judy alvarez"],
+    ["Açık dünya RPG", "Siberpunk", "Hikaye odaklı aksiyon"],
+    ["Dövmeler", "Renkli saç", "Teknik ekipman"],
+    ["Night City", "Braindance stüdyoları", "Yeraltı hayatı"],
+    ["Braindance uzmanıdır", "Empatik ve idealisttir", "V'nin yakın müttefiklerinden biridir"]
+  ),
+
+  createGameCharacter(
+    1238,
+    "Jackie Welles",
+    ["jackie", "jackie welles"],
+    ["Açık dünya RPG", "Siberpunk", "Suç hikayesi"],
+    ["Kaslı yapı", "Deri ceket", "Motorcu havası"],
+    ["Night City", "Heywood", "Paralı askerlik"],
+    ["V'nin en yakın dostudur", "Büyük hayaller kurar", "Samimi ve korumacı karakterdir"]
+  ),
+
+  createGameCharacter(
+    1239,
+    "Adam Smasher",
+    ["adam smasher", "smasher"],
+    ["Açık dünya RPG", "Siberpunk", "Aksiyon"],
+    ["Dev sibernetik beden", "Metal zırh", "İnsanüstü mekanik görünüm"],
+    ["Night City", "Arasaka", "Siber savaş alanı"],
+    ["Neredeyse tamamen makineleşmiş bir savaşçıdır", "Çok korkulan bir antagonisttir", "Sert ve acımasız tavrıyla bilinir"]
+  ),
+
+  createGameCharacter(
+    1240,
+    "Freya",
+    ["freya"],
+    ["Aksiyon-macera", "Mitolojik hikaye", "Hack and slash"],
+    ["Kuzey mitolojisi kıyafetleri", "Büyücü görünümü", "Savaşçı duruş"],
+    ["Midgard", "İskandinav mitolojisi", "Dokuz diyar"],
+    ["Büyü ve savaş yetenekleri vardır", "Anne figürü olarak önemli rol oynar", "Kratos ile karmaşık ilişkiye sahiptir"]
+  ),
+
+  createGameCharacter(
+    1241,
+    "Mimir",
+    ["mimir"],
+    ["Aksiyon-macera", "Mitolojik hikaye", "Yoldaş karakter"],
+    ["Kesik ama canlı kafa", "Sakallı yüz", "Kemerden sarkan görünüm"],
+    ["Dokuz diyar", "İskandinav mitolojisi"],
+    ["Bilgelik dolu hikayeler anlatır", "Oyuncuya sürekli bilgi verir", "Kratos ve Atreus'un yol arkadaşıdır"]
+  ),
+
+  createGameCharacter(
+    1242,
+    "Midna",
+    ["midna"],
+    ["Macera", "Nintendo", "Fantastik bulmaca"],
+    ["Küçük imp formu", "Büyük başlık/maske", "Turuncu saç"],
+    ["Hyrule", "Twilight Realm", "Zelda evreni"],
+    ["Alaycı ama sadık yoldaştır", "Karanlık dünya ile bağlantılıdır", "Link'e rehberlik eder"]
+  ),
+
+  createGameCharacter(
+    1243,
+    "Sheik",
+    ["sheik"],
+    ["Macera", "Nintendo", "Fantastik aksiyon"],
+    ["Ninja benzeri kıyafet", "Yüzü kapalı", "Mavi-gri zırh"],
+    ["Hyrule", "Zaman yolculuğu", "Zelda evreni"],
+    ["Gizemli rehber figürüdür", "Şarkılar öğretir", "Kimliğiyle sürpriz yaratır"]
+  ),
+
+  createGameCharacter(
+    1244,
+    "Rosalina",
+    ["rosalina", "rosalina and luma"],
+    ["Platform", "Nintendo", "Uzay temalı macera"],
+    ["Turkuaz elbise", "Sarı saç", "Yıldız yoldaşlar"],
+    ["Mario evreni", "Uzay gözlemevi", "Luma yıldızları"],
+    ["Luma'ların koruyucusudur", "Sakin ve gizemli bir prenses figürüdür", "Galaksi temasıyla özdeşleşir"]
+  ),
+
+  createGameCharacter(
+    1245,
+    "Bowser Jr.",
+    ["bowser jr", "bowser junior"],
+    ["Platform", "Nintendo", "Aile dostu aksiyon"],
+    ["Küçük kaplumbağa-ejderha görünümü", "Önlük/bandana", "Fırça veya küçük araçlar"],
+    ["Mario evreni", "Koopa ordusu", "Mantar Krallığı"],
+    ["Bowser'ın oğludur", "Yaramaz ve inatçıdır", "Küçük boss savaşlarıyla bilinir"]
+  ),
+
+  createGameCharacter(
+    1246,
+    "Meta Knight",
+    ["meta knight"],
+    ["Platform", "Nintendo", "Aksiyon-macera"],
+    ["Maskeli yuvarlak savaşçı", "Pelerin", "Kılıç"],
+    ["Dream Land", "Kirby evreni"],
+    ["Gizemli ve onurlu bir savaşçıdır", "Kirby ile hem rakip hem müttefik olabilir", "Hızlı kılıç saldırılarıyla bilinir"]
+  ),
+
+  createGameCharacter(
+    1247,
+    "King Dedede",
+    ["king dedede", "dedede"],
+    ["Platform", "Nintendo", "Komedi aksiyon"],
+    ["Büyük penguen benzeri kral", "Kırmızı cübbe", "Dev çekiç"],
+    ["Dream Land", "Kirby evreni"],
+    ["Kendini kral ilan etmiş bir figürdür", "Dev çekiciyle savaşır", "Bazen kötü bazen komik yancı olur"]
+  ),
+
+  createGameCharacter(
+    1248,
+    "Ridley",
+    ["ridley"],
+    ["Aksiyon-macera", "Nintendo", "Bilim kurgu"],
+    ["Mor ejderha benzeri yaratık", "Kanatlar", "Keskin pençeler"],
+    ["Metroid evreni", "Uzay korsanları", "Tehlikeli gezegenler"],
+    ["Samus Aran'ın ezeli düşmanlarındandır", "Uçan ve saldırgan bir boss figürüdür", "Serinin en ikonik yaratıklarındandır"]
+  ),
+
+  createGameCharacter(
+    1249,
+    "Charizard",
+    ["charizard", "çharizard"],
+    ["RPG", "Nintendo", "Canavar toplama oyunu"],
+    ["Turuncu ejderha görünümü", "Kanatlar", "Kuyruğunda alev"],
+    ["Pokémon dünyası", "Arenalar", "Evrim sistemi"],
+    ["Ateş tipi ikonik Pokémon'dur", "Uçarak savaşabilir", "Fanların en sevdiği yaratıklardan biridir"]
+  ),
+
+  createGameCharacter(
+    1250,
+    "Eevee",
+    ["eevee", "ivi"],
+    ["RPG", "Nintendo", "Canavar toplama oyunu"],
+    ["Kahverengi tüylü küçük canlı", "Büyük kulaklar", "Kabarcık yaka tüyleri"],
+    ["Pokémon dünyası", "Evrim sistemi"],
+    ["Birçok farklı evrime sahip olmasıyla bilinir", "Sevimli ve esnek bir Pokémon'dur", "Maskot karakterlerden biridir"]
+  ),
+
+  createGameCharacter(
+    1251,
+    "Snorlax",
+    ["snorlax", "horlama pokemonu"],
+    ["RPG", "Nintendo", "Canavar toplama oyunu"],
+    ["Dev mavi-beyaz gövde", "Uyuyan yüz", "Kocaman karın"],
+    ["Pokémon dünyası", "Yolları kapatan karşılaşmalar"],
+    ["Sürekli uyumasıyla bilinir", "Yolu kapatan büyük Pokémon olarak hatırlanır", "Dayanıklı ve güçlüdür"]
+  ),
+
+  createGameCharacter(
+    1252,
+    "Noctis Lucis Caelum",
+    ["noctis", "noctis lucis caelum"],
+    ["JRPG", "Aksiyon RPG", "Fantastik yol hikayesi"],
+    ["Siyah kıyafet", "Dağınık siyah saç", "Kraliyet silahları"],
+    ["Lucis", "Final Fantasy evreni", "Yolculuk ve krallık savaşı"],
+    ["Silahları anlık çağırabilir", "Kraliyet varisidir", "Arkadaşlarıyla yolculuğu merkezdedir"]
+  ),
+
+  createGameCharacter(
+    1253,
+    "Lightning",
+    ["lightning", "claire farron"],
+    ["JRPG", "Aksiyon RPG", "Final Fantasy"],
+    ["Pembe saç", "Kılıç tabanca", "Askeri-fantastik kıyafet"],
+    ["Cocoon", "Pulse", "Final Fantasy XIII evreni"],
+    ["Soğukkanlı ve güçlü bir savaşçıdır", "Kardeşini koruma motivasyonu vardır", "Serinin modern ikonlarındandır"]
+  ),
+
+  createGameCharacter(
+    1254,
+    "Tidus",
+    ["tidus"],
+    ["JRPG", "Final Fantasy", "Spor ve fantastik yolculuk"],
+    ["Sarı saç", "Renkli spor kıyafeti", "Kılıç"],
+    ["Spira", "Blitzball", "Sin tehdidi"],
+    ["Blitzball yıldızıdır", "Yeni bir dünyaya düşmüş gibi davranır", "Yuna ile hikayesiyle bilinir"]
+  ),
+
+  createGameCharacter(
+    1255,
+    "Yuna",
+    ["yuna"],
+    ["JRPG", "Final Fantasy", "Fantastik yolculuk"],
+    ["Mavi-beyaz kıyafet", "Asa", "Farklı renkli gözler"],
+    ["Spira", "Tapınaklar", "Çağırıcı geleneği"],
+    ["Summoner/çağırıcıdır", "Fedakarlık temasıyla öne çıkar", "Yolculuğu oyunun merkezindedir"]
+  ),
+
+  createGameCharacter(
+    1256,
+    "Squall Leonhart",
+    ["squall", "squall leonhart"],
+    ["JRPG", "Final Fantasy", "Okul ve savaş teması"],
+    ["Siyah deri ceket", "Yüzünde yara izi", "Gunblade"],
+    ["Balamb Garden", "SeeD", "Final Fantasy VIII"],
+    ["Gunblade kullanır", "İçe kapanık bir liderdir", "Rinoa ile hikayesiyle bilinir"]
+  ),
+
+  createGameCharacter(
+    1257,
+    "Vivi Ornitier",
+    ["vivi", "vivi ornitier"],
+    ["JRPG", "Final Fantasy", "Fantastik macera"],
+    ["Büyük sarı şapka", "Siyah yüz", "Parlayan gözler"],
+    ["Gaia", "Kara büyücü köyü", "Final Fantasy IX"],
+    ["Kara büyücüdür", "Varoluşunu sorgular", "Sevimli ama hüzünlü bir karakterdir"]
+  ),
+
+  createGameCharacter(
+    1258,
+    "Terra Branford",
+    ["terra", "terra branford"],
+    ["JRPG", "Final Fantasy", "16-bit klasik"],
+    ["Yeşil saç", "Kırmızı kıyafet", "Büyülü aura"],
+    ["Esperler", "İmparatorluk", "Final Fantasy VI"],
+    ["Doğuştan büyü gücüne sahiptir", "Kimliğini arayan ana figürdür", "Klasik JRPG kahramanlarındandır"]
+  ),
+
+  createGameCharacter(
+    1259,
+    "Clive Rosfield",
+    ["clive", "clive rosfield"],
+    ["Aksiyon RPG", "Final Fantasy", "Karanlık fantezi"],
+    ["Siyah zırh", "Kılıç", "Alev temalı güçler"],
+    ["Valisthea", "Eikonlar", "Krallık çatışmaları"],
+    ["Ifrit ile bağlantılıdır", "Ağır ve dramatik bir hikayesi vardır", "Modern Final Fantasy ana karakteridir"]
+  ),
+
+  createGameCharacter(
+    1260,
+    "Ren Amamiya",
+    ["ren amamiya", "joker persona", "phantom thief joker"],
+    ["JRPG", "Persona", "Sosyal simülasyon"],
+    ["Siyah maske", "Uzun siyah palto", "Dağınık saç"],
+    ["Tokyo", "Metaverse", "Phantom Thieves"],
+    ["Phantom Thieves lideridir", "Gündüz öğrenci gece maskeli hırsızdır", "Persona 5'in ana karakteridir"]
+  ),
+
+  createGameCharacter(
+    1261,
+    "Makoto Niijima",
+    ["makoto", "makoto niijima", "queen persona"],
+    ["JRPG", "Persona", "Sosyal simülasyon"],
+    ["Kısa koyu saç", "Deri savaş kıyafeti", "Motosiklet personası"],
+    ["Tokyo", "Shujin Akademisi", "Phantom Thieves"],
+    ["Queen kod adıyla bilinir", "Disiplinli ve zeki bir karakterdir", "Yakın dövüş ve nükleer temalı güçler kullanır"]
+  ),
+
+  createGameCharacter(
+    1262,
+    "Aigis",
+    ["aigis"],
+    ["JRPG", "Persona", "Sosyal simülasyon"],
+    ["Sarı saç", "Robotik eklemler", "Okul üniforması"],
+    ["Persona 3", "SEES ekibi", "Tartarus"],
+    ["Android savaşçıdır", "İnsan olmayı anlamaya çalışır", "Persona 3'ün en duygusal figürlerindendir"]
+  ),
+
+  createGameCharacter(
+    1263,
+    "Yu Narukami",
+    ["yu narukami", "yu", "souji seta"],
+    ["JRPG", "Persona", "Dedektiflik ve sosyal simülasyon"],
+    ["Gri saç", "Gözlük", "Okul üniforması"],
+    ["Inaba", "TV dünyası", "Persona 4"],
+    ["Sessiz ana karakterdir", "Cinayet gizemini çözmeye çalışır", "Arkadaşlık bağlarıyla güçlenir"]
+  ),
+
+  createGameCharacter(
+    1264,
+    "Teddie",
+    ["teddie", "kuma"],
+    ["JRPG", "Persona", "Komedi ve gizem"],
+    ["Ayı kostümü gibi görünüm", "Mavi-beyaz yuvarlak gövde", "Sevimli yüz"],
+    ["TV dünyası", "Inaba", "Persona 4"],
+    ["Komik ve geveze yoldaştır", "İçinde farklı bir kimlik saklar", "Ayı esprileriyle bilinir"]
+  ),
+
+  createGameCharacter(
+    1265,
+    "Hornet",
+    ["hornet"],
+    ["Metroidvania", "Bağımsız yapım", "Zorlu aksiyon"],
+    ["Kırmızı pelerin", "Beyaz maske", "İğne silahı"],
+    ["Hallownest", "Böcek krallığı", "Silksong beklentisi"],
+    ["Hızlı ve zarif savaşır", "Ana karaktere hem rakip hem rehber olur", "İğne ve ip temasıyla bilinir"]
+  ),
+
+  createGameCharacter(
+    1266,
+    "The Penitent One",
+    ["penitent one", "the penitent one", "tövbekar"],
+    ["Metroidvania", "Bağımsız yapım", "Gotik aksiyon"],
+    ["Uzun sivri metal miğfer", "Zırh", "Kılıç"],
+    ["Cvstodia", "Dini semboller", "Karanlık gotik dünya"],
+    ["Sessiz ve ağırbaşlı savaşçıdır", "Tövbe ve kader temasıyla ilerler", "Blasphemous'un ana figürüdür"]
+  ),
+
+  createGameCharacter(
+    1267,
+    "Frisk",
+    ["frisk"],
+    ["Bağımsız RPG", "Bullet hell", "Seçimlere dayalı hikaye"],
+    ["Çizgili kazak", "Kısa saç", "Sade çocuk görünümü"],
+    ["Yeraltı dünyası", "Canavarlar", "Undertale"],
+    ["Savaşmadan ilerleme seçeneği vardır", "Oyuncunun seçimlerini temsil eder", "Sessiz ana karakterdir"]
+  ),
+
+  createGameCharacter(
+    1268,
+    "Flowey",
+    ["flowey", "flowey the flower"],
+    ["Bağımsız RPG", "Kara mizah", "Seçimlere dayalı hikaye"],
+    ["Sarı çiçek", "Geniş gülümseme", "Değişen yüz ifadeleri"],
+    ["Yeraltı dünyası", "Undertale"],
+    ["İlk başta sevimli görünür", "Oyuncunun kararlarını sınar", "Beklenmedik derecede tehditkar olabilir"]
+  ),
+
+  createGameCharacter(
+    1269,
+    "Hades",
+    ["hades"],
+    ["Roguelike", "Bağımsız yapım", "Yunan mitolojisi"],
+    ["Uzun beyaz saç", "Karanlık tanrı kıyafeti", "Sert yüz ifadesi"],
+    ["Yeraltı Dünyası", "Yunan mitolojisi", "Hades oyunu"],
+    ["Zagreus'un babasıdır", "Yeraltı dünyasının yöneticisidir", "Sert ama karizmatik bir figürdür"]
+  ),
+
+  createGameCharacter(
+    1270,
+    "Megaera",
+    ["megaera", "meg"],
+    ["Roguelike", "Bağımsız yapım", "Yunan mitolojisi"],
+    ["Mor-kırmızı kıyafet", "Kanatlar", "Kırbaç"],
+    ["Tartarus", "Yeraltı Dünyası", "Hades oyunu"],
+    ["İlk büyük bosslardan biridir", "Zagreus ile geçmişi vardır", "Ciddi ve disiplinli bir karakterdir"]
+  ),
+
+  createGameCharacter(
+    1271,
+    "Thanatos",
+    ["thanatos"],
+    ["Roguelike", "Bağımsız yapım", "Yunan mitolojisi"],
+    ["Siyah pelerin", "Tırpan", "Soluk ve sakin görünüm"],
+    ["Yeraltı Dünyası", "Yunan mitolojisi", "Hades oyunu"],
+    ["Ölümün kişileştirilmiş halidir", "Sakin ve mesafeli davranır", "Zagreus ile rekabetli bir bağı vardır"]
+  ),
+
+  createGameCharacter(
+    1272,
+    "Harrier Du Bois",
+    ["harrier du bois", "harry du bois", "tequila sunset"],
+    ["Bağımsız RPG", "Dedektiflik", "Diyalog odaklı hikaye"],
+    ["Dağınık dedektif görünümü", "Yorgun yüz", "Uzun palto"],
+    ["Revachol", "Cinayet soruşturması", "Disco Elysium"],
+    ["Hafızasını kaybetmiş dedektiftir", "İç sesleriyle konuşur", "Çok farklı kişilik yollarına gidebilir"]
+  ),
+
+  createGameCharacter(
+    1273,
+    "Kim Kitsuragi",
+    ["kim kitsuragi", "kim"],
+    ["Bağımsız RPG", "Dedektiflik", "Diyalog odaklı hikaye"],
+    ["Gözlük", "Turuncu pilot ceketi", "Sakin duruş"],
+    ["Revachol", "Cinayet soruşturması", "Disco Elysium"],
+    ["Profesyonel ve sabırlı bir dedektiftir", "Oyuncuya denge sağlar", "Güvenilir yoldaş figürüdür"]
+  ),
+
+  createGameCharacter(
+    1274,
+    "Stardew Valley Çiftçisi",
+    ["farmer", "çiftçi", "stardew farmer"],
+    ["Bağımsız yaşam simülasyonu", "RPG", "Çiftlik oyunu"],
+    ["Hasır şapka", "Çiftlik kıyafetleri", "Aletler"],
+    ["Pelican Town", "Çiftlik", "Stardew Valley"],
+    ["Dededen kalan çiftliği devralır", "Ekin eker ve kasabalılarla ilişki kurar", "Rahatlatıcı oyun döngüsünün merkezindedir"]
+  ),
+
+  createGameCharacter(
+    1275,
+    "Krobus",
+    ["krobus"],
+    ["Bağımsız yaşam simülasyonu", "RPG", "Sevimli karanlık karakter"],
+    ["Siyah küçük yaratık", "Parlak gözler", "Kanalizasyon sakini"],
+    ["Stardew Valley", "Kanalizasyon", "Pelican Town"],
+    ["Sessiz ve tatlı bir gölge varlıktır", "Oyuncuya eşya satar", "Ev arkadaşı olabilir"]
+  ),
+
+  createGameCharacter(
+    1276,
+    "Shane",
+    ["shane"],
+    ["Bağımsız yaşam simülasyonu", "RPG", "Kasaba ilişkileri"],
+    ["Joja çalışanı kıyafeti", "Dağınık görünüm", "Mavi ceket"],
+    ["Pelican Town", "Stardew Valley", "JojaMart"],
+    ["Başta soğuk davranır", "Tavukları sever", "Daha derin bir kişisel hikayesi vardır"]
+  ),
+
+  createGameCharacter(
+    1277,
+    "Terry Bogard",
+    ["terry", "terry bogard"],
+    ["Dövüş oyunu", "Arcade klasiği", "King of Fighters"],
+    ["Kırmızı şapka", "Kolsuz yelek", "Sarı at kuyruğu"],
+    ["South Town", "Fatal Fury", "KOF turnuvaları"],
+    ["Power Wave hareketiyle bilinir", "'Are you okay?' repliğiyle meşhurdur", "SNK'nın en tanınan yüzlerindendir"]
+  ),
+
+  createGameCharacter(
+    1278,
+    "Mai Shiranui",
+    ["mai", "mai shiranui"],
+    ["Dövüş oyunu", "Arcade klasiği", "King of Fighters"],
+    ["Kırmızı ninja kıyafeti", "Yelpazeler", "Uzun kahverengi saç"],
+    ["Fatal Fury", "KOF turnuvaları"],
+    ["Yelpaze ve ateş temalı hareketler kullanır", "Çevik ninja savaşçısıdır", "SNK'nın ikonik karakterlerindendir"]
+  ),
+
+  createGameCharacter(
+    1279,
+    "Kyo Kusanagi",
+    ["kyo", "kyo kusanagi"],
+    ["Dövüş oyunu", "Arcade klasiği", "King of Fighters"],
+    ["Okul ceketi", "Alev efektleri", "Kendine güvenli duruş"],
+    ["KOF turnuvaları", "Kusanagi klanı"],
+    ["Alev gücü kullanır", "Iori ile rekabetiyle bilinir", "KOF serisinin ana yüzlerindendir"]
+  ),
+
+  createGameCharacter(
+    1280,
+    "Iori Yagami",
+    ["iori", "iori yagami"],
+    ["Dövüş oyunu", "Arcade klasiği", "King of Fighters"],
+    ["Kırmızı saç", "Siyah-kırmızı kıyafet", "Pençe gibi eller"],
+    ["KOF turnuvaları", "Yagami klanı"],
+    ["Mor alevleriyle bilinir", "Kyo'nun ezeli rakibidir", "Agresif ve karizmatik dövüş tarzı vardır"]
+  ),
+
+  createGameCharacter(
+    1281,
+    "Sol Badguy",
+    ["sol badguy", "sol"],
+    ["Dövüş oyunu", "Anime estetiği", "Guilty Gear"],
+    ["Kırmızı-siyah kıyafet", "Büyük kılıç", "Kafa bandı"],
+    ["Guilty Gear evreni", "Gear savaşları"],
+    ["Ateş temalı saldırılar kullanır", "Sert ve umursamaz tavrı vardır", "Serinin ana karakterlerinden biridir"]
+  ),
+
+  createGameCharacter(
+    1282,
+    "Bridget",
+    ["bridget"],
+    ["Dövüş oyunu", "Anime estetiği", "Guilty Gear"],
+    ["Mavi-beyaz kıyafet", "Yo-yo silahı", "Kapüşonlu görünüm"],
+    ["Guilty Gear evreni", "Ödül avcılığı"],
+    ["Yo-yo ile savaşır", "Çevik ve sevimli tarzıyla bilinir", "Modern dönemde çok popülerleşmiştir"]
+  ),
+
+  createGameCharacter(
+    1283,
+    "Johnny Cage",
+    ["johnny cage", "cage"],
+    ["Dövüş oyunu", "Mortal Kombat", "Aksiyon yıldızı parodisi"],
+    ["Güneş gözlüğü", "Film yıldızı duruşu", "Eldivenler"],
+    ["Mortal Kombat turnuvası", "Hollywood", "Earthrealm"],
+    ["Kendini beğenmiş film yıldızıdır", "Yeşil enerji kullanır", "Esprili replikleriyle bilinir"]
+  ),
+
+  createGameCharacter(
+    1284,
+    "Kitana",
+    ["kitana"],
+    ["Dövüş oyunu", "Mortal Kombat", "Fantastik turnuva"],
+    ["Mavi kıyafet", "Yelpaze silahları", "Maske"],
+    ["Edenia", "Outworld", "Mortal Kombat evreni"],
+    ["Keskin yelpazelerle savaşır", "Prenses figürüdür", "Outworld hikayesinde önemli rol oynar"]
+  ),
+
+  createGameCharacter(
+    1285,
+    "Mileena",
+    ["mileena"],
+    ["Dövüş oyunu", "Mortal Kombat", "Fantastik turnuva"],
+    ["Pembe-mor kıyafet", "Maske", "Sai bıçakları"],
+    ["Outworld", "Mortal Kombat evreni"],
+    ["Kitana'ya benzeyen karanlık karakterdir", "Sai kullanır", "Vahşi ve öngörülemez dövüş tarzı vardır"]
+  ),
+
+  createGameCharacter(
+    1286,
+    "Shao Kahn",
+    ["shao kahn"],
+    ["Dövüş oyunu", "Mortal Kombat", "Boss karakter"],
+    ["Boynuzlu miğfer", "Dev çekiç", "Zırhlı büyük beden"],
+    ["Outworld", "Mortal Kombat turnuvaları"],
+    ["Acımasız imparator figürüdür", "Dev çekiciyle savaşır", "Serinin en bilinen boss karakterlerindendir"]
+  ),
+
+  createGameCharacter(
+    1287,
+    "Garen",
+    ["garen"],
+    ["MOBA", "League of Legends", "Strateji aksiyon"],
+    ["Ağır zırh", "Büyük kılıç", "Mavi-altın renkler"],
+    ["Demacia", "Runeterra", "Sihirdar Vadisi"],
+    ["Demacia savaşçısıdır", "Döner saldırısıyla bilinir", "Basit ama güçlü oynanışı vardır"]
+  ),
+
+  createGameCharacter(
+    1288,
+    "Darius",
+    ["darius"],
+    ["MOBA", "League of Legends", "Strateji aksiyon"],
+    ["Dev balta", "Ağır zırh", "Sert komutan görünümü"],
+    ["Noxus", "Runeterra", "Sihirdar Vadisi"],
+    ["Noxus'un güçlü savaşçısıdır", "Balta ve kanama mekaniğiyle bilinir", "Rakipleri cezalandıran oyun tarzı vardır"]
+  ),
+
+  createGameCharacter(
+    1289,
+    "Katarina",
+    ["katarina"],
+    ["MOBA", "League of Legends", "Strateji aksiyon"],
+    ["Kızıl saç", "Çift hançer", "Yüzünde yara izi"],
+    ["Noxus", "Runeterra", "Sihirdar Vadisi"],
+    ["Çevik suikastçıdır", "Takım savaşında sıçrayarak skor alır", "Reset mekaniğiyle bilinir"]
+  ),
+
+  createGameCharacter(
+    1290,
+    "Zed",
+    ["zed"],
+    ["MOBA", "League of Legends", "Ninja suikastçı"],
+    ["Metal maske", "Karanlık zırh", "Gölge efektleri"],
+    ["Ionia", "Gölgeler tarikatı", "Runeterra"],
+    ["Gölge klonları kullanır", "Yüksek mekanik isteyen suikastçıdır", "Shen ile geçmişi vardır"]
+  ),
+
+  createGameCharacter(
+    1291,
+    "Ashe",
+    ["ashe"],
+    ["MOBA", "League of Legends", "Okçu nişancı"],
+    ["Buz mavisi pelerin", "Yay", "Beyaz saç"],
+    ["Freljord", "Runeterra", "Sihirdar Vadisi"],
+    ["Buz okları kullanır", "Uzaktan sersemleten oku ile bilinir", "Freljord liderlerinden biridir"]
+  ),
+
+  createGameCharacter(
+    1292,
+    "Ekko",
+    ["ekko"],
+    ["MOBA", "League of Legends", "Zaman temalı aksiyon"],
+    ["Beyaz saç", "Saat benzeri cihaz", "Sokak kıyafetleri"],
+    ["Zaun", "Runeterra", "Zaman manipülasyonu"],
+    ["Zamanı geri sarabilir", "Zaun'lu genç mucittir", "Hızlı ve çevik suikastçı tarzı vardır"]
+  ),
+
+  createGameCharacter(
+    1293,
+    "Pudge",
+    ["pudge"],
+    ["MOBA", "Dota", "Strateji aksiyon"],
+    ["Dev iri beden", "Kanca", "Kasap görünümü"],
+    ["Dota evreni", "Savaş alanı", "Karanlık arena"],
+    ["Kanca atmasıyla bilinir", "Rakibi kendine çekerek başlatır", "Dota'nın en ikonik kahramanlarındandır"]
+  ),
+
+  createGameCharacter(
+    1294,
+    "Invoker",
+    ["invoker", "kael"],
+    ["MOBA", "Dota", "Büyü kombinasyonu"],
+    ["Uzun saç", "Büyücü kıyafeti", "Küreler"],
+    ["Dota evreni", "Büyü sistemi", "Savaş alanı"],
+    ["Çok sayıda büyü kombinasyonu vardır", "Yüksek mekanik isteyen kahramandır", "Ego dolu büyücü kişiliğiyle bilinir"]
+  ),
+
+  createGameCharacter(
+    1295,
+    "Crystal Maiden",
+    ["crystal maiden", "rylai"],
+    ["MOBA", "Dota", "Buz büyüsü"],
+    ["Mavi-beyaz kıyafet", "Asa", "Buz efektleri"],
+    ["Dota evreni", "Savaş alanı", "Büyü dünyası"],
+    ["Buz büyüleri kullanır", "Takıma mana desteği sağlar", "Destek rolünün klasik isimlerindendir"]
+  ),
+
+  createGameCharacter(
+    1296,
+    "Jett",
+    ["jett"],
+    ["Taktiksel FPS", "Valorant", "Karakter tabanlı shooter"],
+    ["Beyaz saç", "Mavi kıyafet", "Bıçaklar"],
+    ["Valorant protokolü", "Taktiksel haritalar"],
+    ["Hızlı dash yeteneğiyle bilinir", "Agresif düellocu rolündedir", "Bıçak ultisiyle öne çıkar"]
+  ),
+
+  createGameCharacter(
+    1297,
+    "Phoenix",
+    ["phoenix"],
+    ["Taktiksel FPS", "Valorant", "Karakter tabanlı shooter"],
+    ["Alev temalı ceket", "Siyah saç", "Parlak enerji efektleri"],
+    ["Valorant protokolü", "Taktiksel haritalar"],
+    ["Ateş yetenekleri kullanır", "Kendini iyileştirebilir", "Özgüvenli ve havalı tavrıyla bilinir"]
+  ),
+
+  createGameCharacter(
+    1298,
+    "Sage",
+    ["sage"],
+    ["Taktiksel FPS", "Valorant", "Destek karakteri"],
+    ["Beyaz-yeşil kıyafet", "Küreler", "Topuz saç"],
+    ["Valorant protokolü", "Taktiksel haritalar"],
+    ["Takım arkadaşlarını iyileştirir", "Duvar örebilir", "Diriltme yeteneğiyle bilinir"]
+  ),
+
+  createGameCharacter(
+    1299,
+    "Reyna",
+    ["reyna"],
+    ["Taktiksel FPS", "Valorant", "Düellocu"],
+    ["Mor-siyah kıyafet", "Uzun koyu saç", "Parlayan gözler"],
+    ["Valorant protokolü", "Taktiksel haritalar"],
+    ["Skor aldıkça güçlenir", "Agresif düellocu tarzı vardır", "Mor enerji efektleriyle bilinir"]
+  ),
+
+  createGameCharacter(
+    1300,
+    "Raze",
+    ["raze"],
+    ["Taktiksel FPS", "Valorant", "Patlayıcı aksiyon"],
+    ["Turuncu şapka", "Renkli kıyafet", "Patlayıcı ekipman"],
+    ["Valorant protokolü", "Taktiksel haritalar"],
+    ["Patlayıcı ve roket kullanır", "Enerjik Brezilyalı ajandır", "Haritaları hareketli hale getirir"]
+  )
 ];
