@@ -6,6 +6,7 @@ import { movieCharacters } from "../categories/movieCharacters";
 import { nbaStars } from "../categories/nbastars";
 import { historicalFigures } from "../categories/historicalFigure";
 import { musicians } from "../categories/musicians";
+import { actors } from "../categories/actors.ts";
 
 export const guessItems: GuessItem[] = [
   ...footballers,
@@ -14,4 +15,5 @@ export const guessItems: GuessItem[] = [
   ...nbaStars,
   ...historicalFigures,
   ...musicians,
+  ...actors,
 ];

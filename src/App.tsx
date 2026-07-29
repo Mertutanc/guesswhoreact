@@ -75,6 +75,7 @@ const modeLabels: Record<GuessMode, string> = {
   nbaStar: "NBA Yıldızı",
   historicalFigure: "Tarihi Kişi",
   musician: "Müzisyen",
+  actor: "Aktör / Aktris",
 };
 
 const modeShortLabels: Record<GuessMode, string> = {
@@ -84,6 +85,7 @@ const modeShortLabels: Record<GuessMode, string> = {
   nbaStar: "NBA",
   historicalFigure: "Tarih",
   musician: "Müzik",
+  actor: "Oyuncu",
 };
 
 const subModesByMode: Record<GuessMode, SubModeOption[]> = {
@@ -480,6 +482,53 @@ const subModesByMode: Record<GuessMode, SubModeOption[]> = {
       label: "Zamana Karşı",
       emoji: "⏱️",
       description: "120 saniyede en çok müzisyeni bil.",
+      playKind: "timeAttack",
+    },
+  ],
+
+  actor: [
+    {
+      key: "classic",
+      label: "Klasik Mod",
+      emoji: "🎭",
+      description: "Tüm aktör ve aktrisler karışık gelir.",
+      playKind: "classic",
+    },
+    {
+      key: "hollywoodActors",
+      label: "Hollywood",
+      emoji: "🎬",
+      description: "Hollywood ve global sinemanın bilinen oyuncuları.",
+      playKind: "classic",
+      tags: ["actor:hollywood"],
+    },
+    {
+      key: "turkishActors",
+      label: "Türk Aktör / Aktris",
+      emoji: "🇹🇷",
+      description: "Yeşilçam, Türk sineması ve dizilerinden oyuncular.",
+      playKind: "classic",
+      tags: ["actor:turkish"],
+    },
+    {
+      key: "hangman",
+      label: "Adam Asmaca",
+      emoji: "🧩",
+      description: "İsmi harf harf aç, 6 yanlış hakkın var.",
+      playKind: "hangman",
+    },
+    {
+      key: "anagram",
+      label: "Anagram",
+      emoji: "🔤",
+      description: "Oyuncunun adı karışık verilir, cevabı çözersin.",
+      playKind: "anagram",
+    },
+    {
+      key: "timeAttack",
+      label: "Zamana Karşı",
+      emoji: "⏱️",
+      description: "120 saniyede en çok aktör/aktris bil.",
       playKind: "timeAttack",
     },
   ],
@@ -1702,7 +1751,7 @@ function App() {
             <article className="score-guide-card">
               <strong>Kategori katsayısı</strong>
               <div className="score-rule-list compact-rules">
-                <span>Futbol / Film</span><b>x1.0</b>
+                <span>Futbol / Film / Aktör</span><b>x1.0</b>
                 <span>Oyun</span><b>x1.1</b>
                 <span>NBA / Müzik</span><b>x1.2</b>
                 <span>Tarih</span><b>x1.5</b>

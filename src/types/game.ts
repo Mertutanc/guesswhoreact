@@ -4,7 +4,8 @@ export type GuessMode =
   | "movieCharacter"
   | "nbaStar"
   | "historicalFigure"
-  | "musician";
+  | "musician"
+  | "actor";
 
 export type HintGroup = {
   key: string;

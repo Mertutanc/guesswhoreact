@@ -42,6 +42,12 @@ export const gameModes: GameModeCard[] = [
     key: "musician",
     label: "Müzisyen",
     emoji: "🎤",
-    description: "Tarz, grup/proje, dönem ve vokal/enstrüman ipuçlarından müzisyeni bul.",
+    description: "Tarz, dönem ve özelliklerden müzisyeni bul.",
+  },
+  {
+    key: "actor",
+    label: "Aktör / Aktris",
+    emoji: "🎭",
+    description: "Yapım, dönem ve oyunculuk tarzından oyuncuyu bul.",
   },
 ];
