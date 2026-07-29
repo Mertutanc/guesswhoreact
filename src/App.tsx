@@ -262,6 +262,14 @@ const subModesByMode: Record<GuessMode, SubModeOption[]> = {
       tags: ["game:strategyMoba"],
     },
     {
+      key: "adventureStory",
+      label: "Hikaye / Macera",
+      emoji: "📖",
+      description: "Hikaye, dedektiflik, seçim ve macera odaklı karakterler.",
+      playKind: "classic",
+      tags: ["game:adventureStory"],
+    },
+    {
       key: "hangman",
       label: "Adam Asmaca",
       emoji: "🧩",

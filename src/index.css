@@ -1296,6 +1296,11 @@ button {
   --theme-alt-rgb: 168, 85, 247;
 }
 
+.mode-actor {
+  --theme-rgb: 217, 70, 239;
+  --theme-alt-rgb: 251, 146, 60;
+}
+
 .page {
   position: relative;
   overflow: hidden;
@@ -1496,6 +1501,11 @@ button {
 .mode-card-musician {
   --theme-rgb: 244, 63, 94;
   --theme-alt-rgb: 168, 85, 247;
+}
+
+.mode-card-actor {
+  --theme-rgb: 217, 70, 239;
+  --theme-alt-rgb: 251, 146, 60;
 }
 
 /* === Final polish pack: leaderboard, end screen, responsive === */
@@ -3075,4 +3085,19 @@ html {
   .feedback-actions button {
     flex: 1;
   }
+}
+
+
+/* Actor / Actress category theme */
+.mode-actor .game-card::before,
+.mode-card-actor::before {
+  background:
+    radial-gradient(circle at 18% 12%, rgba(var(--theme-rgb), 0.18), transparent 30%),
+    radial-gradient(circle at 88% 12%, rgba(var(--theme-alt-rgb), 0.14), transparent 34%),
+    linear-gradient(115deg, transparent 0%, rgba(255,255,255,0.035) 36%, transparent 70%);
+}
+
+.mode-actor .screen-kicker,
+.mode-actor .mode-pill {
+  letter-spacing: 0.12em;
 }
