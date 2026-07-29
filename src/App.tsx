@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import "./App.css";
 
 import { gameModes } from "./data/maindata/gamemodes";
@@ -57,6 +57,16 @@ const LEGACY_LEADERBOARD_STORAGE_KEY = "guesswho-leaderboard";
 const TIME_ATTACK_SECONDS = 120;
 const NO_HINT_BONUS = 20;
 const HANGMAN_MAX_WRONG_GUESSES = 6;
+
+const scrollPageToTop = (behavior: ScrollBehavior = "auto") => {
+  if (typeof window === "undefined") {
+    return;
+  }
+
+  window.requestAnimationFrame(() => {
+    window.scrollTo({ top: 0, left: 0, behavior });
+  });
+};
 
 const modeLabels: Record<GuessMode, string> = {
   footballer: "Futbolcu",
@@ -671,6 +681,10 @@ function App() {
   const [guessedLetters, setGuessedLetters] = useState<string[]>([]);
   const [wrongLetters, setWrongLetters] = useState<string[]>([]);
   const [isPostAnswerAllHintsShown, setIsPostAnswerAllHintsShown] = useState(false);
+  const [isFeedbackOpen, setIsFeedbackOpen] = useState(false);
+  const [feedbackText, setFeedbackText] = useState("");
+  const [feedbackContact, setFeedbackContact] = useState("");
+  const historyGuardRef = useRef(false);
 
   const isTimeAttackMode = selectedSubMode?.playKind === "timeAttack";
   const isAnagramMode = selectedSubMode?.playKind === "anagram";
@@ -727,6 +741,17 @@ function App() {
   const hangmanDisplayName = currentItem ? createHangmanDisplayName(currentItem.name, guessedLetters) : "";
   const hangmanRemainingRights = Math.max(0, HANGMAN_MAX_WRONG_GUESSES - wrongLetters.length);
   const guessedLetterCount = guessedLetters.length;
+
+  const currentScreenKey = useMemo(() => {
+    if (isFeedbackOpen) return "feedback";
+    if (isLeaderboardOpen) return "leaderboard";
+    if (isSessionEnded) return "summary";
+    if (isHowToPlayOpen && !currentItem) return "how-to";
+    if (currentItem) return `play-${currentItem.id}`;
+    if (selectedSubModeMenu) return `submode-${selectedSubModeMenu}`;
+
+    return "home";
+  }, [currentItem, isFeedbackOpen, isHowToPlayOpen, isLeaderboardOpen, isSessionEnded, selectedSubModeMenu]);
 
   const answerSuggestions = useMemo<GuessItem[]>(() => {
     const normalizedGuessText = normalizeText(guess);
@@ -811,6 +836,7 @@ function App() {
   }, [isHowToPlayOpen]);
 
   const openSubModeMenu = (mode: GuessMode) => {
+    setIsFeedbackOpen(false);
     setSelectedSubModeMenu(mode);
     setMessage("");
     setIsLeaderboardOpen(false);
@@ -826,6 +852,7 @@ function App() {
       return;
     }
 
+    setIsFeedbackOpen(false);
     setSelectedMode(mode);
     setSelectedSubMode(subMode);
     setSelectedSubModeMenu(null);
@@ -862,6 +889,7 @@ function App() {
   };
 
   const goToMenu = () => {
+    setIsFeedbackOpen(false);
     setIsHowToPlayOpen(false);
     setSelectedSubModeMenu(null);
     setSelectedMode(null);
@@ -881,6 +909,7 @@ function App() {
   };
 
   const resetSession = () => {
+    setIsFeedbackOpen(false);
     setIsHowToPlayOpen(false);
     setSelectedSubModeMenu(null);
     setSelectedMode(null);
@@ -917,10 +946,87 @@ function App() {
   };
 
   const endSession = () => {
+    setIsFeedbackOpen(false);
     setSessionEndReason("manual");
     setIsSessionEnded(true);
     setIsLeaderboardOpen(false);
     setMessage("");
+  };
+
+  const openFeedbackPanel = () => {
+    setFeedbackText("");
+    setFeedbackContact("");
+    setIsFeedbackOpen(true);
+  };
+
+  const closeFeedbackPanel = () => {
+    setIsFeedbackOpen(false);
+  };
+
+  const sendFeedbackEmail = () => {
+    const subject = encodeURIComponent("GuessWho Geri Bildirim");
+    const body = encodeURIComponent([
+      "Merhaba Mert,",
+      "",
+      "GuessWho için geri bildirimim:",
+      feedbackText.trim() || "-",
+      "",
+      "İletişim / isim:",
+      feedbackContact.trim() || "-",
+    ].join("\n"));
+
+    window.location.href = `mailto:mertutanc@gmail.com?subject=${subject}&body=${body}`;
+    setIsFeedbackOpen(false);
+  };
+
+  const goBackOneStep = () => {
+    if (isFeedbackOpen) {
+      setIsFeedbackOpen(false);
+      return;
+    }
+
+    if (isLeaderboardOpen) {
+      setIsLeaderboardOpen(false);
+      return;
+    }
+
+    if (isHowToPlayOpen) {
+      setIsHowToPlayOpen(false);
+      return;
+    }
+
+    if (isSessionEnded) {
+      setIsSessionEnded(false);
+      setIsLeaderboardOpen(false);
+      setSelectedSubModeMenu(null);
+      setSelectedMode(null);
+      setSelectedSubMode(null);
+      setCurrentItem(null);
+      setMessage("");
+      setGameStatus("playing");
+      return;
+    }
+
+    if (currentItem) {
+      setSelectedSubModeMenu(currentItem.mode);
+      setCurrentItem(null);
+      setRevealedHints({});
+      setGuess("");
+      setLetterGuess("");
+      setGuessedLetters([]);
+      setWrongLetters([]);
+      setIsPostAnswerAllHintsShown(false);
+      setIsSuggestionListHidden(false);
+      setMessage("");
+      setGameStatus("playing");
+      setIsBigHintUsed(false);
+      setRoundScore(0);
+      return;
+    }
+
+    if (selectedSubModeMenu) {
+      setSelectedSubModeMenu(null);
+    }
   };
 
   const saveCurrentScore = () => {
@@ -1161,6 +1267,103 @@ function App() {
     }
   };
 
+  useEffect(() => {
+    scrollPageToTop();
+  }, [currentScreenKey]);
+
+  useEffect(() => {
+    if (typeof window === "undefined" || historyGuardRef.current) {
+      return;
+    }
+
+    window.history.replaceState({ ...(window.history.state || {}), guesswhoBase: true }, "", window.location.href);
+    window.history.pushState({ guesswhoGuard: true }, "", window.location.href);
+    historyGuardRef.current = true;
+  }, []);
+
+  useEffect(() => {
+    if (typeof window === "undefined") {
+      return;
+    }
+
+    const handlePopState = () => {
+      if (currentScreenKey === "home") {
+        return;
+      }
+
+      goBackOneStep();
+
+      window.setTimeout(() => {
+        window.history.pushState({ guesswhoGuard: true }, "", window.location.href);
+      }, 0);
+    };
+
+    window.addEventListener("popstate", handlePopState);
+
+    return () => window.removeEventListener("popstate", handlePopState);
+  }, [currentScreenKey, currentItem, isFeedbackOpen, isHowToPlayOpen, isLeaderboardOpen, isSessionEnded, selectedSubModeMenu]);
+
+  useEffect(() => {
+    if (!isFeedbackOpen) {
+      return;
+    }
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        closeFeedbackPanel();
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [isFeedbackOpen]);
+
+  const feedbackDialog = isFeedbackOpen ? (
+    <div className="feedback-backdrop" role="presentation" onMouseDown={closeFeedbackPanel}>
+      <section
+        className="feedback-modal"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="feedback-title"
+        onMouseDown={(event) => event.stopPropagation()}
+      >
+        <button className="feedback-close-button" onClick={closeFeedbackPanel} aria-label="Geri bildirimi kapat">×</button>
+
+        <div className="screen-kicker">FEEDBACK</div>
+        <h2 id="feedback-title">Bildir</h2>
+        <p className="feedback-description">Hata, eksik cevap, fazla kolay ipucu veya önerini yaz; mail taslağı olarak açalım.</p>
+
+        <label className="feedback-field">
+          <span>Geri bildirimin</span>
+          <textarea
+            value={feedbackText}
+            onChange={(event) => setFeedbackText(event.target.value)}
+            placeholder="Örn: Müzisyen modunda şu ipucu çok kolay olmuş..."
+            rows={6}
+            autoFocus
+          />
+        </label>
+
+        <label className="feedback-field">
+          <span>İsim / iletişim bilgisi opsiyonel</span>
+          <input
+            value={feedbackContact}
+            onChange={(event) => setFeedbackContact(event.target.value)}
+            placeholder="İstersen adını veya mailini yaz"
+          />
+        </label>
+
+        <div className="feedback-actions">
+          <button className="secondary-action-button" onClick={closeFeedbackPanel}>Vazgeç</button>
+          <button className="feedback-send-button" onClick={sendFeedbackEmail} disabled={!feedbackText.trim()}>Mail ile Gönder</button>
+        </div>
+
+        <small className="feedback-note">Şimdilik mail adresi: mertutanc@gmail.com</small>
+      </section>
+    </div>
+  ) : null;
+
   if (isLeaderboardOpen) {
     return (
       <main className="page leaderboard-page">
@@ -1353,7 +1556,7 @@ function App() {
 
           <div className="result-actions summary-actions">
             <button onClick={resetSession}>Yeni Seri Başlat</button>
-            <button onClick={() => setIsLeaderboardOpen(true)}>Skor Tablosu</button>
+            <button onClick={() => { setIsFeedbackOpen(false); setIsLeaderboardOpen(true); }}>Skor Tablosu</button>
           </div>
         </section>
       </main>
@@ -1461,7 +1664,7 @@ function App() {
 
           <div className="support-actions how-to-page-actions">
             <button className="secondary-action-button" onClick={() => setIsHowToPlayOpen(false)}>Ana Menüye Dön</button>
-            <button className="secondary-action-button" onClick={() => setIsLeaderboardOpen(true)}>Skor Tablosu</button>
+            <button className="secondary-action-button" onClick={() => { setIsFeedbackOpen(false); setIsLeaderboardOpen(true); }}>Skor Tablosu</button>
           </div>
         </section>
       </main>
@@ -1539,11 +1742,13 @@ function App() {
 
           <div className="support-actions menu-actions">
             {gamesPlayed > 0 && <button className="end-game-button" onClick={endSession}>Oyunu Bitir</button>}
-            <button className="secondary-action-button" onClick={() => setIsHowToPlayOpen(true)}>Nasıl Oynanır?</button>
-            <button className="secondary-action-button" onClick={() => setIsLeaderboardOpen(true)}>Skor Tablosu</button>
+            <button className="secondary-action-button" onClick={() => { setIsFeedbackOpen(false); setIsHowToPlayOpen(true); }}>Nasıl Oynanır?</button>
+            <button className="secondary-action-button" onClick={() => { setIsFeedbackOpen(false); setIsLeaderboardOpen(true); }}>Skor Tablosu</button>
+            <button className="feedback-menu-button" onClick={openFeedbackPanel}>Bildir</button>
           </div>
 
           <div className="public-footer">GuessWho • beta test</div>
+          {feedbackDialog}
         </section>
       </main>
     );
