@@ -3101,3 +3101,13 @@ html {
 .mode-actor .mode-pill {
   letter-spacing: 0.12em;
 }
+
+/* Final scroll reset hardening: prevent browser auto-restoring lower page positions. */
+html {
+  scroll-behavior: auto;
+}
+
+body,
+#root {
+  overflow-x: hidden;
+}

@@ -63,9 +63,42 @@ const scrollPageToTop = (behavior: ScrollBehavior = "auto") => {
     return;
   }
 
+  const scrollTargets = [
+    window,
+    document.documentElement,
+    document.body,
+    document.getElementById("root"),
+    ...Array.from(
+      document.querySelectorAll<HTMLElement>(
+        ".page, .game-card, .main-layout, .main-play-panel, .submode-page-card, .leaderboard-page-card, .how-to-page, .how-to-page-card"
+      )
+    ),
+  ].filter(Boolean);
+
+  const applyScroll = () => {
+    scrollTargets.forEach((target) => {
+      if (target === window) {
+        window.scrollTo({ top: 0, left: 0, behavior });
+        return;
+      }
+
+      const element = target as HTMLElement;
+      element.scrollTop = 0;
+      element.scrollLeft = 0;
+
+      if (typeof element.scrollTo === "function") {
+        element.scrollTo({ top: 0, left: 0, behavior });
+      }
+    });
+  };
+
   window.requestAnimationFrame(() => {
-    window.scrollTo({ top: 0, left: 0, behavior });
+    applyScroll();
+    window.requestAnimationFrame(applyScroll);
   });
+
+  window.setTimeout(applyScroll, 80);
+  window.setTimeout(applyScroll, 220);
 };
 
 const modeLabels: Record<GuessMode, string> = {
@@ -957,6 +990,7 @@ function App() {
   }, [isHowToPlayOpen]);
 
   const openSubModeMenu = (mode: GuessMode) => {
+    scrollPageToTop("auto");
     setIsFeedbackOpen(false);
     setSelectedSubModeMenu(mode);
     setMessage("");
@@ -992,6 +1026,7 @@ function App() {
     setIsSessionEnded(false);
     setIsLeaderboardOpen(false);
     setScoreSaved(false);
+    scrollPageToTop("auto");
     if (!currentItem && gamesPlayed === 0) {
       setSessionEndReason(null);
     }
@@ -1010,6 +1045,7 @@ function App() {
   };
 
   const goToMenu = () => {
+    scrollPageToTop("auto");
     setIsFeedbackOpen(false);
     setIsHowToPlayOpen(false);
     setSelectedSubModeMenu(null);
@@ -1030,6 +1066,7 @@ function App() {
   };
 
   const resetSession = () => {
+    scrollPageToTop("auto");
     setIsFeedbackOpen(false);
     setIsHowToPlayOpen(false);
     setSelectedSubModeMenu(null);
@@ -1067,6 +1104,7 @@ function App() {
   };
 
   const endSession = () => {
+    scrollPageToTop("auto");
     setIsFeedbackOpen(false);
     setSessionEndReason("manual");
     setIsSessionEnded(true);
@@ -1395,6 +1433,10 @@ function App() {
   useEffect(() => {
     if (typeof window === "undefined" || historyGuardRef.current) {
       return;
+    }
+
+    if ("scrollRestoration" in window.history) {
+      window.history.scrollRestoration = "manual";
     }
 
     window.history.replaceState({ ...(window.history.state || {}), guesswhoBase: true }, "", window.location.href);
@@ -2045,7 +2087,6 @@ function App() {
                     }
                   }}
                   disabled={gameStatus !== "playing"}
-                  autoFocus
                 />
 
                 {answerSuggestions.length > 0 && (
